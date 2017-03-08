@@ -5,6 +5,16 @@ import java.util.regex.Pattern;
 
 import exception.ValidacaoException;
 
+/**
+ * Classe responsavel por fazer a validacao unicamente de Pessoa.
+ * 
+ * @author Yuri Silva
+ * @author
+ * @author
+ * @author
+ *
+ */
+
 public class ValidaPessoa {
 	
 	/**

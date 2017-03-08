@@ -6,6 +6,16 @@ import java.util.Date;
 
 import exception.ValidacaoException;
 
+/**
+ * Classe desenvolvida para servir de validacao geral para o projeto.
+ * 
+ * @author Yuri Silva
+ * @author
+ * @author
+ * @author
+ *
+ */
+
 public class Validacao {
 	
 	/**
