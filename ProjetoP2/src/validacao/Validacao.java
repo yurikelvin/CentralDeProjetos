@@ -10,7 +10,7 @@ import exception.ValidacaoException;
  * Classe desenvolvida para servir de validacao geral para o projeto.
  * 
  * @author Yuri Silva
- * @author
+ * @author Gustavo Victor
  * @author
  * @author
  *
