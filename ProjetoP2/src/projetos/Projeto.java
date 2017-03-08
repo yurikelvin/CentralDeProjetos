@@ -1,4 +1,5 @@
 package projetos;
+
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -11,7 +12,7 @@ public class Projeto {
 	private int duracao;
 	private HashSet<Participacao> participacoes;
 	
-	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao) {
+	public Projeto(String nomeDoProjeto, String objetivoDoProjeto,String dataInicio,int duracao) {
 		this.nomeDoProjeto = nomeDoProjeto;
 		this.objetivoDoProjeto = objetivoDoProjeto;
 		this.dataInicio = dataInicio;
