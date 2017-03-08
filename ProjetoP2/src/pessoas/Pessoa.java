@@ -7,9 +7,10 @@ public class Pessoa {
 	private String email;
 	
 	public Pessoa(String nome, String cpf, String email) {
-		this.setNome(nome);
-		this.setCpf(cpf);
-		this.setEmail(email);
+		
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
 	}
 
 	public String getNome() {
@@ -40,7 +41,7 @@ public class Pessoa {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((this.getCpf() == null) ? 0 : this.getCpf().hashCode());
 		return result;
 	}
 
@@ -53,10 +54,10 @@ public class Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (getCpf() == null) {
+		if (this.getCpf() == null) {
 			if (other.getCpf() != null)
 				return false;
-		} else if (!getCpf().equals(other.cpf))
+		} else if (!this.getCpf().equals(other.getCpf()))
 			return false;
 		return true;
 	}
