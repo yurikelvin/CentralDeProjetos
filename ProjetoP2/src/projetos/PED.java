@@ -1,11 +1,11 @@
 package projetos;
 
-public class PeD extends Projeto {
+public class PED extends Projeto {
 	
 	private CategoriaPED categoria;
 	
 
-	public PeD(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao) {
+	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao) {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao);
 		setCategoria(categoria);
 		
