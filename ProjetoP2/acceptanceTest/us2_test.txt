@@ -17,12 +17,12 @@ cod4=adicionaPED nome="APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS
 cod5=adicionaPED nome="Kubernetes" categoria="COOP" prodTecnica=2 prodAcademica=2 patentes=5 objetivo="Melhorar plataformas open-source de gerencia de conteineres" dataInicio=01/01/2017 duracao=24
 
 expect "Monitoria de P2" getInfoProjeto codigo=${cod1} atributo="Nome"
-expect 01/01/2017 getInfoProjeto codigo=${cod1} atributo="Data de inicio"
-expect 12 getInfoProjeto codigo=${cod2} atributo="Duracao"
+expect "01/01/2017" getInfoProjeto codigo=${cod1} atributo="Data de inicio"
+expect "12" getInfoProjeto codigo=${cod2} atributo="Duracao"
 expect "Auxiliar no ensino da disciplina de Programacao 2" getInfoProjeto codigo=${cod1} atributo="Objetivo"
-expect 16 getInfoProjeto codigo=${cod3} atributo="Duracao"
-expect 2 getInfoProjeto codigo=${cod4} atributo="Producao tecnica"
-expect 4 getInfoProjeto codigo=${cod4} atributo="Producao academica"
+expect "16" getInfoProjeto codigo=${cod3} atributo="Duracao"
+expect "2" getInfoProjeto codigo=${cod4} atributo="Producao tecnica"
+expect "4" getInfoProjeto codigo=${cod4} atributo="Producao academica"
 
 
 ###############################
@@ -31,7 +31,7 @@ expect 4 getInfoProjeto codigo=${cod4} atributo="Producao academica"
 
 editaProjeto codigo=${cod1} atributo="Duracao" valor=12
 editaProjeto codigo=${cod2} atributo="Objetivo" valor="Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao"
-expect 12 getInfoProjeto codigo=${cod1} atributo="Duracao"
+expect "12" getInfoProjeto codigo=${cod1} atributo="Duracao"
 expect "Fazer a diferenca na sua vida, na vida dos colegas e no proprio Curso de Computacao" getInfoProjeto codigo=cod2 atributo="Objetivo"
 
 ###############################
