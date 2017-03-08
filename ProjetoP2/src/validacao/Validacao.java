@@ -121,7 +121,10 @@ public class Validacao {
 	 * @throws ParseException Caso a transformacao da data passada para Date ocorra erro.
 	 */
 	
-	public static void validaData(String data) throws ValidacaoException, ParseException {		String DATA_TIPO = "\\d\\d/\\d\\d/\\d\\d\\d\\d";
+	public static void validaData(String data) throws ValidacaoException, ParseException {	
+		
+		String DATA_TIPO = "\\d\\d/\\d\\d/\\d\\d\\d\\d";
+		
 		if(data == null || data.trim().equals("")) {
 			throw new ValidacaoException("Data nula ou vazia");
 		}
