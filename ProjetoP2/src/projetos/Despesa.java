@@ -10,7 +10,7 @@ import validacao.Validacao;
  * Classe responsavel por simbolizar a despesa de cada projeto.
  * 
  * @author Yuri Silva
- * @author
+ * @author Gustavo Victor
  * @author
  * @author
  */
