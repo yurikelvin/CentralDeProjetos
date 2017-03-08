@@ -2,115 +2,37 @@ package validacao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import exception.ValidacaoException;
 
 public class Validacao {
+	
+	/**
+	 * Valida se uma String eh nula ou vazia.
+	 * 
+	 * @param string String a ser testada.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Caso for nula ou vazia.
+	 */
 
-	public static void validaString(String s) throws ValidacaoException{
-		if(s == null) {
-			throw new NullPointerException();
+	public static void validaString(String string, String msg) throws ValidacaoException{
+		if(string == null || string.trim().equals("")) {
+			throw new ValidacaoException(msg);
 		}
-		if(s.trim().equals("")) {
-			throw new IllegalArgumentException();
-		}
+
 	}
 	
-	public static void validaString(String s, String b, String c, String msg) throws ValidacaoException{
-		if(s == null) {
-			throw new NullPointerException(msg);
-		}
-		if(s.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(b == null) {
-			throw new NullPointerException(msg);
-		}
-		if(b.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(c == null) {
-			throw new NullPointerException(msg);
-		}
-		if(c.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		
-	}
-	
-	public static void validaString(String s, String b, String c, String a, String msg) throws ValidacaoException{
-		if(s == null) {
-			throw new NullPointerException(msg);
-		}
-		if(s.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(b == null) {
-			throw new NullPointerException(msg);
-		}
-		if(b.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(c == null) {
-			throw new NullPointerException(msg);
-		}
-		if(c.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(a == null) {
-			throw new NullPointerException(msg);
-		}
-		if(a.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		
-	}
-	
-	public static void validaString(String s, String msg) throws ValidacaoException{
-		if(s == null) {
-			throw new NullPointerException(msg);
-		}
-		if(s.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-	}
-	
-	public static void validaString(String s, String c, String msg) throws ValidacaoException{
-		if(s == null) {
-			throw new NullPointerException(msg);
-		}
-		if(s.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-		
-		if(c == null) {
-			throw new NullPointerException(msg);
-		}
-		if(c.trim().equals("")) {
-			throw new IllegalArgumentException(msg);
-		}
-	}
-	
-	
-	public static void validaInt(int i) throws Exception{
-		if(i < 0) {
-			throw new IllegalArgumentException();
-		}
-	}
+	/**
+	 * Valida se um inteiro eh positivo.
+	 * @param i Inteiro a ser testado.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Se o inteiro for negativo.
+	 */
 	
 	public static void validaInt(int i, String msg) throws ValidacaoException {
 		if(i < 0) {
-			throw new IllegalArgumentException(msg);
+			throw new ValidacaoException(msg);
 		}
 	}
 	
