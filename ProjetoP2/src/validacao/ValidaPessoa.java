@@ -31,7 +31,7 @@ public class ValidaPessoa {
 		for (int i = 0; i < nome.length(); i++) {
 			char letra = nome.charAt(i);
 			if (!(Character.isAlphabetic(letra) || Character.isWhitespace(letra))) {
-				throw new ValidacaoException("Nome invalido.");
+				throw new ValidacaoException("Nome invalido");
 
 			}
 		}
@@ -59,11 +59,11 @@ public class ValidaPessoa {
 			throw new ValidacaoException("CPF invalido");
 		}
 		
-//		if(cpf.matches(TIPO_CPF)) {
-//			if(!validaDigitoVerificador(cpf)) {
-//				throw new ValidacaoException("Cpf invalido.");
-//			}
+
+//		if(!validaDigitoVerificador(cpf)) {
+//			throw new ValidacaoException("Cpf invalido.");
 //		}
+	
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class ValidaPessoa {
 		Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 		 Matcher matcher = pattern.matcher(email);
 		if(!matcher.matches()) {
-			throw new ValidacaoException("Email invalido.");
+			throw new ValidacaoException("Email invalido");
 		}
 
 	}

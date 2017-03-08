@@ -1,5 +1,10 @@
 package pessoas;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 
 import easyaccept.EasyAccept;
@@ -18,13 +23,13 @@ import validacao.Validacao;
  *
  */
 
-public class PessoaController {
+public class PessoaController implements Serializable{
 
 	private HashSet<Pessoa> pessoas;
 	
 	private static final String NOME = "nome";
 	private static final String EMAIL = "email";
-	private static final String CPF = "CPF";
+	private static final String CPF = "cpf";
 
 
 	
@@ -83,7 +88,7 @@ public class PessoaController {
 			case EMAIL:
 				return pessoaProcurada.getEmail();
 			default:
-				throw new IllegalArgumentException("Atributo nao valido.");
+				throw new IllegalArgumentException("Atributo nao valido");
 			}
 			
 		
@@ -110,18 +115,18 @@ public class PessoaController {
 		switch(atributo.toLowerCase()) {
 		
 		case NOME:
-			Validacao.validaString(novoValor, "Nome nulo ou vazio");
+			ValidaPessoa.validaNome(novoValor);
 			pessoaProcurada.setNome(novoValor);
 			break;
 		case EMAIL:
-			Validacao.validaString(novoValor, "Email nulo ou vazio");
+			ValidaPessoa.validaEmail(novoValor);
 			pessoaProcurada.setEmail(novoValor);
 			break;
 		case CPF:
 			throw new IllegalArgumentException("CPF nao pode ser alterado");
 
 		default:
-			throw new IllegalArgumentException("Atributo nao valido.");
+			throw new IllegalArgumentException("Atributo nao valido");
 			
 		
 		}
@@ -162,6 +167,19 @@ public class PessoaController {
 		}
 		
 		return false;
+	}
+	
+	public void iniciaSistema() throws Exception {
+		// posteriormente ser implementado
+	}
+	
+	public void fechaSistema() throws Exception {
+		// posteriormente ser implementado
+	}
+	
+	public static void main(String[] args) {
+		args = new String[] {"pessoas.PessoaController", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt"};
+		EasyAccept.main(args);
 	}
 	
 }
