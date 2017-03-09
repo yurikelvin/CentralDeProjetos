@@ -1,17 +1,12 @@
 package pessoas;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 
-import easyaccept.EasyAccept;
+//import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import validacao.ValidaPessoa;
-import validacao.Validacao;
 
 /**
  * Classe desenvolvida para controlar as pessoas do sistema.
@@ -177,9 +172,5 @@ public class PessoaController implements Serializable{
 		// posteriormente ser implementado
 	}
 	
-	public static void main(String[] args) {
-		args = new String[] {"pessoas.PessoaController", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt"};
-		EasyAccept.main(args);
-	}
 	
 }

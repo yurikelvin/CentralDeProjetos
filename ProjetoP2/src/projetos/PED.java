@@ -1,29 +1,28 @@
 package projetos;
 
+import exception.ValidacaoException;
+
 public class PED extends Projeto {
 	
 	private CategoriaPED categoria;
 	
 
-	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao) {
+	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao)  throws ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao);
 		setCategoria(categoria);
 		
 	}
 	
-	public void setCategoria(String categoria) {
-		if(categoria.equalsIgnoreCase("pibit")) {
-			this.categoria = CategoriaPED.PIBITI;
-		} else if(categoria.equalsIgnoreCase("pibic")) {
-			this.categoria = CategoriaPED.PIBIC;
-		} else if(categoria.equalsIgnoreCase("pivic")) {
-			this.categoria = CategoriaPED.PIVIC;
-		} else if(categoria.equalsIgnoreCase("pibiti")) {
-			this.categoria = CategoriaPED.PIBITI;
-		} else if(categoria.equals("coop")) {
-			this.categoria = CategoriaPED.CooperacaoComEmpresas;
-			
+	private boolean setCategoria(String categoria) throws ValidacaoException {
+		
+		for(CategoriaPED categ: CategoriaPED.values()) {
+			if(categoria.equalsIgnoreCase(categ.getCategoria())) {
+				this.categoria = categ;
+				return true;
+			}
 		}
+		
+		throw new ValidacaoException("Categoria invalida");
 	}
 
 }

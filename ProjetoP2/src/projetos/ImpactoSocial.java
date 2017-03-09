@@ -2,21 +2,27 @@ package projetos;
 
 public enum ImpactoSocial {
 	
-	comunidadeAcademica(1),
-	cidade(2),
-	regiaoEstado(3),
-	estado(4),
-	regiaoFederacao(5),
-	federacao(6);
+	COMUNIDADE_ACADEMICA(1, "Comunidade Academica"),
+	CIDADE(2, "Cidade"),
+	REGIAO_ESTADO(3, "Regional (Dentro do Estado)"),
+	ESTADO(4, "Estado"),
+	REGIAO_FEDERACAO(5, "Regiao (Dentro da Federacao/Brasil)"),
+	FEDERACAO(6, "Federacao (Brasil)");
 	
-	private int impactoSocial;
+	private String impacto;
+	private int valorImpactoSocial;
 	
-	ImpactoSocial(int impactoSocial) {
-		this.impactoSocial = impactoSocial;
+	ImpactoSocial(int valorImpactoSocial, String impacto) {
+		this.valorImpactoSocial = valorImpactoSocial;
+		this.impacto = impacto;
 	}
 	
-	public int getImpactoSocial() {
-		return impactoSocial;
+	public int getValorImpactoSocial() {
+		return valorImpactoSocial;
+	}
+	
+	public String getImpactoSocial() {
+		return impacto;
 	}
 	
 

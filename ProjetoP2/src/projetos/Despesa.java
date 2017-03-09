@@ -1,5 +1,6 @@
 package projetos;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import exception.CadastroException;
@@ -15,7 +16,7 @@ import validacao.Validacao;
  * @author
  */
 
-public class Despesa {
+public class Despesa implements Serializable {
 	
 	private static final String BOLSA = "bolsa";
 	private static final String CUSTEIO = "custeio";

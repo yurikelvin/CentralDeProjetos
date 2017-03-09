@@ -2,7 +2,19 @@ package pessoas;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * Classe que representa uma Pessoa no sistema.
+ * 
+ * @author Yuri Silva
+ * @author
+ * @author
+ * @author
+ *
+ */
+
 public class Pessoa implements Serializable{
+	
 	
 	private String nome;
 	private String cpf;
@@ -25,10 +37,6 @@ public class Pessoa implements Serializable{
 
 	public String getCpf() {
 		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getEmail() {
@@ -63,5 +71,13 @@ public class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", email=" + email + "]";
+	}
+	
+	
+	
 
 }
