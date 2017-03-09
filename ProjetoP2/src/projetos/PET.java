@@ -34,8 +34,9 @@ public class PET extends Projeto {
 		return produtividades.toString();
 	}
 	
-	public void adicionaProdutividade(Produtividade produtividade) {
-		produtividades.add(produtividade);
+	public void adicionaProdutividade(String produtividade, int quantidade) {
+		Produtividade p = new Produtividade(produtividade, quantidade);
+		produtividades.add(p);
 	}
 	
 	public int getRendimento(){

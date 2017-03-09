@@ -26,7 +26,7 @@ public abstract class Projeto {
 		this.codigo = codigo;
 		
 	}
-	
+		
 	
 	public String getNome(){
 		return this.nomeDoProjeto;
