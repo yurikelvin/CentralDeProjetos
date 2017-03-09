@@ -3,25 +3,30 @@ package projetos;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class Projeto {
+import exception.CadastroException;
+import exception.ValidacaoException;
+
+public abstract class Projeto {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
 	private Despesa despesas;
 	private String dataInicio;
 	private int duracao;
+	private int codigo;
 	private HashSet<Participacao> participacoes;
 	
-	public Projeto(String nomeDoProjeto, String objetivoDoProjeto,String dataInicio,int duracao) {
+	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) {
 		this.nomeDoProjeto = nomeDoProjeto;
 		this.objetivoDoProjeto = objetivoDoProjeto;
 		this.dataInicio = dataInicio;
 		this.duracao = duracao;
 		this.despesas = new Despesa();
 		this.participacoes = new HashSet<>();
+		this.codigo = codigo;
 		
 	}
-	
+		
 	
 	public String getNome(){
 		return this.nomeDoProjeto;
@@ -51,9 +56,21 @@ public class Projeto {
 		this.duracao = novaDuracao;
 	}
 	
+	public int getCodigo() {
+		return codigo;
+	}
+	
 	public double getDespesasTotal(){
 		return this.despesas.getDespesaTotal();
 		
+	}
+	
+	public void setDespesa(String descricao, double valor) throws ValidacaoException, CadastroException {
+		despesas.setDespesa(descricao, valor);
+	}
+	
+	public double getDespesa(String descricao) {
+		return despesas.getDespesa(descricao);
 	}
 	
 	public boolean adicionaParticipacao(Participacao participacaoASerAdicionada){

@@ -1,17 +1,32 @@
 package projetos;
 
+import java.util.HashSet;
+
 import exception.ValidacaoException;
 
 public class PED extends Projeto {
 	
 	private CategoriaPED categoria;
+	private HashSet<Produtividade> produtividades;
+	
 	
 
-	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao)  throws ValidacaoException {
-		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao);
+	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
+		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		setCategoria(categoria);
+		produtividades = new HashSet<>()
 		
 	}
+	
+	public String getProdutividades() {
+		return produtividades.toString();
+	}
+	
+	public void adicionaProdutividade(String produtividade, int quantidade) {
+		Produtividade p = new Produtividade(produtividade, quantidade);
+		produtividades.add(p);
+	}
+	
 	
 	private boolean setCategoria(String categoria) throws ValidacaoException {
 		
@@ -24,5 +39,15 @@ public class PED extends Projeto {
 		
 		throw new ValidacaoException("Categoria invalida");
 	}
+	
+	public String getCategoria() {
+		return categoria.getCategoria();
+	}
+	
+	public int getProdutividade(String descricao) {
+		return produtividades.getProdutividade(descricao);
+	}
+	
+	
 
 }
