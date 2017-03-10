@@ -31,11 +31,17 @@ public class Despesa implements Serializable {
 	public Despesa() {
 		despesas = new HashMap<>();
 		
+		this.populaMapDespesa();
+	}
+	
+	private void populaMapDespesa() {
+		
 		despesas.put(BOLSA, 0.0);
 		despesas.put(CAPITAL, 0.0);
 		despesas.put(CUSTEIO, 0.0);
+		
 	}
-	
+
 	/**
 	 * Adiciona uma certa despesa ao projeto indicando seu valor.
 	 * 
@@ -50,28 +56,35 @@ public class Despesa implements Serializable {
 		
 		switch(descricao.toLowerCase()) {
 			case BOLSA:
-				if(despesas.get(BOLSA) > 0) {
-					throw new CadastroException("Despesa de bolsa ja foi definida");
-				}
+				
+				this.verificaDespesa(BOLSA);
 				despesas.put(BOLSA, valor);
+				
 				break;
 			case CAPITAL:
-				if(despesas.get(CAPITAL) > 0) {
-					throw new CadastroException("Despesa de bolsa ja foi definida");
-				}
+				
+				this.verificaDespesa(CAPITAL);
 				despesas.put(CAPITAL, valor);
+				
 				break;
 			case CUSTEIO:
-				if(despesas.get(CUSTEIO) > 0) {
-					throw new CadastroException("Despesa de bolsa ja foi definida");
-				}
+				
+				this.verificaDespesa(CUSTEIO);
 				despesas.put(CUSTEIO, valor);
+				
 				break;
 			default:
 				throw new ValidacaoException("Despesa invalida");
 		}
 	}
 	
+	private void verificaDespesa(String descricao) throws CadastroException{
+		if(despesas.get(descricao) > 0) {
+			throw new CadastroException("Despesa de bolsa ja foi definida");
+		}
+		
+	}
+
 	/**
 	 * Retorna o custo gerado pelas despesas.
 	 * @return O custo gerado pelas despesas.
@@ -79,8 +92,8 @@ public class Despesa implements Serializable {
 	
 	public double getDespesaTotal() {
 		double total = 0.0;
-		for(Double d: despesas.values()) {
-			total += d;
+		for(Double despesa: despesas.values()) {
+			total += despesa;
 		}
 		
 		return total;
