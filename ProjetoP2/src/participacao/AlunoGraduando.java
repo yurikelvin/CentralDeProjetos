@@ -1,4 +1,4 @@
-package associacao;
+package participacao;
 
 public class AlunoGraduando extends Participacao {
 

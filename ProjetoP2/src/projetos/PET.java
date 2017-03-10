@@ -2,10 +2,10 @@ package projetos;
 
 import java.util.HashSet;
 
-import associacao.AlunoGraduando;
-import associacao.Professor;
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
+import participacao.Professor;
 
 public class PET extends Projeto {
 	

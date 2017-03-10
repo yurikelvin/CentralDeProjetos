@@ -3,9 +3,9 @@ package pessoas;
 import java.io.Serializable;
 import java.util.HashSet;
 
-import associacao.AlunoGraduando;
-import associacao.Participacao;
 import junit.framework.Assert;
+import participacao.AlunoGraduando;
+import participacao.Participacao;
 import projetos.Projeto;
 
 /**

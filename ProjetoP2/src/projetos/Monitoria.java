@@ -1,12 +1,11 @@
 package projetos;
 
-import associacao.Professor;
-
 import java.util.HashSet;
 
-import associacao.AlunoGraduando;
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
+import participacao.Professor;
 
 public class Monitoria extends Projeto {
 	

@@ -144,7 +144,7 @@ public class PessoaController implements Serializable{
 		pessoas.remove(pessoaARemover);
 	}
 	
-	private Pessoa getPessoa(String cpf) throws CadastroException {
+	public Pessoa getPessoa(String cpf) throws CadastroException {
 		for(Pessoa pessoaProcurada: pessoas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {
 				return pessoaProcurada;

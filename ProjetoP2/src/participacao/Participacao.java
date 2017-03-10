@@ -1,4 +1,4 @@
-package associacao;
+package participacao;
 
 import pessoas.Pessoa;
 import projetos.Projeto;

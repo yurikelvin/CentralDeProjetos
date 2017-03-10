@@ -5,8 +5,9 @@ import java.util.Iterator;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.Participacao;
 
-public class Projeto {
+public abstract class Projeto {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
@@ -14,7 +15,8 @@ public class Projeto {
 	private String dataInicio;
 	private int duracao;
 	private int codigo;
-	private HashSet<Participacao> participacoes;
+	
+	protected HashSet<Participacao> participacoes;
 	
 	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) {
 		this.nomeDoProjeto = nomeDoProjeto;
@@ -73,13 +75,9 @@ public class Projeto {
 		return despesas.getDespesa(descricao);
 	}
 	
-	public boolean adicionaParticipacao(Participacao participacaoASerAdicionada){
-		return participacoes.add(participacaoASerAdicionada);
-	}
+	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada);
 	
-	public boolean removeParticipacao(Participacao participacaoASerRemovida){
-		return this.participacoes.remove(participacaoASerRemovida);
-	}
+	public abstract void removeParticipacao(Participacao participacaoASerRemovida);
 	
 	public boolean verificaParticipacao(Participacao participacaoASerVerificada){
 		Iterator<Participacao> it = participacoes.iterator();

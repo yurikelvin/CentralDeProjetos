@@ -1,4 +1,4 @@
-package associacao;
+package participacao;
 
 public enum Cargo {
 

@@ -1,4 +1,4 @@
-package associacao;
+package participacao;
 
 import exception.ValidacaoException;
 
