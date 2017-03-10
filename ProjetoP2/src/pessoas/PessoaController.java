@@ -6,6 +6,7 @@ import java.util.HashSet;
 //import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.Participacao;
 import validacao.ValidaPessoa;
 
 /**
@@ -142,6 +143,10 @@ public class PessoaController implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Pessoa pessoaARemover = this.getPessoa(cpf);
 		pessoas.remove(pessoaARemover);
+	}
+	
+	public void adicionaParticipacao(String cpf, Participacao participacao) throws CadastroException {
+		
 	}
 	
 	public Pessoa getPessoa(String cpf) throws CadastroException {

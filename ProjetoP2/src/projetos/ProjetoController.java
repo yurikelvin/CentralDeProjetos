@@ -89,11 +89,11 @@ public class ProjetoController {
 		
 		}
 	
-	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
-		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
-		
-		
-	}
+//	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
+//		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
+//		
+//		
+//	}
 	
 	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){

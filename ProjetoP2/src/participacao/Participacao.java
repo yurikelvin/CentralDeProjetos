@@ -78,6 +78,11 @@ public abstract class Participacao {
 	public String mostraProjeto() {
 		return projeto.representacao();
 	}
+	
+	public String getCpf() {
+		return pessoa.getCpf();
+	}
+	
 
 	@Override
 	public int hashCode() {
