@@ -6,7 +6,7 @@ import java.util.Iterator;
 import exception.CadastroException;
 import exception.ValidacaoException;
 
-public abstract class Projeto {
+public class Projeto {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
@@ -91,6 +91,13 @@ public abstract class Projeto {
 			}
 		}
 		return false;
+	}
+	
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getNome();
 	}
 	
 	

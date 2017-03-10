@@ -2,6 +2,8 @@ package projetos;
 
 import java.util.HashSet;
 
+import associacao.AlunoGraduando;
+import associacao.Professor;
 import exception.ValidacaoException;
 
 public class PED extends Projeto {
@@ -9,12 +11,15 @@ public class PED extends Projeto {
 	private CategoriaPED categoria;
 	private HashSet<Produtividade> produtividades;
 	
+	private AlunoGraduando alunoAssociado;
+	private Professor professorOrientador;
+	
 	
 
 	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		setCategoria(categoria);
-		produtividades = new HashSet<>()
+		this.produtividades = new HashSet<>();
 		
 	}
 	
@@ -44,9 +49,9 @@ public class PED extends Projeto {
 		return categoria.getCategoria();
 	}
 	
-	public int getProdutividade(String descricao) {
-		return produtividades.getProdutividade(descricao);
-	}
+	//public int getProdutividade(String descricao) {
+		//return produtividades.getProdutividade(descricao);
+	//}
 	
 	
 

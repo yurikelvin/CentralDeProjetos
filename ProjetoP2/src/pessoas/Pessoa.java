@@ -1,6 +1,12 @@
 package pessoas;
 
 import java.io.Serializable;
+import java.util.HashSet;
+
+import associacao.AlunoGraduando;
+import associacao.Participacao;
+import junit.framework.Assert;
+import projetos.Projeto;
 
 /**
  * 
@@ -20,11 +26,15 @@ public class Pessoa implements Serializable{
 	private String cpf;
 	private String email;
 	
+	private HashSet<Participacao> projetosParticipados;
+	
 	public Pessoa(String nome, String cpf, String email) {
 		
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		
+		this.projetosParticipados = new HashSet<>();
 	}
 
 	public String getNome() {
@@ -45,6 +55,28 @@ public class Pessoa implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void setParticipacao(Participacao participacao) {
+		
+		this.projetosParticipados.add(participacao);
+	}
+	
+	public String mostraParticipacoes() {
+		String participacoes = "";
+		int contador = 0;
+		for(Participacao participacao: projetosParticipados) {
+		
+			if(contador >= 1) {
+				participacoes += ", " + participacao.mostraProjeto();
+			}else {
+				participacoes += participacao.mostraProjeto();
+			}
+			
+			contador ++;
+		}
+		
+		return participacoes;
 	}
 
 	@Override
@@ -78,6 +110,19 @@ public class Pessoa implements Serializable{
 	}
 	
 	
-	
+	public static void main(String[] args) {
+		Pessoa p = new Pessoa("Yuri", "1082017", "kqoekoq@gmail.com");
+		AlunoGraduando a = new AlunoGraduando(120, 30);
+		a.setProjeto(new Projeto("Monitoria p2", "Making money", "2017", 12, 1));
+		AlunoGraduando b = new AlunoGraduando(120, 30);
+		b.setProjeto(new Projeto("Monitoria discreta", "Making money", "2017", 12, 1));
+		a.setPessoa(p);
+		p.setParticipacao(a);
+		p.setParticipacao(b);
+		System.out.println(p.mostraParticipacoes());
+
+		
+		
+	}
 
 }

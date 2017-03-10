@@ -2,6 +2,8 @@ package projetos;
 
 import java.util.HashSet;
 
+import associacao.AlunoGraduando;
+import associacao.Professor;
 import exception.CadastroException;
 import exception.ValidacaoException;
 
@@ -10,6 +12,9 @@ public class PET extends Projeto {
 	private int rendimento;
 	private ImpactoSocial impactoSocial;
 	private HashSet<Produtividade> produtividades;
+	
+	private Professor tutor;
+	private HashSet<AlunoGraduando> alunosPetianos;
 	
 	public PET(String nomeDoProjeto, String objetivoDoProjeto,int impactoSocial, int rendimento, int prodTecnica, int prodAcademica, int patentes,  String dataInicio, int duracao, int codigo) {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
@@ -55,6 +60,20 @@ public class PET extends Projeto {
 		this.setDespesa("custeio", valor);
 	}
 	
+	public void adicionaTutor(Professor professor) throws ValidacaoException{
+		if(this.tutor == null) {
+			this.tutor = professor;
+		} else {
+			throw new ValidacaoException("Projetos PET nao podem ter mais de um coordenador");
+		}
+	}
 	
+	public void adicionaPetianos(AlunoGraduando aluno) throws ValidacaoException {
+		if(this.alunosPetianos.contains(aluno)) {
+			throw new ValidacaoException("Aluno ja esta cadastrado nesse projeto");
+		}
+		
+		this.alunosPetianos.add(aluno);
+	}
 
 }
