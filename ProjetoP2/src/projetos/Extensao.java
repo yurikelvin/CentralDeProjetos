@@ -2,6 +2,7 @@ package projetos;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.Participacao;
 
 public class Extensao extends Projeto {
 	
@@ -34,6 +35,15 @@ public class Extensao extends Projeto {
 		}
 		
 		throw new ValidacaoException("Impacto social invalido");
+	}
+
+	@Override
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+		if(super.participacoes.contains(participacaoASerAdicionada)) {
+			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
+		}
+		super.participacoes.add(participacaoASerAdicionada);
+		
 	}
 
 }

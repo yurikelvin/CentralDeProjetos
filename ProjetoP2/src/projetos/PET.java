@@ -5,6 +5,7 @@ import java.util.HashSet;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
+import participacao.Participacao;
 import participacao.Professor;
 
 public class PET extends Projeto {
@@ -13,8 +14,9 @@ public class PET extends Projeto {
 	private ImpactoSocial impactoSocial;
 	private HashSet<Produtividade> produtividades;
 	
-	private Professor tutor;
-	private HashSet<AlunoGraduando> alunosPetianos;
+	private boolean temTutor;
+	
+
 	
 	public PET(String nomeDoProjeto, String objetivoDoProjeto,int impactoSocial, int rendimento, int prodTecnica, int prodAcademica, int patentes,  String dataInicio, int duracao, int codigo) {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
@@ -60,20 +62,23 @@ public class PET extends Projeto {
 		this.setDespesa("custeio", valor);
 	}
 	
-	public void adicionaTutor(Professor professor) throws ValidacaoException{
-		if(this.tutor == null) {
-			this.tutor = professor;
-		} else {
-			throw new ValidacaoException("Projetos PET nao podem ter mais de um coordenador");
-		}
-	}
-	
-	public void adicionaPetianos(AlunoGraduando aluno) throws ValidacaoException {
-		if(this.alunosPetianos.contains(aluno)) {
-			throw new ValidacaoException("Aluno ja esta cadastrado nesse projeto");
+
+	@Override
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+		if(super.ehProfessor(participacaoASerAdicionada)) {
+			Professor prof = (Professor) participacaoASerAdicionada;
+			if(prof.getCoordenador() && this.temTutor == false) {
+				super.participacoes.add(participacaoASerAdicionada);
+			} else {
+				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
+			}
+		} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
+			if(super.participacoes.contains(participacaoASerAdicionada)) {
+				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
+			}
+			super.participacoes.add(participacaoASerAdicionada);
 		}
 		
-		this.alunosPetianos.add(aluno);
 	}
 
 }

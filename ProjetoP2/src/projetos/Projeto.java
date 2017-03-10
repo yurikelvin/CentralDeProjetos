@@ -6,6 +6,7 @@ import java.util.Iterator;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.Participacao;
+import participacao.Professor;
 
 public abstract class Projeto {
 
@@ -98,6 +99,11 @@ public abstract class Projeto {
 				return true;
 			}
 		}
+		return false;
+	}
+	
+	protected boolean ehProfessor(Participacao participante) {
+		if(participante instanceof Professor) { return true; }
 		return false;
 	}
 	

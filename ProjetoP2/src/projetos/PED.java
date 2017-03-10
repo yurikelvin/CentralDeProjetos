@@ -57,7 +57,7 @@ public class PED extends Projeto {
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
 		if(verificaCategoria(CategoriaPED.COOPERACAO_EMPRESAS)) { // TIPO COOPERACAO COM EMPRESAS
-			if(this.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
+			if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
 				Professor prof = (Professor) participacaoASerAdicionada;
 				if(prof.getCoordenador()) { // verifica se professor eh coordenador
 					if(this.temProfessorCoordenador == false) { // verifica se o projeto ja contem um coordenador
@@ -69,6 +69,9 @@ public class PED extends Projeto {
 				
 				} else {
 					if(this.temProfessorCoordenador) { // verifica se ja tem um coordenador cadastrado, para cadastrar o professor
+						if(super.participacoes.contains(participacaoASerAdicionada)) {
+							throw new CadastroException("Professor ja esta cadastrado nesse projeto");
+						}
 						super.participacoes.add(participacaoASerAdicionada); // adiciona professor normal
 						
 					} else {
@@ -78,12 +81,15 @@ public class PED extends Projeto {
 			
 				} 					
 			} else {
+				if(super.participacoes.contains(participacaoASerAdicionada)) {
+					throw new CadastroException("Pessoa ja esta cadastrada nesse projeto");
+				}
 				super.participacoes.add(participacaoASerAdicionada); // adicao de profissionais e alunos
 			}
 			
 		} else {
 			
-			if(this.ehProfessor(participacaoASerAdicionada)) {
+			if(super.ehProfessor(participacaoASerAdicionada)) {
 				if(temProfessor) {
 					throw new CadastroException("Projetos P&D nao podem ter mais de um professor");
 				} else {
@@ -113,10 +119,6 @@ public class PED extends Projeto {
 		return false;
 	}
 	
-	private boolean ehProfessor(Participacao participante) {
-		if(participante instanceof Professor) { return true; }
-		return false;
-	}
 	
 	//public int getProdutividade(String descricao) {
 		//return produtividades.getProdutividade(descricao);
