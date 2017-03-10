@@ -76,7 +76,7 @@ public abstract class Participacao {
 	}
 	
 	public String mostraProjeto() {
-		return projeto.toString();
+		return projeto.representacao();
 	}
 
 	@Override

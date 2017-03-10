@@ -108,9 +108,8 @@ public abstract class Projeto {
 	}
 	
 	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
+	public String representacao() {
+
 		return this.getNome();
 	}
 	
