@@ -2,6 +2,7 @@ package projetos;
 
 import java.util.HashSet;
 
+import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
 import participacao.Participacao;
@@ -12,9 +13,7 @@ public class PED extends Projeto {
 	private CategoriaPED categoria;
 	private HashSet<Produtividade> produtividades;
 	
-	private AlunoGraduando alunoAssociado;
 
-	
 	boolean temProfessorCoordenador;
 	boolean temProfessor;
 	boolean temAluno;
@@ -25,10 +24,6 @@ public class PED extends Projeto {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		setCategoria(categoria);
 		this.produtividades = new HashSet<>();
-		
-		this.temProfessorCoordenador = false;
-		this.temProfessor = false;
-		this.temAluno = false;
 		
 	}
 	
@@ -59,62 +54,67 @@ public class PED extends Projeto {
 	}
 
 	@Override
-	public void adicionaParticipacao(Participacao participacaoASerAdicionada) {
-		if(participacaoASerAdicionada instanceof Professor) {
-			Professor prof = (Professor) participacaoASerAdicionada;
-			if(verificaCategoria(CategoriaPED.COOPERACAO_EMPRESAS)) { // inicio de adicao de professores COOPERACAO
-
-				if(temProfessorCoordenador == false) {
-					
-					if(prof.getCoordenador()) {
-						participacoes.add(participacaoASerAdicionada);
-						temProfessorCoordenador = true;
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+		
+		if(verificaCategoria(CategoriaPED.COOPERACAO_EMPRESAS)) { // TIPO COOPERACAO COM EMPRESAS
+			if(this.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
+				Professor prof = (Professor) participacaoASerAdicionada;
+				if(prof.getCoordenador()) { // verifica se professor eh coordenador
+					if(this.temProfessorCoordenador == false) { // verifica se o projeto ja contem um coordenador
+						super.participacoes.add(participacaoASerAdicionada); // adiciona professor coordenador
+						this.temProfessorCoordenador = true;
 					} else {
-						throw new ValidacaoException("Projeto P&D COOPERACAO precisa de 1 professor coordenador");
+						throw new CadastroException("Projetos P&D nao podem ter mais de um coordenador");
 					}
-					
+				
 				} else {
-					
-					if(prof.getCoordenador()) {
-						throw new ValidacaoException("Projetos P&D nao podem ter mais de um coordenador");
-					}
-					
-					participacoes.add(participacaoASerAdicionada);
-					
-					
-				}
-				
-			}  // fim de adicao de professores cooperacao
-			else { // inicio de adicao de professor PIBIC, PIBITI, etc..
-				
+					if(this.temProfessorCoordenador) { // verifica se ja tem um coordenador cadastrado, para cadastrar o professor
+						super.participacoes.add(participacaoASerAdicionada); // adiciona professor normal
+						
+					} else {
+						throw new CadastroException("Projetos P&D precisam de um coordenador");
+
+					} // fim de adicao de professores cooperacao
+			
+				} 					
+			} else {
+				super.participacoes.add(participacaoASerAdicionada); // adicao de profissionais e alunos
+			}
+			
+		} else {
+			
+			if(this.ehProfessor(participacaoASerAdicionada)) {
 				if(temProfessor) {
-					throw new ValidacaoException("Projetos P&D nao podem ter mais de um professor");
+					throw new CadastroException("Projetos P&D nao podem ter mais de um professor");
+				} else {
+					super.participacoes.add(participacaoASerAdicionada);
+					this.temProfessor = true;
 				}
 				
-				participacoes.add(participacaoASerAdicionada);
-				temProfessor = true;
+			} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
+				if(temAluno) {
+					throw new CadastroException("Projetos P&D nao podem ter mais de um graduando");
+				} else {
+					super.participacoes.add(participacaoASerAdicionada);
+					this.temAluno = true;
+				}
 				
-			} // fim de adicao de professor PIBIC,PIBITI, etc ....
-		} else if (participacaoASerAdicionada instanceof AlunoGraduando) // adicao de 1 aluno graduando PIBIC,PIBITI,etc...
-		{
-			
-			
+			}
 			
 		}
-		
+					
 	}
 
-	@Override
-	public void removeParticipacao(Participacao participacaoASerRemovida) {
-	
-		
-	}
-	
 	private boolean verificaCategoria(CategoriaPED categoria) {
 		if(categoria == this.categoria) {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	private boolean ehProfessor(Participacao participante) {
+		if(participante instanceof Professor) { return true; }
 		return false;
 	}
 	

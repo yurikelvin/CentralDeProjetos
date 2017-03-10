@@ -75,9 +75,19 @@ public abstract class Projeto {
 		return despesas.getDespesa(descricao);
 	}
 	
-	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada);
+	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
 	
-	public abstract void removeParticipacao(Participacao participacaoASerRemovida);
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
+		for(Participacao participacao: this.participacoes) {
+			if(participacao.equals(participacaoASerRemovida)) {
+				participacoes.remove(participacao);
+				break;
+			}
+			
+		}
+		
+		throw new ValidacaoException("Participacao nao encontrada");
+	}
 	
 	public boolean verificaParticipacao(Participacao participacaoASerVerificada){
 		Iterator<Participacao> it = participacoes.iterator();
