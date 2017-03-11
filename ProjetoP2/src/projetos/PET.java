@@ -18,13 +18,14 @@ public class PET extends Projeto {
 	
 
 	
-	public PET(String nomeDoProjeto, String objetivoDoProjeto,int impactoSocial, int rendimento, int prodTecnica, int prodAcademica, int patentes,  String dataInicio, int duracao, int codigo) {
+	public PET(String nomeDoProjeto, String objetivoDoProjeto, int impactoSocial, int rendimento,  String dataInicio, int duracao, int codigo) {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impactoSocial);
 		this.rendimento = rendimento;
 		produtividades = new HashSet<>();
 		
 	}
+	
 	
 	private boolean setImpacto(int impacto) throws ValidacaoException {
 		for (ImpactoSocial impac : ImpactoSocial.values()) {
@@ -40,6 +41,17 @@ public class PET extends Projeto {
 	public String getProdutividades() {
 		return produtividades.toString();
 	}
+	
+	public String getProdutividade(String produtividade) {
+		for(Produtividade p: produtividades) {
+			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
+				return Integer.toString(p.getQuantidade());
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	public void adicionaProdutividade(String produtividade, int quantidade) {
 		Produtividade p = new Produtividade(produtividade, quantidade);

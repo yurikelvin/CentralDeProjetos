@@ -1,6 +1,5 @@
 package projetos;
 
-import java.util.HashSet;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
@@ -18,12 +17,13 @@ public class Monitoria extends Projeto {
 	private boolean temProfessor;
 
 
-	public Monitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao, int codigo) throws ValidacaoException, CadastroException {
+	public Monitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao, int codigo) {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.setDisciplina(disciplina);
 		this.setRendimento(rendimento);
 		this.setPeriodo(periodo);
 	}
+	
 	
 	public void setBolsa(double valor) throws ValidacaoException, CadastroException {
 		this.setDespesa("bolsa", valor);

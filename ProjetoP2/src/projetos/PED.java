@@ -18,9 +18,8 @@ public class PED extends Projeto {
 	boolean temProfessor;
 	boolean temAluno;
 	
-	
 
-	public PED(String nomeDoProjeto, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
+	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		setCategoria(categoria);
 		this.produtividades = new HashSet<>();
@@ -31,8 +30,18 @@ public class PED extends Projeto {
 		return produtividades.toString();
 	}
 	
+	public int getProdutividade(String produtividade) {
+		for(Produtividade p: produtividades) {
+			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
+				return p.getQuantidade();
+			}
+		}
+		return 0;
+	}
+	
 	public void adicionaProdutividade(String produtividade, int quantidade) {
 		Produtividade p = new Produtividade(produtividade, quantidade);
+		
 		produtividades.add(p);
 	}
 	

@@ -22,7 +22,7 @@ public class ProjetoController {
 	}
 	
 	
-	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException{
+	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException{
 		Validacao.validaString(nome, "Nome nulo ou vazio");
 		Validacao.validaString(disciplina,"Disciplina nulo ou vazio");
 		Validacao.validaInt(rendimento,"Rendimento invalido");
@@ -91,7 +91,6 @@ public class ProjetoController {
 	
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
 		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
-		
 		
 	}
 	

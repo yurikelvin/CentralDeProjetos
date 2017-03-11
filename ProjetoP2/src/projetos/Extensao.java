@@ -8,11 +8,12 @@ public class Extensao extends Projeto {
 	
 	private ImpactoSocial impactoSocial;
 
-	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, int duracao, String dataInicio, int codigo) {
+	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) {
 		super(nomeProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impacto);
 		
 	}
+	
 
 	public String getImpacto() {
 		return impactoSocial.getImpactoSocial();

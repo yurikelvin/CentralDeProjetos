@@ -1,5 +1,6 @@
 package projetos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import exception.ValidacaoException;
 import participacao.Participacao;
 import participacao.Professor;
 
-public abstract class Projeto {
+public abstract class Projeto implements Serializable {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
@@ -29,7 +30,7 @@ public abstract class Projeto {
 		this.codigo = codigo;
 		
 	}
-		
+	
 	
 	public String getNome(){
 		return this.nomeDoProjeto;
@@ -84,10 +85,9 @@ public abstract class Projeto {
 				participacoes.remove(participacao);
 				break;
 			}
-			
+			throw new ValidacaoException("Participacao nao encontrada");
 		}
 		
-		throw new ValidacaoException("Participacao nao encontrada");
 	}
 	
 	public boolean verificaParticipacao(Participacao participacaoASerVerificada){
