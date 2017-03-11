@@ -114,5 +114,9 @@ public abstract class Projeto implements Serializable {
 	}
 	
 	
+	public String getRepresentacaoDuracao() {
+		return Integer.toString(this.getDuracao());
+	}
+	
 
 }

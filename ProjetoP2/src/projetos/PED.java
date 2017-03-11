@@ -129,9 +129,15 @@ public class PED extends Projeto {
 	}
 	
 	
-	//public int getProdutividade(String descricao) {
-		//return produtividades.getProdutividade(descricao);
-	//}
+	public String getRepresentacaoProdutividade(String descricao) throws ValidacaoException {
+		for(Produtividade produtividade: this.produtividades) {
+			if(produtividade.getProdutividade().equals(descricao)) {
+				return Integer.toString(produtividade.getQuantidade());
+			}
+		}
+		
+		throw new ValidacaoException("Projeto nao tem essa produtividade");
+	}
 	
 	
 
