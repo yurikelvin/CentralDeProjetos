@@ -2,6 +2,12 @@ package projetos;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author tsubakker
+ *
+ */
+
 public enum CategoriaPED implements Serializable {
 	 PIBIC("pibic"), 
 	 PIBITI("pibiti"), 

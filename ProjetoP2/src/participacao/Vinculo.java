@@ -2,6 +2,12 @@ package participacao;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Yuri Silva
+ *
+ */
+
 public enum Vinculo implements Serializable{
 
 	MESTRADO("mestrado"),

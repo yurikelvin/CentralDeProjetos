@@ -10,17 +10,37 @@ import projetos.Projeto;
 import projetos.ProjetoController;
 import validacao.Validacao;
 
+/**
+ * 
+ * @author Yuri Silva
+ *
+ */
 public class ParticipacaoController {
 	
 	private HashSet<Participacao> participacoes;
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
+	
+	/**
+	 * 
+	 */
 
 	public ParticipacaoController() {
 		participacoes = new HashSet<>();
 		pessoaController = new PessoaController();
 		projetoController = new ProjetoController();
 	}
+	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @param coordenador
+	 * @param valorHora
+	 * @param qtdHoras
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		
@@ -41,6 +61,16 @@ public class ParticipacaoController {
 		this.participacoes.add(participacao);
 	}
 	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @param valorHora
+	 * @param qtdHoras
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
+	
 	public void associaGraduando(String cpf, int codigoProjeto, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
@@ -59,6 +89,17 @@ public class ParticipacaoController {
 		this.participacoes.add(participacao);
 	}
 	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @param cargo
+	 * @param valorHora
+	 * @param qtdHoras
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
+	
 	public void associaProfissional(String cpf, int codigoProjeto, String cargo, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
@@ -76,6 +117,17 @@ public class ParticipacaoController {
 		
 		this.participacoes.add(participacao);
 	}
+	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @param associacao
+	 * @param valorHora
+	 * @param qtdHoras
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
 	
 	public void associaPosGraduando(String cpf, int codigoProjeto, String associacao, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");

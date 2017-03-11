@@ -35,5 +35,6 @@ public class PEDTest {
 		assertEquals(3, ((PED) ped).getProdutividade("producao tecnica"));
 		assertEquals(1, ((PED) ped).getProdutividade("patentes"));
 	}
+	
 
 }

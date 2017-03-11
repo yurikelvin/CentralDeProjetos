@@ -3,10 +3,7 @@ package pessoas;
 import java.io.Serializable;
 import java.util.HashSet;
 
-import junit.framework.Assert;
-import participacao.AlunoGraduando;
 import participacao.Participacao;
-import projetos.Projeto;
 
 /**
  * 
@@ -57,10 +54,20 @@ public class Pessoa implements Serializable{
 		this.email = email;
 	}
 	
+	/**
+	 * 
+	 * @param participacao
+	 */
+	
 	public void setParticipacao(Participacao participacao) {
 		
 		this.projetosParticipados.add(participacao);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public String mostraParticipacoes() {
 		String participacoes = "";

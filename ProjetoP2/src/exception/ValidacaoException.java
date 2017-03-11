@@ -1,5 +1,11 @@
 package exception;
 
+/**
+ * 
+ * @author Yuri Silva
+ *
+ */
+
 public class ValidacaoException extends RuntimeException {
 
 	public ValidacaoException() {
