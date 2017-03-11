@@ -18,7 +18,7 @@ public class FactoryDeProjeto implements Serializable {
 	}
 
 	public PET criaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica,
-			int patentes, String dataInicio, int duracao, int codigoProjeto) {
+			int patentes, String dataInicio, int duracao, int codigoProjeto) throws ValidacaoException{
 		
 		if(impacto < 1 || impacto > 6 ){
 			throw new ValidacaoException("Impacto invalido");

@@ -111,7 +111,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaString(atributo, "Atributo nulo ou invalido");
 		
 		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
-		System.out.println(projetoASerConsultado);
+
 		
 		switch (atributo.toLowerCase()) {
 		case NOME:
@@ -124,20 +124,20 @@ public class ProjetoController implements Serializable{
 			return projetoASerConsultado.getDataInicio();
 			
 		case DISCIPLINA:
-			if(ehMonitoria(projetoASerConsultado,DISCIPLINA)){
+			if(ehMonitoria(projetoASerConsultado, atributo)){
 				return ((Monitoria) projetoASerConsultado).getDisciplina();
 			}
 		case RENDIMENTO:
-			if(ehMonitoria(projetoASerConsultado, RENDIMENTO)){
+			if(ehMonitoria(projetoASerConsultado, atributo)){
 				return ((Monitoria) projetoASerConsultado).getRepresentacaoRendimento();
 			}
 			
-			else if(ehPET(projetoASerConsultado, RENDIMENTO)){
+			else if(ehPET(projetoASerConsultado, atributo)){
 				return ((PET) projetoASerConsultado).getRepresentacaoRendimento();
 			}
 			
 		case PERIODO:
-			if(ehMonitoria(projetoASerConsultado, PERIODO)){
+			if(ehMonitoria(projetoASerConsultado, atributo)){
 				return ((Monitoria) projetoASerConsultado).getPeriodo();
 			}
 		case DURACAO:
@@ -145,44 +145,44 @@ public class ProjetoController implements Serializable{
 			
 		case IMPACTO:
 			
-			if(ehPET(projetoASerConsultado, IMPACTO)){
+			if(ehPET(projetoASerConsultado, atributo)){
 				return ((PET) projetoASerConsultado).getImpactoSocial();
 			}
 			
-			else if(ehExtensao(projetoASerConsultado, IMPACTO)){
+			else if(ehExtensao(projetoASerConsultado, atributo)){
 				return ((Extensao) projetoASerConsultado).getImpacto();
 			}
 			
 		case PRODTECNICA:
-			if(ehPET(projetoASerConsultado, PRODTECNICA)){
+			if(ehPET(projetoASerConsultado, atributo)){
 				return ((PET) projetoASerConsultado).getProdutividade(PRODTECNICA);
 			}
 			
-			else if(ehPED(projetoASerConsultado, PRODTECNICA)){
+			else if(ehPED(projetoASerConsultado, atributo)){
 				return ((PED) projetoASerConsultado).getProdutividade(PRODTECNICA);
 				
 			}
 			
 		case PRODACADEMICA:
-			if(ehPET(projetoASerConsultado, PRODACADEMICA)){
+			if(ehPET(projetoASerConsultado, atributo)){
 				return ((PET) projetoASerConsultado).getProdutividade(PRODACADEMICA);
 			}
 			
-			else if(ehPED(projetoASerConsultado, PRODACADEMICA)){
+			else if(ehPED(projetoASerConsultado, atributo)){
 				return ((PED) projetoASerConsultado).getProdutividade(PRODACADEMICA);
 				
 			}
 		case PATENTES:
-			if(ehPET(projetoASerConsultado, PATENTES)){
+			if(ehPET(projetoASerConsultado, atributo)){
 				return ((PET) projetoASerConsultado).getProdutividade(PATENTES);
 			}
 			
-			else if(ehPED(projetoASerConsultado, PATENTES)){
+			else if(ehPED(projetoASerConsultado, atributo)){
 				return ((PED) projetoASerConsultado).getProdutividade(PATENTES);
 				
 			}
 		case CATEGORIA:
-			if(ehPED(projetoASerConsultado, CATEGORIA)) {
+			if(ehPED(projetoASerConsultado, atributo)) {
 				return ((PED) projetoASerConsultado).getCategoria();
 			}
 			
@@ -213,7 +213,7 @@ public class ProjetoController implements Serializable{
 		}
 		
 		else if (projeto instanceof PET){
-			if(atributo.equals(RENDIMENTO)){
+			if(atributo.equalsIgnoreCase(RENDIMENTO)){
 				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
@@ -234,7 +234,7 @@ public class ProjetoController implements Serializable{
 		}
 		
 		else if (projeto instanceof PET){
-			if(atributo.equals(IMPACTO)){
+			if(atributo.equalsIgnoreCase(IMPACTO)){
 				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
@@ -258,24 +258,24 @@ public class ProjetoController implements Serializable{
 			if(atributo.equals(PRODTECNICA)){
 				return false;
 			}
-			else if(atributo.equals(PRODACADEMICA)){
+			else if(atributo.equalsIgnoreCase(PRODACADEMICA)){
 				return false;
 			}
-			else if(atributo.equals(PATENTES)){
+			else if(atributo.equalsIgnoreCase(PATENTES)){
 				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Extensao){
-			if(atributo.equals(IMPACTO)){
+			if(atributo.equalsIgnoreCase(IMPACTO)){
 				return false;
 			}
 			throw new ValidacaoException("Extensao nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Monitoria){
-			if(atributo.equals(RENDIMENTO)){
+			if(atributo.equalsIgnoreCase(RENDIMENTO)){
 				return false;
 			}
 			throw new ValidacaoException("Monitoria nao possui " + atributo);
@@ -291,27 +291,27 @@ public class ProjetoController implements Serializable{
 		}
 		
 		else if(projeto instanceof PED){
-			if(atributo.equals(PRODTECNICA)){
+			if(atributo.equalsIgnoreCase(PRODTECNICA)){
 				return false;
 			}
-			else if(atributo.equals(PRODACADEMICA)){
+			else if(atributo.equalsIgnoreCase(PRODACADEMICA)){
 				return false;
 				}
-			else if(atributo.equals(PATENTES)){
+			else if(atributo.equalsIgnoreCase(PATENTES)){
 				return false;
 			}
 			throw new ValidacaoException("PED nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Extensao){
-			if(atributo.equals(IMPACTO)){
+			if(atributo.equalsIgnoreCase(IMPACTO)){
 				return false;
 			}
 			throw new ValidacaoException("Extensao nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Monitoria){
-			if(atributo.equals(RENDIMENTO)){
+			if(atributo.equalsIgnoreCase(RENDIMENTO)){
 				return false;
 			}
 			throw new ValidacaoException("Monitoria nao possui " + atributo);
@@ -443,12 +443,6 @@ public class ProjetoController implements Serializable{
 		}
 		
 		throw new CadastroException("Projeto nao encontrado");
-	}
-	
-	public static void main(String[] args) throws Exception {
-		args = new String[] {"projetos.ProjetoController", "acceptance_tests/teste_sobrecarga.txt", "acceptance_tests/us2_test_exception.txt"};
-		EasyAccept.main(args);
-
 	}
 	
 

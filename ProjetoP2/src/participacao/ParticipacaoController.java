@@ -1,5 +1,6 @@
 package participacao;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 import exception.CadastroException;
@@ -8,6 +9,7 @@ import pessoas.Pessoa;
 import pessoas.PessoaController;
 import projetos.Projeto;
 import projetos.ProjetoController;
+import validacao.ValidaPessoa;
 import validacao.Validacao;
 
 /**
@@ -15,7 +17,7 @@ import validacao.Validacao;
  * @author Yuri Silva
  *
  */
-public class ParticipacaoController {
+public class ParticipacaoController implements Serializable{
 	
 	private HashSet<Participacao> participacoes;
 	private PessoaController pessoaController;
@@ -44,8 +46,10 @@ public class ParticipacaoController {
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		
-		Validacao.validaDouble(valorHora, "Valor da hora invalido");
+		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
 		Pessoa professor = this.pessoaController.getPessoa(cpf);
 		Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
@@ -74,6 +78,9 @@ public class ParticipacaoController {
 	public void associaGraduando(String cpf, int codigoProjeto, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
+		
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
 		
 		Pessoa graduando = this.pessoaController.getPessoa(cpf);
@@ -105,6 +112,9 @@ public class ParticipacaoController {
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
 		Validacao.validaString(cargo, "Cargo invalido");
 		
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
+		
 		Pessoa profissional = this.pessoaController.getPessoa(cpf);
 		Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
 		
@@ -134,6 +144,9 @@ public class ParticipacaoController {
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
 		Validacao.validaString(associacao, "Pos graduacao invalida.");
 		
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
+		
 		Pessoa posGraduando = this.pessoaController.getPessoa(cpf);
 		Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
 		
@@ -158,6 +171,9 @@ public class ParticipacaoController {
 	 */
 	
 	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
+		
 		for(Participacao participacao: this.participacoes) {
 			if(participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() == codigoProjeto) {
 				return true;
@@ -177,13 +193,22 @@ public class ParticipacaoController {
 	 */
 	
 	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
+		Pessoa pessoa = pessoaController.getPessoa(cpf);
 		Projeto projeto = projetoController.getProjetos(codigoProjeto);
+
+		
 		for(Participacao participacao: this.participacoes) {
 			if(participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() == codigoProjeto) {
 				this.participacoes.remove(participacao);
 				projeto.removeParticipacao(participacao);
 				return true;
+			} else if(participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() != codigoProjeto) {
+				throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
+			} else if(!participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() == codigoProjeto) {
+				throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
 			}
 		}
 		

@@ -120,6 +120,19 @@ public class Validacao {
 		}
 	}
 	
+	/**
+	 * Valida se um double eh positivo maior que zero.
+	 * @param valor Valor do double.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Caso o double seja negativo.
+	 */
+	
+	public static void validaDoubleSemZero(double valor, String msg) throws ValidacaoException {
+		if(valor <= 0) {
+			throw new ValidacaoException(msg);
+		}
+	}
+	
 	
 	/**
 	 * Valida um inteiro menor ou igual a zero.
