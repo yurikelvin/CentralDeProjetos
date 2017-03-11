@@ -1,5 +1,11 @@
 package exception;
 
+/**
+ * 
+ * @author Yuri Silva
+ *
+ */
+
 public class CadastroException extends Exception {
 
 	public CadastroException() {

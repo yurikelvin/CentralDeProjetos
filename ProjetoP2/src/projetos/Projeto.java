@@ -1,6 +1,9 @@
 package projetos;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -9,7 +12,7 @@ import exception.ValidacaoException;
 import participacao.Participacao;
 import participacao.Professor;
 
-public abstract class Projeto implements Serializable {
+public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
@@ -122,7 +125,19 @@ public abstract class Projeto implements Serializable {
 		return Integer.toString(this.getDuracao());
 	}
 	
+
+	public int compareTo(Projeto outroProjeto) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate date = LocalDate.parse(this.getDataInicio() ,formatter);
+		
+		LocalDate otherDate = LocalDate.parse(outroProjeto.getDataInicio(), formatter);
+		
+		return date.compareTo(otherDate);
 	
+	}
 	
+
+
 
 }

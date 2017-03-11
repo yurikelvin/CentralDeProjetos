@@ -145,9 +145,13 @@ public class PessoaController implements Serializable{
 		pessoas.remove(pessoaARemover);
 	}
 	
-	public void adicionaParticipacao(String cpf, Participacao participacao) throws CadastroException {
-		
-	}
+	
+	/**
+	 * 
+	 * @param cpf
+	 * @return
+	 * @throws CadastroException
+	 */
 	
 	public Pessoa getPessoa(String cpf) throws CadastroException {
 		for(Pessoa pessoaProcurada: pessoas) {
@@ -159,6 +163,12 @@ public class PessoaController implements Serializable{
 		throw new CadastroException("Pessoa nao encontrada");
 	}
 	
+	/**
+	 * 
+	 * @param cpf
+	 * @return
+	 */
+	
 	private boolean temPessoa(String cpf) {
 		for(Pessoa pessoaProcurada: pessoas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {
@@ -167,14 +177,6 @@ public class PessoaController implements Serializable{
 		}
 		
 		return false;
-	}
-	
-	public void iniciaSistema() throws Exception {
-		// posteriormente ser implementado
-	}
-	
-	public void fechaSistema() throws Exception {
-		// posteriormente ser implementado
 	}
 	
 	

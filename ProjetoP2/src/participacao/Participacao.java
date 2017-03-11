@@ -5,6 +5,12 @@ import java.io.Serializable;
 import pessoas.Pessoa;
 import projetos.Projeto;
 
+/**
+ * 
+ * @author Yuri Silva
+ *
+ */
+
 public abstract class Participacao implements Serializable {
 
 	private double valorHora;
@@ -14,6 +20,12 @@ public abstract class Participacao implements Serializable {
 	
 	private Pessoa pessoa;
 	private Projeto projeto;
+	
+	/**
+	 * 
+	 * @param valorHora
+	 * @param qtdHoras
+	 */
 	
 	public Participacao(double valorHora, int qtdHoras) {
 		
@@ -73,9 +85,23 @@ public abstract class Participacao implements Serializable {
 		this.projeto = projeto;
 	}
 	
+	public int getCodigoProjeto() {
+		return projeto.getCodigo();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public String mostraPessoa() {
 		return pessoa.toString();
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public String mostraProjeto() {
 		return projeto.representacao();
