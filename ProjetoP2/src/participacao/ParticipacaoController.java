@@ -27,10 +27,10 @@ public class ParticipacaoController implements Serializable{
 	 * 
 	 */
 
-	public ParticipacaoController() {
+	public ParticipacaoController(PessoaController pessoaController, ProjetoController projetoController) {
 		participacoes = new HashSet<>();
-		pessoaController = new PessoaController();
-		projetoController = new ProjetoController();
+		this.pessoaController = pessoaController;
+		this.projetoController = projetoController;
 	}
 	
 	/**
@@ -50,6 +50,7 @@ public class ParticipacaoController implements Serializable{
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
+		
 		
 		Pessoa professor = this.pessoaController.getPessoa(cpf);
 		Projeto projeto = this.projetoController.getProjetos(codigoProjeto);

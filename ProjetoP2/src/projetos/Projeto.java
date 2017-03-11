@@ -12,6 +12,7 @@ import exception.ValidacaoException;
 import participacao.Participacao;
 import participacao.Professor;
 
+
 public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
 	private String nomeDoProjeto;
@@ -141,6 +142,16 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		}
 	
 	}
+
+
+	@Override
+	public String toString() {
+		return "Projeto [nomeDoProjeto=" + nomeDoProjeto + ", objetivoDoProjeto=" + objetivoDoProjeto + ", dataInicio="
+				+ dataInicio + ", duracao=" + duracao + ", codigo=" + codigo + ", representacao()=" + representacao()
+				+ "]";
+	}
+	
+	
 	
 
 

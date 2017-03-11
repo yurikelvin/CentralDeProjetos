@@ -293,7 +293,7 @@ public class Facade {
 				participacaoController = (ParticipacaoController) arqObjectos.readObject();
 			}
 		}catch(ClassNotFoundException | IOException e){
-			participacaoController = new ParticipacaoController();
+			participacaoController = new ParticipacaoController(this.pessoaController, this.projetosController);
 		}
 		return participacaoController;
 
@@ -332,10 +332,17 @@ public class Facade {
 		
 	}
 	
+	public void showPessoas() {
+		System.out.println(pessoaController.toString());
+	}
+	
+	public void showProjetos() {
+		System.out.println(projetosController.toString());
+	}
 
 	
 	public static void main(String[] args) {
-		args = new String[] {"centraldeprojetos.Facade", "acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/copia3.txt"};
+		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/copia3.txt"};
 		EasyAccept.main(args);
 	}
 }

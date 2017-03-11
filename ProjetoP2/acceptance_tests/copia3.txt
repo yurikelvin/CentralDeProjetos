@@ -24,5 +24,9 @@ cod5=getCodigoProjeto nome="Kubernetes"
 #  Criacao de participacoes  #
 ##############################
 
+showPessoas
+showProjetos
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod1} coordenador=true valorHora=120.0 qntHoras=20
+
 fechaSistema
 

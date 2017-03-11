@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import validacao.Validacao;
@@ -34,6 +33,7 @@ public class ProjetoController implements Serializable{
 	public ProjetoController(){
 		this.projetos = new TreeSet<>();
 		factoryProjeto = new FactoryDeProjeto();
+
 		
 		
 	}
@@ -435,15 +435,28 @@ public class ProjetoController implements Serializable{
 	}
 	
 	public int getCodigoProjeto(String nome) throws CadastroException {
-		for(Projeto projeto: this.projetos) {
-			if(projeto.getNome().equalsIgnoreCase(nome)) {
-				return projeto.getCodigo();
+		Iterator<Projeto> it = this.projetos.iterator();
+		while(it.hasNext()) {
+			Projeto projetoProcurado = it.next();
+			if(projetoProcurado.getNome().equals(nome)) {
+				return projetoProcurado.getCodigo();
 			}
 			
 		}
 		
+		System.out.println("foi aqui que deu erro");
+		
 		throw new CadastroException("Projeto nao encontrado");
 	}
 	
+	
+	@Override
+	public String toString() {
+		String toString = "";
+		for(Projeto projeto: this.projetos) {
+			toString += projeto + System.lineSeparator();
+		}
+		return toString;
+	}
 
 }

@@ -179,5 +179,12 @@ public class PessoaController implements Serializable{
 		return false;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String to = "";
+		for(Pessoa pessoa: pessoas) {
+			to += pessoa + System.lineSeparator();
+		}
+		return to;
+	}
 }
