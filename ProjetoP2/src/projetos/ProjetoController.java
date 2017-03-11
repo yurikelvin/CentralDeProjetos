@@ -89,18 +89,13 @@ public class ProjetoController {
 		
 		}
 	
-<<<<<<< HEAD
+
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
 		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
+		return null;
 		
 	}
-=======
-//	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
-//		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
-//		
-//		
-//	}
->>>>>>> a252597a0efbf0b3737419a7f4aad329fcda2395
+
 	
 	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){
