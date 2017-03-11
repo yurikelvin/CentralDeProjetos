@@ -11,22 +11,18 @@ import easyaccept.EasyAccept;
 //import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
-import participacao.ParticipacaoController;
-import pessoas.PessoaController;
 import projetos.ProjetoController;
 
 public class Facade {
 
-	private PessoaController pessoaController;
-	private ParticipacaoController participacaoController;
-	private ProjetoController projetosController;
+	private CentralDeProjetos centralDeProjetos;
 	
-	// metodos de PessoaController
+	// metodos de centralDeProjetos
 	
 	public String cadastraPessoa(String cpf, String nome, String email) throws ValidacaoException, CadastroException{
 		
 		try{
-			return pessoaController.cadastraPessoa(cpf, nome, email);
+			return centralDeProjetos.cadastraPessoa(cpf, nome, email);
 		}catch(CadastroException e){
 			throw new CadastroException("Erro no cadastro de pessoa: " + e.getMessage());
 		}catch(ValidacaoException e){
@@ -37,7 +33,7 @@ public class Facade {
 	public String getInfoPessoa(String cpf, String atributo) throws ValidacaoException, IllegalArgumentException, CadastroException {
 		
 		try{
-			return pessoaController.getInfoPessoa(cpf, atributo);
+			return centralDeProjetos.getInfoPessoa(cpf, atributo);
 		}catch(ValidacaoException e){
 			throw new ValidacaoException("Erro na consulta de pessoa: " + e.getMessage());
 		}catch(IllegalArgumentException e){
@@ -50,7 +46,7 @@ public class Facade {
 	public void editaPessoa(String cpf, String atributo, String novoValor) throws CadastroException, ValidacaoException, IllegalArgumentException{
 		
 		try{
-			pessoaController.editaPessoa(cpf, atributo, novoValor);
+			centralDeProjetos.editaPessoa(cpf, atributo, novoValor);
 		}catch(ValidacaoException e){
 			throw new ValidacaoException("Erro na atualizacao de pessoa: " + e.getMessage());
 		}catch(CadastroException e){
@@ -63,7 +59,7 @@ public class Facade {
 	public void removePessoa(String cpf) throws CadastroException, ValidacaoException {
 		
 		try{
-			pessoaController.removePessoa(cpf);
+			centralDeProjetos.removePessoa(cpf);
 		}catch(ValidacaoException e){
 			throw new ValidacaoException("Erro na remocao de pessoa: " + e.getMessage());
 		}catch(CadastroException e){
@@ -71,13 +67,13 @@ public class Facade {
 		}
 	}
 	
-	// metodos de ParticipacaoController
+	// metodos de centralDeProjetos
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras)
 			throws CadastroException, ValidacaoException {
 		try {
 			
-			participacaoController.associaProfessor(cpf, codigoProjeto, coordenador, valorHora, qtdHoras);
+			centralDeProjetos.associaProfessor(cpf, codigoProjeto, coordenador, valorHora, qtdHoras);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
@@ -90,7 +86,7 @@ public class Facade {
 			throws CadastroException, ValidacaoException {
 		try {
 			
-			participacaoController.associaGraduando(cpf, codigoProjeto, valorHora, qtdHoras);
+			centralDeProjetos.associaGraduando(cpf, codigoProjeto, valorHora, qtdHoras);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
@@ -104,7 +100,7 @@ public class Facade {
 			throws CadastroException, ValidacaoException {
 		try {
 			
-			participacaoController.associaProfissional(cpf, codigoProjeto, cargo, valorHora, qtdHoras);
+			centralDeProjetos.associaProfissional(cpf, codigoProjeto, cargo, valorHora, qtdHoras);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na associacao de pessoa a projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
@@ -118,7 +114,7 @@ public class Facade {
 			throws CadastroException, ValidacaoException {
 		try {
 			
-			participacaoController.associaPosGraduando(cpf, codigoProjeto, associacao, valorHora, qtdHoras);
+			centralDeProjetos.associaPosGraduando(cpf, codigoProjeto, associacao, valorHora, qtdHoras);
 			
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na associacao de pessoa a projeto: " + e.getMessage());
@@ -131,7 +127,7 @@ public class Facade {
 
 	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws CadastroException {
 		try {
-			return participacaoController.pesquisaParticipacao(cpf, codigoProjeto);
+			return centralDeProjetos.pesquisaParticipacao(cpf, codigoProjeto);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na pesquisa de participacao: " + e.getMessage());
 		}
@@ -139,7 +135,7 @@ public class Facade {
 	
 	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException {
 		try {
-			return participacaoController.removeParticipacao(cpf, codigoProjeto);
+			return centralDeProjetos.removeParticipacao(cpf, codigoProjeto);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
 		}
@@ -150,7 +146,7 @@ public class Facade {
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException {
 		int codigo = 0;
 		try {
-			codigo = projetosController.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio,duracao);
+			codigo = centralDeProjetos.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio,duracao);
 		}catch(ValidacaoException e) {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 		}catch(ParseException e) {
@@ -167,7 +163,7 @@ public class Facade {
 
 			int codigo = 0;
 			try {
-				codigo = projetosController.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
+				codigo = centralDeProjetos.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao);
 			}catch(ValidacaoException e) {
 				throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 			}catch(ParseException e) {
@@ -182,7 +178,7 @@ public class Facade {
 			
 		int codigo = 0;
 		try {
-			codigo = projetosController.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
+			codigo = centralDeProjetos.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 		}catch(ValidacaoException e) {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 		}catch(ParseException e) {
@@ -196,7 +192,7 @@ public class Facade {
 			String objetivo, String dataInicio, int duracao) throws ValidacaoException {
 		int codigo = 0;
 		try {
-			codigo = projetosController.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo,
+			codigo = centralDeProjetos.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo,
 					dataInicio, duracao);
 		}catch(ValidacaoException e) {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
@@ -209,7 +205,7 @@ public class Facade {
 
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException {
 		try {
-			return projetosController.getInfoProjeto(codigoProjeto, atributo);
+			return centralDeProjetos.getInfoProjeto(codigoProjeto, atributo);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na consulta de projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
@@ -222,7 +218,7 @@ public class Facade {
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor)
 			throws CadastroException, ValidacaoException {
 		try {
-			projetosController.editaProjeto(codigoDoProjeto, atributo, novoValor);
+			centralDeProjetos.editaProjeto(codigoDoProjeto, atributo, novoValor);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na atualizacao de projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
@@ -234,7 +230,7 @@ public class Facade {
 
 	public void removeProjeto(int codigoDoProjeto) throws CadastroException {
 		try {
-			projetosController.removeProjeto(codigoDoProjeto);
+			centralDeProjetos.removeProjeto(codigoDoProjeto);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na atualizacao de projeto: " + e.getMessage());
 		}
@@ -243,7 +239,7 @@ public class Facade {
 
 	public int getCodigoProjeto(String nome) throws CadastroException {
 		try {
-			return projetosController.getCodigoProjeto(nome);
+			return centralDeProjetos.getCodigoProjeto(nome);
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro na obtencao de codigo de projeto: " + e.getMessage());
 		}
@@ -252,97 +248,41 @@ public class Facade {
 
 	public void iniciaSistema() throws Exception {
 		
-		this.pessoaController = (PessoaController) restauraPessoaController("pessoas.ser");
-		this.projetosController = (ProjetoController) restauraProjetoController("projetos.ser");
-		this.participacaoController = (ParticipacaoController) restauraParticipacaoController("participacoes.ser");
+		this.centralDeProjetos = (CentralDeProjetos) restauraCentralProjetos("cdp.ser");
+
 		
 	}
 	
-	private PessoaController restauraPessoaController(String caminho) {
-		PessoaController pessoaController = null;
+	private CentralDeProjetos restauraCentralProjetos(String caminho) {
+		
+		CentralDeProjetos centralDeProjetos = null;
 		
 		try{
 			try(ObjectInputStream arqObjectos = new ObjectInputStream(new FileInputStream(caminho))){
-				pessoaController = (PessoaController) arqObjectos.readObject();
+				centralDeProjetos = (CentralDeProjetos) arqObjectos.readObject();
 			}
 		}catch(ClassNotFoundException | IOException e){
-			pessoaController = new PessoaController();
+			centralDeProjetos = new CentralDeProjetos();
 		}
-		return pessoaController;
+		return centralDeProjetos;
 
 	}
 	
-	private ProjetoController restauraProjetoController(String caminho) {
-		ProjetoController projetoController = null;
-		try{
-			try(ObjectInputStream arqObjectos = new ObjectInputStream(new FileInputStream(caminho))){
-				projetoController = (ProjetoController) arqObjectos.readObject();
-			}
-		}catch(ClassNotFoundException | IOException e){
-			projetoController = new ProjetoController();
-		}
-		return projetoController;
-
-	}
-	
-	private ParticipacaoController restauraParticipacaoController(String caminho) {
-		ParticipacaoController participacaoController = null;
-
-		try{
-			try(ObjectInputStream arqObjectos = new ObjectInputStream(new FileInputStream(caminho))){
-				participacaoController = (ParticipacaoController) arqObjectos.readObject();
-			}
-		}catch(ClassNotFoundException | IOException e){
-			participacaoController = new ParticipacaoController(this.pessoaController, this.projetosController);
-		}
-		return participacaoController;
-
-	}
 	
 	public void fechaSistema() throws IOException {
 		
 		try{
-			try(ObjectOutputStream arqObjectos = new ObjectOutputStream(new FileOutputStream("pessoas.ser"))){
-				arqObjectos.writeObject(this.pessoaController);
+			try(ObjectOutputStream arqObjectos = new ObjectOutputStream(new FileOutputStream("cdp.ser"))){
+				arqObjectos.writeObject(this.centralDeProjetos);
 			}
 		}catch(IOException e){
 			throw new IOException(e);
 		}
 		
-		try{
-			try(ObjectOutputStream arqObjectos1 = new ObjectOutputStream(new FileOutputStream("projetos.ser"))){
-				arqObjectos1.writeObject(this.projetosController);
-			}
-		}catch(IOException e){
-			throw new IOException(e);
-		}
-		
-		try{
-			try(ObjectOutputStream arqObjectos2 = new ObjectOutputStream(new FileOutputStream("participacoes.ser"))){
-				arqObjectos2.writeObject(this.participacaoController);
-			}
-		}catch(IOException e){
-			throw new IOException(e);
-		}
-		
-		
-		
-		
-		
-		
 	}
-	
-	public void showPessoas() {
-		System.out.println(pessoaController.toString());
-	}
-	
-	public void showProjetos() {
-		System.out.println(projetosController.toString());
-	}
-
 	
 	public static void main(String[] args) {
-		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/copia3.txt"};
+		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt"};
 		EasyAccept.main(args);
 	}
 }

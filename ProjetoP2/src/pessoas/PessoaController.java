@@ -2,12 +2,15 @@ package pessoas;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 
 //import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.Participacao;
+import projetos.Projeto;
 import validacao.ValidaPessoa;
+import validacao.Validacao;
 
 /**
  * Classe desenvolvida para controlar as pessoas do sistema.
@@ -26,6 +29,9 @@ public class PessoaController implements Serializable{
 	private static final String NOME = "nome";
 	private static final String EMAIL = "email";
 	private static final String CPF = "cpf";
+	private static final String PARTICIPACOES = "participacoes";
+	
+	private static final String FIM_DE_LINHA = System.lineSeparator();
 
 
 	
@@ -83,6 +89,8 @@ public class PessoaController implements Serializable{
 				return pessoaProcurada.getNome();
 			case EMAIL:
 				return pessoaProcurada.getEmail();
+			case PARTICIPACOES:
+				return pessoaProcurada.mostraParticipacoes();
 			default:
 				throw new IllegalArgumentException("Atributo nao valido");
 			}
@@ -179,11 +187,12 @@ public class PessoaController implements Serializable{
 		return false;
 	}
 	
+
 	@Override
 	public String toString() {
 		String to = "";
 		for(Pessoa pessoa: pessoas) {
-			to += pessoa + System.lineSeparator();
+			to += pessoa + FIM_DE_LINHA;
 		}
 		return to;
 	}

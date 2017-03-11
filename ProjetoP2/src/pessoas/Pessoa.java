@@ -1,8 +1,10 @@
 package pessoas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 
+import exception.ValidacaoException;
 import participacao.Participacao;
 
 /**
@@ -23,7 +25,7 @@ public class Pessoa implements Serializable{
 	private String cpf;
 	private String email;
 	
-	private HashSet<Participacao> projetosParticipados;
+	private ArrayList<Participacao> projetosParticipados;
 	
 	public Pessoa(String nome, String cpf, String email) {
 		
@@ -31,7 +33,7 @@ public class Pessoa implements Serializable{
 		this.cpf = cpf;
 		this.email = email;
 		
-		this.projetosParticipados = new HashSet<>();
+		this.projetosParticipados = new ArrayList<>();
 	}
 
 	public String getNome() {
@@ -84,6 +86,17 @@ public class Pessoa implements Serializable{
 		}
 		
 		return participacoes;
+	}
+	
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
+		for(Participacao participacao: this.projetosParticipados) {
+			if(participacao.equals(participacaoASerRemovida)) {
+				this.projetosParticipados.remove(participacao);
+				break;
+			}
+			throw new ValidacaoException("Participacao nao encontrada");
+		}
+		
 	}
 
 	@Override

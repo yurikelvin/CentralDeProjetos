@@ -31,10 +31,11 @@ public class AlunoPosGraduando extends Participacao {
 	 */
 	
 	
-	private void setVinculo(String vinculo) throws ValidacaoException {
+	private boolean setVinculo(String vinculo) throws ValidacaoException {
 		for(Vinculo valorVinculo: Vinculo.values()) {
 			if(vinculo.equalsIgnoreCase(valorVinculo.getVinculo())) {
 				this.vinculo = valorVinculo;
+				return true;
 			}
 		}
 		

@@ -30,10 +30,11 @@ public class Profissional extends Participacao {
 	 * @throws ValidacaoException
 	 */
 
-	private void setCargo(String cargo) throws ValidacaoException {
+	private boolean setCargo(String cargo) throws ValidacaoException {
 		for(Cargo valorCargo: Cargo.values()) {
 			if(cargo.equalsIgnoreCase(valorCargo.getCargo())) {
 				this.cargo = valorCargo;
+				return true;
 			}
 		}
 		throw new ValidacaoException("Cargo nao cadastrado");

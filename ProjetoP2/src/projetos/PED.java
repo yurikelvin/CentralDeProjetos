@@ -92,7 +92,7 @@ public class PED extends Projeto {
 				} 					
 			} else {
 				if(super.participacoes.contains(participacaoASerAdicionada)) {
-					throw new CadastroException("Pessoa ja esta cadastrada nesse projeto");
+					throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 				}
 				super.participacoes.add(participacaoASerAdicionada); // adicao de profissionais e alunos
 			}

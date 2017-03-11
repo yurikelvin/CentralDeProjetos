@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -22,7 +23,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	private int duracao;
 	private int codigo;
 	
-	protected HashSet<Participacao> participacoes;
+	protected ArrayList<Participacao> participacoes;
 	
 	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) {
 		this.nomeDoProjeto = nomeDoProjeto;
@@ -30,7 +31,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		this.dataInicio = dataInicio;
 		this.duracao = duracao;
 		this.despesas = new Despesa();
-		this.participacoes = new HashSet<>();
+		this.participacoes = new ArrayList<>();
 		this.codigo = codigo;
 		
 	}
@@ -124,6 +125,23 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	
 	public String getRepresentacaoDuracao() {
 		return Integer.toString(this.getDuracao());
+	}
+	
+	public String mostraPessoasAssociadas() {
+		String pessoas = "";
+		int contador = 0;
+		for(Participacao participacao: participacoes) {
+		
+			if(contador >= 1) {
+				pessoas += ", " + participacao.getPessoa().getNome();
+			}else {
+				pessoas += participacao.getPessoa().getNome();
+			}
+			
+			contador ++;
+		}
+		
+		return pessoas;
 	}
 	
 

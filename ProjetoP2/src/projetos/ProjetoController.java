@@ -15,6 +15,7 @@ public class ProjetoController implements Serializable{
 	private FactoryDeProjeto factoryProjeto;
 	private int codigosProjeto;
 	
+	private static final String FIM_DE_LINHA = System.lineSeparator();
 	
 	private static final String NOME = "nome";
 	private static final String OBJETIVO = "objetivo";
@@ -28,6 +29,7 @@ public class ProjetoController implements Serializable{
 	private static final String PRODACADEMICA = "producao academica";
 	private static final String PATENTES = "patentes";
 	private static final String CATEGORIA = "categoria";
+	private static final String PARTICIPACOES = "participacoes";
 	
 	
 	public ProjetoController(){
@@ -185,6 +187,8 @@ public class ProjetoController implements Serializable{
 			if(ehPED(projetoASerConsultado, atributo)) {
 				return ((PED) projetoASerConsultado).getCategoria();
 			}
+		case PARTICIPACOES:
+			return projetoASerConsultado.mostraPessoasAssociadas();
 			
 			
 		default:
@@ -332,7 +336,7 @@ public class ProjetoController implements Serializable{
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException{
 		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
-		Validacao.validaString(novoValor, atributo + " nao pode ser vazio ou nulo");
+		Validacao.validaString(novoValor, atributo + " nulo ou vazio");
 		
 		
 		Projeto projetoAserAlterado = getProjetos(codigoDoProjeto);
@@ -444,7 +448,6 @@ public class ProjetoController implements Serializable{
 			
 		}
 		
-		System.out.println("foi aqui que deu erro");
 		
 		throw new CadastroException("Projeto nao encontrado");
 	}
@@ -454,7 +457,7 @@ public class ProjetoController implements Serializable{
 	public String toString() {
 		String toString = "";
 		for(Projeto projeto: this.projetos) {
-			toString += projeto + System.lineSeparator();
+			toString += projeto + FIM_DE_LINHA;
 		}
 		return toString;
 	}
