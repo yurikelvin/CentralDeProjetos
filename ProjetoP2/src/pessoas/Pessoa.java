@@ -109,20 +109,5 @@ public class Pessoa implements Serializable{
 		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", email=" + email + "]";
 	}
 	
-	
-	public static void main(String[] args) {
-		Pessoa p = new Pessoa("Yuri", "1082017", "kqoekoq@gmail.com");
-		AlunoGraduando a = new AlunoGraduando(120, 30);
-		a.setProjeto(new Projeto("Monitoria p2", "Making money", "2017", 12, 1));
-		AlunoGraduando b = new AlunoGraduando(120, 30);
-		b.setProjeto(new Projeto("Monitoria discreta", "Making money", "2017", 12, 1));
-		a.setPessoa(p);
-		p.setParticipacao(a);
-		p.setParticipacao(b);
-		System.out.println(p.mostraParticipacoes());
-
-		
-		
-	}
 
 }

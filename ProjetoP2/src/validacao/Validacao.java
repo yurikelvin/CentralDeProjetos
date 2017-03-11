@@ -79,5 +79,30 @@ public class Validacao {
 //		System.out.println(result);
 	}
 	
+	/**
+	 * Valida se um double eh positivo.
+	 * @param valor Valor do double.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Caso o double seja negativo.
+	 */
+	
+	public static void validaDouble(double valor, String msg) throws ValidacaoException {
+		if(valor < 0) {
+			throw new ValidacaoException(msg);
+		}
+	}
+	
+	
+	/**
+	 * Valida um inteiro menor ou igual a zero.
+	 * @param valor Valor do inteiro.
+	 * @param msg Mensagem de Erro.
+	 * @throws ValidacaoException Caso o numero seja menor ou igual a zero.
+	 */
+	public static void validaIntSemZero(int valor, String msg) throws ValidacaoException {
+		if(valor <= 0) {
+			throw new ValidacaoException(msg);
+		}
+	}
 
 }
