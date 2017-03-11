@@ -74,9 +74,37 @@ public class Validacao {
 			throw new ValidacaoException();
 		}
 		
-//		SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-//		String result = out.format(dataAtual);
-//		System.out.println(result);
+	}
+	
+	/**
+	 * Valida uma data passada por parametro no formato dd/MM/yyyy. A data so eh aceita se tiver no intervalo entre 01/01/2010 a 01/01/2025
+	 * @param data Data a ser validada.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Se a data for nula/vazia ou data no formato invalido.
+	 * @throws ParseException Caso a transformacao da data passada para Date ocorra erro.
+	 */
+	
+	public static void validaData(String data, String msg) throws ValidacaoException, ParseException {	
+		
+		String DATA_TIPO = "\\d\\d/\\d\\d/\\d\\d\\d\\d";
+		
+		if(data == null || data.trim().equals("")) {
+			throw new ValidacaoException(msg);
+		}
+	
+		if (!(data.matches(DATA_TIPO))) {
+			throw new ValidacaoException(msg);
+		}
+		
+		Date dataPiso = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2010");
+		Date dataTeto = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2025");
+		Date dataPassada = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+		
+
+		if(!(dataPassada.after(dataPiso) && dataPassada.before(dataTeto))) {
+			throw new ValidacaoException(msg);
+		}
+		
 	}
 	
 	/**

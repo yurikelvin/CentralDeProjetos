@@ -133,7 +133,12 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		
 		LocalDate otherDate = LocalDate.parse(outroProjeto.getDataInicio(), formatter);
 		
-		return date.compareTo(otherDate);
+		int compare = date.compareTo(otherDate);
+		if(compare > 0) {
+			return 1;
+		} else {
+			return -1;
+		}
 	
 	}
 	

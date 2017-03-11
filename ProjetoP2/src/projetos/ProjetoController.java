@@ -2,8 +2,10 @@ package projetos;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.TreeSet;
 
+import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import validacao.Validacao;
@@ -20,7 +22,7 @@ public class ProjetoController implements Serializable{
 	private static final String DISCIPLINA = "disciplina";
 	private static final String RENDIMENTO = "rendimento";
 	private static final String PERIODO = "perido";
-	private static final String DATAINICIO = "data inicio";
+	private static final String DATAINICIO = "data de inicio";
 	private static final String DURACAO = "duracao";
 	private static final String IMPACTO = "impacto";
 	private static final String PRODTECNICA = "producao tecnica";
@@ -44,7 +46,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaString(objetivo, "Objetivo nulo ou vazio");
 		Validacao.validaString(periodo,"Periodo nulo ou vazio");
 		Validacao.validaData(dataInicio);
-		Validacao.validaInt(duracao,"Duracao Invalida");
+		Validacao.validaIntSemZero(duracao,"Duracao Invalida");
 		
 		this.codigosProjeto++;
 		projetos.add(factoryProjeto.criaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao, codigosProjeto));
@@ -65,7 +67,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaInt(prodAcademica, "Numero de producoes academicas invalido");
 		Validacao.validaInt(patentes, "Numero de patentes invalido");
 		Validacao.validaData(dataInicio);
-		Validacao.validaInt(duracao,"Duracao invalida");
+		Validacao.validaIntSemZero(duracao,"Duracao invalida");
 		
 		this.codigosProjeto++;
 		projetos.add(factoryProjeto.criaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao, codigosProjeto));
@@ -79,7 +81,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
 		Validacao.validaInt(impacto, "Impacto invalido");
 		Validacao.validaData(dataInicio);
-		Validacao.validaInt(duracao,"Duracao invalida");
+		Validacao.validaIntSemZero(duracao,"Duracao invalida");
 		
 		this.codigosProjeto++;
 		projetos.add(factoryProjeto.criaExtensao(nome, objetivo, impacto, dataInicio, duracao, codigosProjeto));
@@ -95,7 +97,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaInt(prodAcademica, "Numero de producoes academicas invalido");
 		Validacao.validaInt(patentes, "Numero de patentes invalido");
 		Validacao.validaData(dataInicio);
-		Validacao.validaInt(duracao,"Duracao invalida");
+		Validacao.validaIntSemZero(duracao,"Duracao invalida");
 		
 		this.codigosProjeto++;
 		projetos.add(factoryProjeto.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao, codigosProjeto));		
@@ -104,12 +106,12 @@ public class ProjetoController implements Serializable{
 		
 		}
 	
-
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
 		Validacao.validaInt(codigoProjeto,"Codigo invalido");
-		
+		Validacao.validaString(atributo, "Atributo nulo ou invalido");
 		
 		Projeto projetoASerConsultado = getProjetos(codigoProjeto);
+		System.out.println(projetoASerConsultado);
 		
 		switch (atributo.toLowerCase()) {
 		case NOME:
@@ -180,12 +182,14 @@ public class ProjetoController implements Serializable{
 				
 			}
 		case CATEGORIA:
-			return ((PED) projetoASerConsultado).getCategoria();
+			if(ehPED(projetoASerConsultado, CATEGORIA)) {
+				return ((PED) projetoASerConsultado).getCategoria();
+			}
 			
 			
 		default:
 			
-			throw new ValidacaoException("Atributo invalido ou nulo");
+			throw new ValidacaoException("Atributo nulo ou invalido");
 			
 		}
 		
@@ -210,7 +214,7 @@ public class ProjetoController implements Serializable{
 		
 		else if (projeto instanceof PET){
 			if(atributo.equals(RENDIMENTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
 		}
@@ -231,7 +235,7 @@ public class ProjetoController implements Serializable{
 		
 		else if (projeto instanceof PET){
 			if(atributo.equals(IMPACTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
 		}
@@ -252,27 +256,27 @@ public class ProjetoController implements Serializable{
 		
 		else if(projeto instanceof PET){
 			if(atributo.equals(PRODTECNICA)){
-				return true;
+				return false;
 			}
 			else if(atributo.equals(PRODACADEMICA)){
-				return true;
+				return false;
 			}
 			else if(atributo.equals(PATENTES)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("PET nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Extensao){
 			if(atributo.equals(IMPACTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("Extensao nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Monitoria){
 			if(atributo.equals(RENDIMENTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("Monitoria nao possui " + atributo);
 		}
@@ -288,27 +292,27 @@ public class ProjetoController implements Serializable{
 		
 		else if(projeto instanceof PED){
 			if(atributo.equals(PRODTECNICA)){
-				return true;
+				return false;
 			}
 			else if(atributo.equals(PRODACADEMICA)){
-				return true;
+				return false;
 				}
 			else if(atributo.equals(PATENTES)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("PED nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Extensao){
 			if(atributo.equals(IMPACTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("Extensao nao possui " + atributo);
 		}
 		
 		else if (projeto instanceof Monitoria){
 			if(atributo.equals(RENDIMENTO)){
-				return true;
+				return false;
 			}
 			throw new ValidacaoException("Monitoria nao possui " + atributo);
 		}
@@ -316,7 +320,7 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
-	private Projeto getProjetos(int codigoProjeto) throws CadastroException {
+	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
 				return projetoAserEncontrado;
@@ -328,6 +332,8 @@ public class ProjetoController implements Serializable{
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException{
 		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
+		Validacao.validaString(novoValor, atributo + " nao pode ser vazio ou nulo");
+		
 		
 		Projeto projetoAserAlterado = getProjetos(codigoDoProjeto);
 		switch (atributo.toLowerCase()) {
@@ -348,7 +354,7 @@ public class ProjetoController implements Serializable{
 			}
 			break;
 		case DATAINICIO:
-			Validacao.validaData(novoValor);
+			Validacao.validaData(novoValor, "Formato de data invalido");
 			projetoAserAlterado.setDataInicio(novoValor);
 			break;
 		case CATEGORIA:
@@ -356,78 +362,94 @@ public class ProjetoController implements Serializable{
 				((PED) projetoAserAlterado).setCategoria(novoValor);
 			}
 			break;
-		default:
-			
-			throw new ValidacaoException("Atributo invalido");
-		}
-		
-		
-	}
-	
-	public void editaProjeto(int codigoDoProjeto, String atributo, int novoValor) throws CadastroException{
-		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
-		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
-		Validacao.validaInt(novoValor,"Novo Valor invalido");
-		
-		Projeto projetoAserAlterado = getProjetos(codigoDoProjeto);
-		switch (atributo.toLowerCase()) {
-		
 		case DURACAO:
-			projetoAserAlterado.setDuracao(novoValor);
+			int novaDuracao = Integer.parseInt(novoValor);
+			projetoAserAlterado.setDuracao(novaDuracao);
 			break;
-		
 		case IMPACTO:
+			int novoImpacto = Integer.parseInt(novoValor);
 			if(ehPET(projetoAserAlterado, IMPACTO)){
-				((PET) projetoAserAlterado).setImpacto(novoValor);
+				((PET) projetoAserAlterado).setImpacto(novoImpacto);
 			}
 			else if(ehExtensao(projetoAserAlterado, IMPACTO)){
-				((Extensao) projetoAserAlterado).setImpacto(novoValor);
+				((Extensao) projetoAserAlterado).setImpacto(novoImpacto);
 			}
 			break;
 			
 		case PRODTECNICA:
+			int novaProd = Integer.parseInt(novoValor);
+			
 			if(ehPET(projetoAserAlterado, PRODTECNICA)){
-				((PET) projetoAserAlterado).adicionaProdutividade(PRODTECNICA, novoValor);
+				((PET) projetoAserAlterado).adicionaProdutividade(PRODTECNICA, novaProd);
 			}
 			
 			else if(ehPED(projetoAserAlterado, PRODTECNICA)){
-				((PED) projetoAserAlterado).adicionaProdutividade(PRODTECNICA, novoValor);
+				((PED) projetoAserAlterado).adicionaProdutividade(PRODTECNICA, novaProd);
 			}
 			break;
 
 		case PRODACADEMICA:
+			int novaProda = Integer.parseInt(novoValor);
 			if(ehPET(projetoAserAlterado, PRODACADEMICA)){
-				((PET) projetoAserAlterado).adicionaProdutividade(PRODACADEMICA, novoValor);
+				((PET) projetoAserAlterado).adicionaProdutividade(PRODACADEMICA, novaProda);
 			}
 			
 			else if(ehPED(projetoAserAlterado, PRODACADEMICA)){
-				((PED) projetoAserAlterado).adicionaProdutividade(PRODACADEMICA, novoValor);
+				((PED) projetoAserAlterado).adicionaProdutividade(PRODACADEMICA, novaProda);
 			}
 			break;
 			
 		case PATENTES:
+			int novaPatente = Integer.parseInt(novoValor);
 			if(ehPET(projetoAserAlterado, PATENTES)){
-				((PET) projetoAserAlterado).adicionaProdutividade(PATENTES, novoValor);
+				((PET) projetoAserAlterado).adicionaProdutividade(PATENTES, novaPatente);
 			}
 			
 			else if(ehPED(projetoAserAlterado, PATENTES)){
-				((PED) projetoAserAlterado).adicionaProdutividade(PATENTES, novoValor);
+				((PED) projetoAserAlterado).adicionaProdutividade(PATENTES, novaPatente);
 			}
 			break;
-			
 		default:
+			
 			throw new ValidacaoException("Atributo invalido");
 		}
+		
+		
 	}
-	
+
 	public void removeProjeto(int codigoDoProjeto) throws CadastroException{
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
 		
-		Projeto projetoASerRemovido = getProjetos(codigoDoProjeto);
 		
-		if(!projetos.remove(projetoASerRemovido)){
-			throw new ValidacaoException("Projeto não encontrado");
+		
+		Iterator<Projeto> it = projetos.iterator();
+		while(it.hasNext()) {
+			Projeto projetoProcurado = it.next();
+			if(projetoProcurado.getCodigo() == codigoDoProjeto) {
+				it.remove();
+			}
 		}
 		
+
+		
 	}
+	
+	public int getCodigoProjeto(String nome) throws CadastroException {
+		for(Projeto projeto: this.projetos) {
+			if(projeto.getNome().equalsIgnoreCase(nome)) {
+				return projeto.getCodigo();
+			}
+			
+		}
+		
+		throw new CadastroException("Projeto nao encontrado");
+	}
+	
+	public static void main(String[] args) throws Exception {
+		args = new String[] {"projetos.ProjetoController", "acceptance_tests/teste_sobrecarga.txt", "acceptance_tests/us2_test_exception.txt"};
+		EasyAccept.main(args);
+
+	}
+	
+
 }

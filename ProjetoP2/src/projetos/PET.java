@@ -45,7 +45,7 @@ public class PET extends Projeto {
 	public String getProdutividade(String produtividade) {
 		for(Produtividade p: produtividades) {
 			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
-				return Integer.toString(p.getQuantidade());
+				return String.valueOf(p.getQuantidade());
 			}
 		}
 		return null;

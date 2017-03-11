@@ -7,8 +7,8 @@ import exception.ValidacaoException;
 
 public class FactoryDeProjeto implements Serializable {
 	
-	private final String PROD_ACADEMICA = "Producao Academica";
-	private final String PROD_TECNICA = "Producao Tecnica";
+	private final String PROD_ACADEMICA = "producao academica";
+	private final String PROD_TECNICA = "producao tecnica";
 	private final String PATENTES = "patentes";
 
 	public Monitoria criaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
@@ -20,7 +20,7 @@ public class FactoryDeProjeto implements Serializable {
 	public PET criaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica,
 			int patentes, String dataInicio, int duracao, int codigoProjeto) {
 		
-		if(impacto<1 ||impacto>6 ){
+		if(impacto < 1 || impacto > 6 ){
 			throw new ValidacaoException("Impacto invalido");
 		}
 		
@@ -36,7 +36,7 @@ public class FactoryDeProjeto implements Serializable {
 	public Extensao criaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao,
 			int codigoProjeto) {
 		
-		if(impacto<1 || impacto>6){
+		if(impacto < 1 || impacto > 6){
 			throw new ValidacaoException("Impacto invalido");
 		}
 		
@@ -50,6 +50,7 @@ public class FactoryDeProjeto implements Serializable {
 		ped.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);
 		ped.adicionaProdutividade(PROD_TECNICA, prodTecnica);
 		ped.adicionaProdutividade(PATENTES, patentes);
+		
 		 
 		return ped;
 		

@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public enum CategoriaPED implements Serializable {
+	
 	 PIBIC("pibic"), 
 	 PIBITI("pibiti"), 
 	 PIVIC("pivic"),

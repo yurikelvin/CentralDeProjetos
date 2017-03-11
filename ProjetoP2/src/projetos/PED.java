@@ -33,7 +33,7 @@ public class PED extends Projeto {
 	public String getProdutividade(String produtividade) {
 		for(Produtividade p: produtividades) {
 			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
-				return Integer.toString(p.getQuantidade());
+				return String.valueOf(p.getQuantidade());
 			}
 		}
 		return null;
@@ -47,8 +47,9 @@ public class PED extends Projeto {
 	
 	
 	public boolean setCategoria(String categoria) throws ValidacaoException {
-		
+
 		for(CategoriaPED categ: CategoriaPED.values()) {
+
 			if(categoria.equalsIgnoreCase(categ.getCategoria())) {
 				this.categoria = categ;
 				return true;
