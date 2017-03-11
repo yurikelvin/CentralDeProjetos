@@ -2,5 +2,5 @@
 
 Integrantes do projeto: Yuri Silva,
                         Tiberio Gadelha,
-                        Gustavo Cavalcante,
+                        Gustavo Victor,
                         Matheus Farias.
