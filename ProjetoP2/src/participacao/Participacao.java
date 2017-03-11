@@ -85,6 +85,10 @@ public abstract class Participacao implements Serializable {
 		this.projeto = projeto;
 	}
 	
+	public int getCodigoProjeto() {
+		return projeto.getCodigo();
+	}
+	
 	/**
 	 * 
 	 * @return

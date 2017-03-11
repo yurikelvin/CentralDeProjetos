@@ -149,6 +149,47 @@ public class ParticipacaoController {
 		this.participacoes.add(participacao);
 	}
 	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @return
+	 * @throws CadastroException 
+	 */
+	
+	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+		for(Participacao participacao: this.participacoes) {
+			if(participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() == codigoProjeto) {
+				return true;
+			}
+		}
+		
+		throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
+	}
+	
+	/**
+	 * 
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @return
+	 * @throws CadastroException
+	 * 
+	 */
+	
+	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+		
+		Projeto projeto = projetoController.getProjetos(codigoProjeto);
+		for(Participacao participacao: this.participacoes) {
+			if(participacao.getCpf().equals(cpf) && participacao.getCodigoProjeto() == codigoProjeto) {
+				this.participacoes.remove(participacao);
+				projeto.removeParticipacao(participacao);
+				return true;
+			}
+		}
+		
+
+		throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
+	}
 	
 
 }
