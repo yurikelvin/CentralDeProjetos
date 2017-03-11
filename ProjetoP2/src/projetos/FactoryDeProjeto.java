@@ -1,9 +1,15 @@
 package projetos;
 
+import java.io.Serializable;
+
 import exception.CadastroException;
 import exception.ValidacaoException;
 
-public class FactoryDeProjeto {
+public class FactoryDeProjeto implements Serializable {
+	
+	private final String PROD_ACADEMICA = "Producao Academica";
+	private final String PROD_TECNICA = "Producao Tecnica";
+	private final String PATENTES = "patentes";
 
 	public Monitoria criaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
 			String dataInicio, int duracao,int codigoProjeto) throws ValidacaoException, CadastroException {
@@ -19,9 +25,9 @@ public class FactoryDeProjeto {
 		}
 		
 		PET pet = new PET(nome, objetivo, impacto , rendimento, dataInicio, duracao , codigoProjeto);
-		pet.adicionaProdutividade("producao academica", prodAcademica);
-		pet.adicionaProdutividade("producao tecnica", prodTecnica);
-		pet.adicionaProdutividade("patentes", patentes);
+		pet.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);
+		pet.adicionaProdutividade(PROD_TECNICA, prodTecnica);
+		pet.adicionaProdutividade(PATENTES, patentes);
 		
 		return pet;
 			
@@ -41,9 +47,9 @@ public class FactoryDeProjeto {
 			String objetivo, String dataInicio, int duracao, int codigoProjeto) {
 		
 		PED ped = new PED(nome, categoria, objetivo, dataInicio, duracao, codigoProjeto);
-		ped.adicionaProdutividade("producao academica", prodAcademica);
-		ped.adicionaProdutividade("producao tecnica", prodTecnica);
-		ped.adicionaProdutividade("patentes", patentes);
+		ped.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);
+		ped.adicionaProdutividade(PROD_TECNICA, prodTecnica);
+		ped.adicionaProdutividade(PATENTES, patentes);
 		 
 		return ped;
 		

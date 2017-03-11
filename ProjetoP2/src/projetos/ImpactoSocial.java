@@ -1,6 +1,8 @@
 package projetos;
 
-public enum ImpactoSocial {
+import java.io.Serializable;
+
+public enum ImpactoSocial  implements Serializable{
 	
 	COMUNIDADE_ACADEMICA(1, "Comunidade Academica"),
 	CIDADE(2, "Cidade"),

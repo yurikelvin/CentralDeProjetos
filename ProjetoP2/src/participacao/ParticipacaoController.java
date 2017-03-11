@@ -1,13 +1,11 @@
 package participacao;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
 import pessoas.Pessoa;
 import pessoas.PessoaController;
-import projetos.Monitoria;
 import projetos.Projeto;
 import projetos.ProjetoController;
 import validacao.Validacao;

@@ -5,7 +5,6 @@ import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
 import participacao.Participacao;
-import participacao.Professor;
 
 public class Monitoria extends Projeto {
 	

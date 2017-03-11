@@ -1,6 +1,8 @@
 package participacao;
 
-public enum Vinculo {
+import java.io.Serializable;
+
+public enum Vinculo implements Serializable{
 
 	MESTRADO("mestrado"),
 	DOUTORADO("doutorado");

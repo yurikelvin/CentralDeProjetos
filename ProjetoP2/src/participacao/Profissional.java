@@ -20,5 +20,9 @@ public class Profissional extends Participacao {
 		}
 		throw new ValidacaoException("Cargo nao cadastrado");
 	}
+	
+	public String getCargo() {
+		return cargo.getCargo();
+	}
 
 }

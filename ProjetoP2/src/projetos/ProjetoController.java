@@ -1,5 +1,6 @@
 package projetos;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.TreeSet;
 
@@ -7,7 +8,7 @@ import exception.CadastroException;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
-public class ProjetoController {
+public class ProjetoController implements Serializable{
 
 	private TreeSet<Projeto> projetos;
 	private FactoryDeProjeto factoryProjeto;

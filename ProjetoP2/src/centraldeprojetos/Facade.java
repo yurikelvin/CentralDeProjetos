@@ -10,10 +10,8 @@ import java.io.ObjectOutputStream;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.ParticipacaoController;
-import pessoas.Pessoa;
 import pessoas.PessoaController;
 import projetos.ProjetoController;
-import validacao.ValidaPessoa;
 
 public class Facade {
 

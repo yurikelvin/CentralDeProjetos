@@ -8,6 +8,7 @@ public class AlunoPosGraduando extends Participacao {
 
 	public AlunoPosGraduando(double valorHora, int qtdHoras, String vinculo) {
 		super(valorHora, qtdHoras);
+		this.setVinculo(vinculo);
 	}
 	
 	
@@ -17,6 +18,8 @@ public class AlunoPosGraduando extends Participacao {
 				this.vinculo = valorVinculo;
 			}
 		}
+		
+		throw new ValidacaoException("Vinculo nao cadastrado");
 	}
 	
 	public String getVinculo() {

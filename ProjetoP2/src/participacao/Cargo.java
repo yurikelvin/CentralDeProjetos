@@ -1,6 +1,8 @@
 package participacao;
 
-public enum Cargo {
+import java.io.Serializable;
+
+public enum Cargo implements Serializable {
 
 	DESENVOLVEDOR("desenvolvedor"),
 	GERENTE("gerente"),

@@ -1,9 +1,11 @@
 package participacao;
 
+import java.io.Serializable;
+
 import pessoas.Pessoa;
 import projetos.Projeto;
 
-public abstract class Participacao {
+public abstract class Participacao implements Serializable {
 
 	private double valorHora;
 	private int qtdHoras;
