@@ -27,7 +27,7 @@ public class Extensao extends Projeto {
 		this.setDespesa("bolsa", valor);
 	}
 
-	private boolean setImpacto(int impacto) throws ValidacaoException {
+	public boolean setImpacto(int impacto) throws ValidacaoException {
 		for (ImpactoSocial impac : ImpactoSocial.values()) {
 			if(impac.getValorImpactoSocial() == impacto) {
 				this.impactoSocial = impac;

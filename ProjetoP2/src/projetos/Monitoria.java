@@ -55,6 +55,10 @@ public class Monitoria extends Projeto {
 		this.periodo = periodo;
 	}
 	
+	public String getRepresentacaoRendimento() {
+		return Integer.toString(this.getRendimento());
+	}
+	
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {

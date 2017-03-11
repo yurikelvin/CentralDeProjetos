@@ -52,6 +52,10 @@ public abstract class Projeto implements Serializable {
 		return this.dataInicio;
 	}
 	
+	public void setDataInicio(String novaData){
+		this.dataInicio = novaData;
+	}
+	
 	public int getDuracao(){
 		return this.duracao;
 	}
@@ -117,6 +121,8 @@ public abstract class Projeto implements Serializable {
 	public String getRepresentacaoDuracao() {
 		return Integer.toString(this.getDuracao());
 	}
+	
+	
 	
 
 }

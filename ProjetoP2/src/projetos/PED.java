@@ -30,13 +30,13 @@ public class PED extends Projeto {
 		return produtividades.toString();
 	}
 	
-	public int getProdutividade(String produtividade) {
+	public String getProdutividade(String produtividade) {
 		for(Produtividade p: produtividades) {
 			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
-				return p.getQuantidade();
+				return Integer.toString(p.getQuantidade());
 			}
 		}
-		return 0;
+		return null;
 	}
 	
 	public void adicionaProdutividade(String produtividade, int quantidade) {
@@ -46,7 +46,7 @@ public class PED extends Projeto {
 	}
 	
 	
-	private boolean setCategoria(String categoria) throws ValidacaoException {
+	public boolean setCategoria(String categoria) throws ValidacaoException {
 		
 		for(CategoriaPED categ: CategoriaPED.values()) {
 			if(categoria.equalsIgnoreCase(categ.getCategoria())) {

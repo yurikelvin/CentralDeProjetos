@@ -27,7 +27,7 @@ public class PET extends Projeto {
 	}
 	
 	
-	private boolean setImpacto(int impacto) throws ValidacaoException {
+	public boolean setImpacto(int impacto) throws ValidacaoException {
 		for (ImpactoSocial impac : ImpactoSocial.values()) {
 			if(impac.getValorImpactoSocial() == impacto) {
 				this.impactoSocial = impac;
@@ -74,6 +74,9 @@ public class PET extends Projeto {
 		this.setDespesa("custeio", valor);
 	}
 	
+	public String getRepresentacaoRendimento() {
+		return Integer.toString(this.getRendimento());
+	}
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
