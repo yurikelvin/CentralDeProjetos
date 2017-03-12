@@ -12,6 +12,13 @@ import participacao.Participacao;
 import participacao.Professor;
 import validacao.Validacao;
 
+/**
+ * Controller de projetos.
+ * @author
+ * @author Tiberio Gadelha
+ * @author 
+ * @author
+ */
 public class ProjetoController implements Serializable{
 
 	private TreeSet<Projeto> projetos;
@@ -43,7 +50,21 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
-	
+	/**
+	 * O metodo vai primeiro validar os parametros para criar um projeto do tipo Monitoria,
+	 * depois, atraves da factoryProjeto, criar uma monitoria.
+	 * @param nome Nome da monitoria
+	 * @param disciplina A disciplina da monitoria
+	 * @param rendimento Taxa de rendimento esperada dos alunos
+	 * @param objetivo Objetivo da monitoria
+	 * @param periodo Periodo em que a monitoria se iniciou.
+	 * @param dataInicio Data de inicio da monitoria
+	 * @param duracao Tempo de duracao
+	 * @return Retorna o codigo do projeto como int.
+	 * @throws ValidacaoException
+	 * @throws ParseException
+	 * @throws CadastroException
+	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException{
 		Validacao.validaString(nome, "Nome nulo ou vazio");
 		Validacao.validaString(disciplina,"Disciplina nulo ou vazio");
@@ -63,6 +84,22 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	/**
+	 * O metodo vai validar os parametros para criar um projeto do tipo PET,
+	 * depois, através da factoryProjeto, vai crirar um Pet.
+	 * @param nome O nome do Pet
+	 * @param objetivo Objetivo do Pet
+	 * @param impacto O impacto que o projeto ira trazer a sociedade
+	 * @param rendimento Taxa de rendimento esperada dos alunos
+	 * @param prodTecnica O numero de producoes tecnicas produzidas
+	 * @param prodAcademica O numero de producoes academicas produzidas
+	 * @param patentes O numero de patentes do projeto
+	 * @param dataInicio A data que o projeto iniciou
+	 * @param duracao A duracao total do projeto
+	 * @return Retorna um inteiro que representa o codigo do projeto.
+	 * @throws ValidacaoException
+	 * @throws ParseException
+	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
@@ -81,6 +118,18 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	/**
+	 * O metodo vai validar os parametros para a criacao de um projeto de tipo Extensao,
+	 * depois, atraves da factoryProjeto, criar uma Extensao.
+	 * @param nome O nome do projeto
+	 * @param objetivo O objetivo do projeto
+	 * @param impacto O impacto social que o projeto ira trazer.
+	 * @param dataInicio A data que o projeto iniciou
+	 * @param duracao A duracao total do projeto.
+	 * @return Retorna um inteiro que representa seu codigo.
+	 * @throws ValidacaoException
+	 * @throws ParseException
+	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
@@ -94,6 +143,21 @@ public class ProjetoController implements Serializable{
 		return codigosProjeto;
 	}
 	
+	/**
+	 * O metodo vai validar os parametros para criar um projeto do tipo PED,
+	 * depois, atraves da factoryProjeto, ira criar um PED.
+	 * @param nome Nome do projeto
+	 * @param categoria A categoria do PED.
+	 * @param prodTecnica O numero de producoes tecnicas do projeto.
+	 * @param prodAcademica O numero de producoes academicas do projeto.
+	 * @param patentes O numero de patentes do projeto.
+	 * @param objetivo O objetivo do projeto
+	 * @param dataInicio Data de inicio do projeto
+	 * @param duracao A duracao total do projeto.
+	 * @return Retorna um inteiro que representa eu codigo.
+	 * @throws ValidacaoException
+	 * @throws ParseException
+	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(categoria, "Categoria invalida");
@@ -111,6 +175,14 @@ public class ProjetoController implements Serializable{
 		
 		}
 	
+	/**
+	 * O metodo busca determinada infomacao sobre um projeto, atraves do seu codigo e do atributo desejado.
+	 * @param codigoProjeto O codigo do projeto
+	 * @param atributo A informacao desejada.
+	 * @return Retorna a informacao em forma de string.
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
 		Validacao.validaInt(codigoProjeto,"Codigo invalido");
 		Validacao.validaString(atributo, "Atributo nulo ou invalido");
@@ -203,6 +275,13 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	/**
+	 * Verifica se o projeto eh do tipo Monitoria.
+	 * @param projeto
+	 * @param atributo
+	 * @return
+	 */
+	
 	private boolean ehMonitoria(Projeto projeto,String atributo){
 		
 		if(projeto instanceof Monitoria){
@@ -228,6 +307,13 @@ public class ProjetoController implements Serializable{
 		
 		return false;
 	}
+	
+	/**
+	 * Verifica se o projeto eh do tipo Extensao
+	 * @param projeto
+	 * @param atributo
+	 * @return
+	 */
 	
 	private boolean ehExtensao(Projeto projeto,String atributo){
 		
@@ -255,6 +341,12 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Verifica se o projeto eh do tipo PED.
+	 * @param projeto
+	 * @param atributo
+	 * @return
+	 */
 	private boolean ehPED(Projeto projeto,String atributo){
 		
 		if(projeto instanceof PED){
@@ -291,6 +383,12 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Verifica se o projeto eh do tipo PET.
+	 * @param projeto
+	 * @param atributo
+	 * @return
+	 */
 	private boolean ehPET(Projeto projeto,String atributo){
 		
 		if(projeto instanceof PET){
@@ -327,6 +425,12 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * O metodo ira procurar um projeto atraves do seu codigo, e retornando-o caso ele exista. Se nao, lanca uma excessao.
+	 * @param codigoProjeto
+	 * @return
+	 * @throws CadastroException
+	 */
 	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
@@ -336,6 +440,15 @@ public class ProjetoController implements Serializable{
 		throw new CadastroException("Projeto nao encontrado");
 	}
 	
+	/**
+	 * O metodo ira modificar algum atributo de um projeto.
+	 * @param codigoDoProjeto O codigo do projeto que sera modificado.
+	 * @param atributo O atributo que sera modificado.
+	 * @param novoValor O novo valor dado ao atributo.
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 * @throws ParseException
+	 */
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException{
 		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
@@ -423,7 +536,12 @@ public class ProjetoController implements Serializable{
 		
 		
 	}
-
+	
+	/**
+	 * Remove um projeto do  banco de projetos, atraves do seu codigo.
+	 * @param codigoDoProjeto
+	 * @throws CadastroException
+	 */
 	public void removeProjeto(int codigoDoProjeto) throws CadastroException{
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
 		
@@ -436,11 +554,14 @@ public class ProjetoController implements Serializable{
 				it.remove();
 			}
 		}
-		
-
-		
 	}
 	
+	/**
+	 * O metodo vai retornar o codigo de um projeto, atraves do seu nome.
+	 * @param nome
+	 * @return
+	 * @throws CadastroException
+	 */
 	public int getCodigoProjeto(String nome) throws CadastroException {
 		Iterator<Projeto> it = this.projetos.iterator();
 		while(it.hasNext()) {
@@ -455,6 +576,7 @@ public class ProjetoController implements Serializable{
 		throw new CadastroException("Projeto nao encontrado");
 	}
 	
+
 	public void removeParticipacao(Participacao participacao) {
 		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
 			PED ped = (PED) participacao.getProjeto();

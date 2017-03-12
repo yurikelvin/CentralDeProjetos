@@ -8,6 +8,11 @@ import participacao.AlunoGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 
+/**
+ * Representa um projeto do tipo PED no sistema.
+ * @author Tiberio Gadelha
+ *
+ */
 public class PED extends Projeto {
 	
 	private CategoriaPED categoria;
@@ -30,6 +35,11 @@ public class PED extends Projeto {
 		return produtividades.toString();
 	}
 	
+	/**
+	 * O metodo vai pegar a quantidade de produtividade de um determinado tipo.
+	 * @param produtividade
+	 * @return
+	 */
 	public String getProdutividade(String produtividade) {
 		for(Produtividade p: produtividades) {
 			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
@@ -39,13 +49,23 @@ public class PED extends Projeto {
 		return null;
 	}
 	
+	/**
+	 * Adiciona uma quantidade de produtividade ao projeto, que no caso, pode ser prodAcademica, prodTecnica e patentes.
+	 * @param produtividade
+	 * @param quantidade
+	 */
 	public void adicionaProdutividade(String produtividade, int quantidade) {
 		Produtividade p = new Produtividade(produtividade, quantidade);
 		
 		produtividades.add(p);
 	}
 	
-	
+	/**
+	 * O metodo vai definir a categoria do projeto PED.
+	 * @param categoria
+	 * @return
+	 * @throws ValidacaoException
+	 */
 	public boolean setCategoria(String categoria) throws ValidacaoException {
 
 		for(CategoriaPED categ: CategoriaPED.values()) {
@@ -142,7 +162,12 @@ public class PED extends Projeto {
 		this.temProfessor = bool;
 	}
 	
-	
+	/**
+	 * O metodo vai retornar todas as produtividades do projeto.
+	 * @param descricao
+	 * @return
+	 * @throws ValidacaoException
+	 */
 	public String getRepresentacaoProdutividade(String descricao) throws ValidacaoException {
 		for(Produtividade produtividade: this.produtividades) {
 			if(produtividade.getProdutividade().equals(descricao)) {

@@ -4,7 +4,11 @@ import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.Participacao;
 
-
+/**
+ * Representacao de um projeto do tipo Extensao no sistema.
+ * @author Tiberio Gadelha
+ *
+ */
 public class Extensao extends Projeto {
 	
 	private ImpactoSocial impactoSocial;
@@ -27,7 +31,13 @@ public class Extensao extends Projeto {
 	public void setBolsa(double valor) throws ValidacaoException, CadastroException {
 		this.setDespesa("bolsa", valor);
 	}
-
+	
+	/**
+	 * O metodo vai classificar o impacto social desse projeto.
+	 * @param impacto
+	 * @return
+	 * @throws ValidacaoException
+	 */
 	public boolean setImpacto(int impacto) throws ValidacaoException {
 		for (ImpactoSocial impac : ImpactoSocial.values()) {
 			if(impac.getValorImpactoSocial() == impacto) {

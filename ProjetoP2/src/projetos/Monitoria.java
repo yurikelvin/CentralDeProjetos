@@ -6,6 +6,11 @@ import exception.ValidacaoException;
 import participacao.AlunoGraduando;
 import participacao.Participacao;
 
+/**
+ * Representa um projeto do tipo Monitoria no sistema.s
+ * @author Tiberio Gadelha
+ *
+ */
 public class Monitoria extends Projeto {
 	
 	private String disciplina;

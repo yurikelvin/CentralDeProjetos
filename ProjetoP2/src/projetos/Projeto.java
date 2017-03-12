@@ -15,6 +15,13 @@ import exception.ValidacaoException;
 import participacao.Participacao;
 import participacao.Professor;
 
+/**
+ * Classe que representa um Projeto no sistema.
+ * @author
+ * @author Tiberio Gadelha
+ * @author 
+ * @author 
+ */
 
 public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
@@ -75,10 +82,24 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return codigo;
 	}
 	
+	/**
+	 * O metodo vai calcular as despesas totais de um projeto.
+	 * @return Retorna um double com o total das despesas.
+	 */
+	
 	public double getDespesasTotal(){
 		return this.despesas.getDespesaTotal();
 		
 	}
+	
+	/**
+	 * O metodo vai adicionar um valor a um tipo de despesa. Apos ter adicionado esse valor em um tipo de despesa,
+	 * nao ha mais como mudar.
+	 * @param descricao O tipo de despesa
+	 * @param valor O valor da despesa
+	 * @throws ValidacaoException
+	 * @throws CadastroException
+	 */
 	
 	public void setDespesa(String descricao, double valor) throws ValidacaoException, CadastroException {
 		despesas.setDespesa(descricao, valor);
@@ -88,8 +109,19 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return despesas.getDespesa(descricao);
 	}
 	
+	/**
+	 * O metodo vai adicionar uma participacao ao projeto, ou seja, adicionar um novo contribuidor ao projeto.
+	 * @param participacaoASerAdicionada
+	 * @throws CadastroException
+	 */
+	
 	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
 	
+	/**
+	 * O método vai remover um participante do projeto.
+	 * @param participacaoASerRemovida A participacao que sera removida.
+	 * @throws ValidacaoException
+	 */
 	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
 		
 		boolean removeu = this.participacoes.remove(participacaoASerRemovida);
@@ -101,10 +133,22 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		
 	}
 	
+	/**
+	 * Verifica se determinada participacao ja esta no projeto, recebendo a propria participacao.
+	 * @param participacaoASerVerificada 
+	 * @return Retorna true, se a participacao estiver, e false, se nao estiver no projeto.
+	 */
+	
 	public boolean verificaParticipacao(Participacao participacaoASerVerificada){
 		return this.participacoes.contains(participacaoASerVerificada);
 	}
 	
+	/**
+	 * Verifica se determinada participacao ja esta no projeto através do cpf do participante e codigo do projeto.
+	 * @param cpf
+	 * @param codigoProjeto
+	 * @return Retorna true, se a participacao estiver, e false, se nao estiver no projeto.
+	 */
 	public boolean verificaParticipacao(String cpf, int codigoProjeto) {
 		for(Participacao participacao: this.participacoes) {
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
@@ -115,6 +159,11 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return false;
 	}
 	
+	/**
+	 * Verifica se o participante eh um professor.
+	 * @param participante
+	 * @return Retorna true, se for um professor, e false, se nao for.
+	 */
 	protected boolean ehProfessor(Participacao participante) {
 		if(participante instanceof Professor) { return true; }
 		return false;
@@ -131,6 +180,10 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return Integer.toString(this.getDuracao());
 	}
 	
+	/**
+	 * Retorna todas as pessoas associadas ao projeto, atraves de uma string.
+	 * @return
+	 */
 	public String mostraPessoasAssociadas() {
 		String pessoas = "";
 		int contador = 0;
