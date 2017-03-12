@@ -63,5 +63,17 @@ public class ExtensaoTest {
 		extensao.adicionaParticipacao(p1);
 		assertTrue(extensao.verificaParticipacao(p1));
 	}
+	
+	@Test
+	public void testRemoveParticipacao() throws CadastroException {
+		AlunoGraduando p1 = new AlunoGraduando(10, 20);
+		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
+		p1.setPessoa(pessoa);
+		p1.setProjeto(extensao);
+		extensao.adicionaParticipacao(p1);
+		assertTrue(extensao.verificaParticipacao(p1));
+		extensao.removeParticipacao(p1);
+		assertFalse(extensao.verificaParticipacao(p1));
+	}
 
 }
