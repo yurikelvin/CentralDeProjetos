@@ -18,7 +18,7 @@ public class PED extends Projeto {
 	boolean temProfessor;
 	boolean temAluno;
 	
-
+	
 	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		setCategoria(categoria);
@@ -101,7 +101,9 @@ public class PED extends Projeto {
 			
 			if(super.ehProfessor(participacaoASerAdicionada)) {
 				if(temProfessor) {
+					
 					throw new CadastroException("Projetos P&D nao podem ter mais de um professor");
+
 				} else {
 					super.participacoes.add(participacaoASerAdicionada);
 					this.temProfessor = true;
@@ -109,7 +111,10 @@ public class PED extends Projeto {
 				
 			} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
 				if(temAluno) {
+					
 					throw new CadastroException("Projetos P&D nao podem ter mais de um graduando");
+				
+			
 				} else {
 					super.participacoes.add(participacaoASerAdicionada);
 					this.temAluno = true;
@@ -129,6 +134,14 @@ public class PED extends Projeto {
 		return false;
 	}
 	
+	public void setTemAluno(boolean bool) {
+		this.temAluno = bool;
+	}
+	
+	public void setTemProfessor(boolean bool) {
+		this.temProfessor = bool;
+	}
+	
 	
 	public String getRepresentacaoProdutividade(String descricao) throws ValidacaoException {
 		for(Produtividade produtividade: this.produtividades) {
@@ -138,6 +151,11 @@ public class PED extends Projeto {
 		}
 		
 		throw new ValidacaoException("Projeto nao tem essa produtividade");
+	}
+
+	public void setTemProfessorCoordenador(boolean b) {
+		this.temProfessorCoordenador = b;
+		
 	}
 	
 	

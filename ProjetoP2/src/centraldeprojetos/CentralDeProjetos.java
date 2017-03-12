@@ -2,6 +2,7 @@ package centraldeprojetos;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -16,6 +17,7 @@ import participacao.Profissional;
 import pessoas.Pessoa;
 import pessoas.PessoaController;
 import projetos.Monitoria;
+import projetos.PED;
 import projetos.Projeto;
 import projetos.ProjetoController;
 import validacao.ValidaPessoa;
@@ -25,12 +27,12 @@ public class CentralDeProjetos implements Serializable{
 
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
-	private HashSet<Participacao> participacoes; 
+	private ArrayList<Participacao> participacoes; 
 	
 	public CentralDeProjetos() {
 		pessoaController = new PessoaController();
 		projetoController = new ProjetoController();
-		participacoes = new HashSet<>();
+		participacoes = new ArrayList<>();
 	}
 
 	public String cadastraPessoa(String cpf, String nome, String email) throws ValidacaoException, CadastroException {
@@ -165,6 +167,7 @@ public class CentralDeProjetos implements Serializable{
 			graduando.setParticipacao(participacao);
 			
 			this.participacoes.add(participacao);
+			
 		}
 		
 	}
@@ -251,14 +254,27 @@ public class CentralDeProjetos implements Serializable{
 		while(it.hasNext()) {
 			Participacao participacao = it.next();
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
-				this.participacoes.remove(participacao);
+				this.projetoController.removeParticipacao(participacao);
 				projeto.removeParticipacao(participacao);
 				pessoa.removeParticipacao(participacao);
+				it.remove();
+				return true;
 			}
 		}
 		
 
 		throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
+	}
+
+
+
+	public String mostraParticipacoes() {
+		String toString = "";
+		for(Participacao participacao: participacoes) {
+			toString += participacao.getPessoa().getCpf() + " " + participacao.getProjeto().getCodigo() + " " + participacao.getProjeto().getNome() + System.lineSeparator();
+		}
+		
+		return toString;
 	}
 	
 	

@@ -7,6 +7,9 @@ import java.util.TreeSet;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
+import participacao.Participacao;
+import participacao.Professor;
 import validacao.Validacao;
 
 public class ProjetoController implements Serializable{
@@ -450,6 +453,35 @@ public class ProjetoController implements Serializable{
 		
 		
 		throw new CadastroException("Projeto nao encontrado");
+	}
+	
+	public void removeParticipacao(Participacao participacao) {
+		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
+			PED ped = (PED) participacao.getProjeto();
+			Professor professor = (Professor) participacao;
+			if(ped.getCategoria().equals("coop") && professor.getCoordenador() == true) {
+				ped.setTemProfessorCoordenador(false);
+			} 
+			if(!ped.getCategoria().equals("coop")) {
+				ped.setTemProfessor(false);
+			}
+			
+		} else if(participacao instanceof AlunoGraduando && participacao.getProjeto() instanceof PED) {
+			PED ped = (PED) participacao.getProjeto();
+			if(!ped.getCategoria().equals("coop")) {
+				ped.setTemAluno(false);
+			}
+		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof PET) {
+			PET pet = (PET) participacao.getProjeto();
+			Professor prof = (Professor) participacao;
+			if(prof.getCoordenador()) {
+				pet.setTemTutor(false);
+			}
+		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof Monitoria) {
+			Monitoria monitoria = (Monitoria) participacao.getProjeto();
+			monitoria.setProfessor(false);
+		} 
+		
 	}
 	
 	

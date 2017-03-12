@@ -59,6 +59,10 @@ public class Monitoria extends Projeto {
 		return Integer.toString(this.getRendimento());
 	}
 	
+	public void setProfessor(boolean b) {
+		this.temProfessor = b;
+	}
+	
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {

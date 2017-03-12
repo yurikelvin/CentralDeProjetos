@@ -96,6 +96,10 @@ public class PET extends Projeto {
 		
 	}
 	
+	public void setTemTutor(boolean b) {
+		this.temTutor = b;
+	}
+	
 	public String getRepresentacaoProdutividade(String descricao) throws ValidacaoException {
 		for(Produtividade produtividade: this.produtividades) {
 			if(produtividade.getProdutividade().equals(descricao)) {

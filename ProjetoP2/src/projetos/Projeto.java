@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import comparator.ParticipacaoPeloNomeComparator;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.Participacao;
@@ -89,25 +91,27 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
 	
 	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
-		for(Participacao participacao: this.participacoes) {
-			if(participacao.equals(participacaoASerRemovida)) {
-				participacoes.remove(participacao);
-				break;
-			}
+		
+		boolean removeu = this.participacoes.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
 			throw new ValidacaoException("Participacao nao encontrada");
 		}
+
 		
 	}
 	
 	public boolean verificaParticipacao(Participacao participacaoASerVerificada){
-		Iterator<Participacao> it = participacoes.iterator();
-		
-		while(it.hasNext()){
-			Participacao participacaoProcurada = it.next();
-			if(participacaoProcurada.equals(participacaoASerVerificada)){
+		return this.participacoes.contains(participacaoASerVerificada);
+	}
+	
+	public boolean verificaParticipacao(String cpf, int codigoProjeto) {
+		for(Participacao participacao: this.participacoes) {
+			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -130,6 +134,8 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	public String mostraPessoasAssociadas() {
 		String pessoas = "";
 		int contador = 0;
+		ParticipacaoPeloNomeComparator nomeParticipacaoComparator = new ParticipacaoPeloNomeComparator();
+		Collections.sort(participacoes, nomeParticipacaoComparator);
 		for(Participacao participacao: participacoes) {
 		
 			if(contador >= 1) {

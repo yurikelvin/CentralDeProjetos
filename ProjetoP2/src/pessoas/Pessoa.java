@@ -89,11 +89,9 @@ public class Pessoa implements Serializable{
 	}
 	
 	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
-		for(Participacao participacao: this.projetosParticipados) {
-			if(participacao.equals(participacaoASerRemovida)) {
-				this.projetosParticipados.remove(participacao);
-				break;
-			}
+		boolean removeu = this.projetosParticipados.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
 			throw new ValidacaoException("Participacao nao encontrada");
 		}
 		

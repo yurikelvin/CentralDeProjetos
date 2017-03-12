@@ -248,7 +248,7 @@ public class Facade {
 
 	public void iniciaSistema() throws Exception {
 		
-		this.centralDeProjetos = (CentralDeProjetos) restauraCentralProjetos("cdp.ser");
+		this.centralDeProjetos = (CentralDeProjetos) restauraCentralProjetos("cdpComputacao.ser");
 
 		
 	}
@@ -272,7 +272,7 @@ public class Facade {
 	public void fechaSistema() throws IOException {
 		
 		try{
-			try(ObjectOutputStream arqObjectos = new ObjectOutputStream(new FileOutputStream("cdp.ser"))){
+			try(ObjectOutputStream arqObjectos = new ObjectOutputStream(new FileOutputStream("cdpComputacao.ser"))){
 				arqObjectos.writeObject(this.centralDeProjetos);
 			}
 		}catch(IOException e){
