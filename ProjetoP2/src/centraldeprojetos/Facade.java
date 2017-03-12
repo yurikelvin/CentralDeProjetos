@@ -17,7 +17,7 @@ public class Facade {
 
 	private CentralDeProjetos centralDeProjetos;
 	
-	// metodos de centralDeProjetos
+	// metodos de gerencia de Pessoa
 	
 	public String cadastraPessoa(String cpf, String nome, String email) throws ValidacaoException, CadastroException{
 		
@@ -67,7 +67,7 @@ public class Facade {
 		}
 	}
 	
-	// metodos de centralDeProjetos
+	// metodos de gerencia de Associacao entre Pessoa e Projeto
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras)
 			throws CadastroException, ValidacaoException {
@@ -141,7 +141,7 @@ public class Facade {
 		}
 	}
 
-	// metodos de ProjetoController
+	// metodos de gerencia de projetos
 	
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException {
 		int codigo = 0;
