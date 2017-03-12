@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
@@ -34,10 +33,11 @@ public class CentralDeProjetos implements Serializable{
 		projetoController = new ProjetoController();
 		participacoes = new ArrayList<>();
 	}
-
+	
 	public String cadastraPessoa(String cpf, String nome, String email) throws ValidacaoException, CadastroException {
 		return pessoaController.cadastraPessoa(cpf, nome, email);
 	}
+	
 
 	public String getInfoPessoa(String cpf, String atributo)
 			throws ValidacaoException, IllegalArgumentException, CadastroException {
@@ -226,7 +226,7 @@ public class CentralDeProjetos implements Serializable{
 	}
 	
 	
-	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws ValidacaoException {
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		

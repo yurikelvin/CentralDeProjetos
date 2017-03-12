@@ -118,7 +118,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
 	
 	/**
-	 * O método vai remover um participante do projeto.
+	 * O mï¿½todo vai remover um participante do projeto.
 	 * @param participacaoASerRemovida A participacao que sera removida.
 	 * @throws ValidacaoException
 	 */
@@ -144,7 +144,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	}
 	
 	/**
-	 * Verifica se determinada participacao ja esta no projeto através do cpf do participante e codigo do projeto.
+	 * Verifica se determinada participacao ja esta no projeto atraves do cpf do participante e codigo do projeto.
 	 * @param cpf
 	 * @param codigoProjeto
 	 * @return Retorna true, se a participacao estiver, e false, se nao estiver no projeto.

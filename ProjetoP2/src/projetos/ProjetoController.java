@@ -86,7 +86,7 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * O metodo vai validar os parametros para criar um projeto do tipo PET,
-	 * depois, através da factoryProjeto, vai crirar um Pet.
+	 * depois, atraves da factoryProjeto, vai crirar um Pet.
 	 * @param nome O nome do Pet
 	 * @param objetivo Objetivo do Pet
 	 * @param impacto O impacto que o projeto ira trazer a sociedade
