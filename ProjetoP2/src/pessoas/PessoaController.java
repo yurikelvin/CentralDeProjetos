@@ -7,6 +7,7 @@ import java.util.Iterator;
 //import easyaccept.EasyAccept;
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
 import participacao.Participacao;
 import projetos.Projeto;
 import validacao.ValidaPessoa;
@@ -162,6 +163,9 @@ public class PessoaController implements Serializable{
 	 */
 	
 	public Pessoa getPessoa(String cpf) throws CadastroException {
+		
+		ValidaPessoa.validaCPF(cpf);
+		
 		for(Pessoa pessoaProcurada: pessoas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {
 				return pessoaProcurada;
@@ -187,6 +191,13 @@ public class PessoaController implements Serializable{
 		return false;
 	}
 	
+	public boolean associaPessoa(Participacao participacao, String cpf) throws CadastroException {
+		Pessoa pessoa = this.getPessoa(cpf);
+		
+		participacao.setPessoa(pessoa);
+		return true;
+	}
+	
 
 	@Override
 	public String toString() {
@@ -195,5 +206,17 @@ public class PessoaController implements Serializable{
 			to += pessoa + FIM_DE_LINHA;
 		}
 		return to;
+	}
+
+	public void adicionaParticipacao(Participacao participacao, String cpf) throws CadastroException {
+		Pessoa pessoa = this.getPessoa(cpf);
+		
+		pessoa.setParticipacao(participacao);
+	}
+
+	public void removeParticipacao(Participacao participacao, String cpf) throws CadastroException {
+		Pessoa pessoa = this.getPessoa(cpf);
+		pessoa.removeParticipacao(participacao);
+		
 	}
 }

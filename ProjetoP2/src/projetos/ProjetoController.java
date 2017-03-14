@@ -577,7 +577,7 @@ public class ProjetoController implements Serializable{
 	}
 	
 
-	public void removeParticipacao(Participacao participacao) {
+	public void setParametros(Participacao participacao) {
 		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
 			PED ped = (PED) participacao.getProjeto();
 			Professor professor = (Professor) participacao;
@@ -606,6 +606,27 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	public boolean associaProjeto(Participacao participacao, int codigoProjeto)  throws CadastroException {
+		
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		participacao.setProjeto(projeto);
+		
+		return true;
+		
+	}
+	
+	public void adicionaParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		projeto.adicionaParticipacao(participacao);
+	}
+	
+	public void removeParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		projeto.removeParticipacao(participacao);
+	}
+	
 	
 	@Override
 	public String toString() {
@@ -615,5 +636,7 @@ public class ProjetoController implements Serializable{
 		}
 		return toString;
 	}
+	
+	
 
 }

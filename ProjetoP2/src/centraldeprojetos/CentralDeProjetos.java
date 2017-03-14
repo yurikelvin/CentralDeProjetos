@@ -155,16 +155,15 @@ public class CentralDeProjetos implements Serializable{
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
 		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
-			Pessoa graduando = this.pessoaController.getPessoa(cpf);
-			Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
 			
 			AlunoGraduando participacao = new AlunoGraduando(valorHora, qtdHoras);
-			participacao.setPessoa(graduando);
-			participacao.setProjeto(projeto);
 			
+			this.pessoaController.associaPessoa(participacao, cpf);
+			this.projetoController.associaProjeto(participacao, codigoProjeto);
 			
-			projeto.adicionaParticipacao(participacao);
-			graduando.setParticipacao(participacao);
+
+			this.projetoController.adicionaParticipacao(participacao, codigoProjeto);
+			this.pessoaController.adicionaParticipacao(participacao, cpf);
 			
 			this.participacoes.add(participacao);
 			
@@ -182,15 +181,14 @@ public class CentralDeProjetos implements Serializable{
 		
 		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
 			
-			Pessoa profissional = this.pessoaController.getPessoa(cpf);
-			Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
-			
 			Profissional participacao = new Profissional(cargo.toLowerCase(), valorHora, qtdHoras);
-			participacao.setPessoa(profissional);
-			participacao.setProjeto(projeto);
 			
-			profissional.setParticipacao(participacao);
-			projeto.adicionaParticipacao(participacao);
+			this.pessoaController.associaPessoa(participacao, cpf);
+			this.projetoController.associaProjeto(participacao, codigoProjeto);
+			
+
+			this.projetoController.adicionaParticipacao(participacao, codigoProjeto);
+			this.pessoaController.adicionaParticipacao(participacao, cpf);
 			
 			this.participacoes.add(participacao);
 		}
@@ -207,17 +205,15 @@ public class CentralDeProjetos implements Serializable{
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
 		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
-			Pessoa posGraduando = this.pessoaController.getPessoa(cpf);
-			Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
 			
 			AlunoPosGraduando participacao = new AlunoPosGraduando( valorHora, qtdHoras, associacao);
-			participacao.setPessoa(posGraduando);
-			participacao.setProjeto(projeto);
+
+			this.pessoaController.associaPessoa(participacao, cpf);
+			this.projetoController.associaProjeto(participacao, codigoProjeto);
 			
 
-			
-			posGraduando.setParticipacao(participacao);
-			projeto.adicionaParticipacao(participacao);
+			this.projetoController.adicionaParticipacao(participacao, codigoProjeto);
+			this.pessoaController.adicionaParticipacao(participacao, cpf);
 			
 			this.participacoes.add(participacao);
 		}
@@ -254,9 +250,11 @@ public class CentralDeProjetos implements Serializable{
 		while(it.hasNext()) {
 			Participacao participacao = it.next();
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
-				this.projetoController.removeParticipacao(participacao);
-				projeto.removeParticipacao(participacao);
-				pessoa.removeParticipacao(participacao);
+				
+				this.projetoController.setParametros(participacao);
+				this.projetoController.removeParticipacao(participacao, codigoProjeto);
+				this.pessoaController.removeParticipacao(participacao, cpf);
+
 				it.remove();
 				return true;
 			}
