@@ -9,7 +9,7 @@ import exception.ValidacaoException;
  * Classe responsavel por fazer a validacao unicamente de Pessoa.
  * 
  * @author Yuri Silva
- * @author
+ * @author Tiberio Gadelha
  * @author
  * @author
  *

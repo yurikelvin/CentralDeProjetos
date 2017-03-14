@@ -3,20 +3,15 @@ package participacao;
 import exception.ValidacaoException;
 
 /**
- * 
+ * Representa um Profissional no sistema.
  * @author Yuri Silva
+ * @author Tiberio Gadelha
  *
  */
 public class Profissional extends Participacao {
 	
 	private Cargo cargo;
 	
-	/**
-	 * 
-	 * @param cargo
-	 * @param valorHora
-	 * @param qtdHoras
-	 */
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -25,9 +20,9 @@ public class Profissional extends Participacao {
 	}
 	
 	/**
-	 * 
-	 * @param cargo
-	 * @throws ValidacaoException
+	 * O metodo vai definir o cargo do profissional.
+	 * @param cargo A string do cargo que sera definido.
+	 * @throws ValidacaoException Caso o cargo nao esteja definido no enum, uma excecao sera retornada.
 	 */
 
 	private boolean setCargo(String cargo) throws ValidacaoException {
@@ -40,10 +35,6 @@ public class Profissional extends Participacao {
 		throw new ValidacaoException("Cargo nao cadastrado");
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	
 	public String getCargo() {
 		return cargo.getCargo();

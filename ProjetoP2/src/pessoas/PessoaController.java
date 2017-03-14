@@ -137,7 +137,6 @@ public class PessoaController implements Serializable{
 		
 		
 		
-		
 	}
 	
 	/**
@@ -155,10 +154,10 @@ public class PessoaController implements Serializable{
 	
 	
 	/**
-	 * 
-	 * @param cpf
-	 * @return
-	 * @throws CadastroException
+	 * Prodcura uma pessoa cadastrada no sistema atraves do seu cpf
+	 * @param cpf CPF da pessoa que sera procurada
+	 * @return Retorna o objeto da Pessoa procurada.
+	 * @throws CadastroException Lanca uma excecao caso o cpf ainda nao tenha sido cadastrado no sistema.
 	 */
 	
 	public Pessoa getPessoa(String cpf) throws CadastroException {
@@ -172,11 +171,10 @@ public class PessoaController implements Serializable{
 	}
 	
 	/**
-	 * 
-	 * @param cpf
-	 * @return
+	 * Verifica se determinado cpf estah cadastrado no sistema
+	 * @param cpf CPF que vai ser procurado
+	 * @return Retorna true, se o cpf estiver cadastrado no sistema, e false, se nao estiver.
 	 */
-	
 	private boolean temPessoa(String cpf) {
 		for(Pessoa pessoaProcurada: pessoas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {

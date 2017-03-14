@@ -1,8 +1,9 @@
 package participacao;
 
 /**
- * 
+ * Representa um aluno graduando no sistema.
  * @author Yuri Silva
+ * @author Tiberio Gadelha
  *
  */
 

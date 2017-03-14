@@ -6,9 +6,9 @@ import pessoas.Pessoa;
 import projetos.Projeto;
 
 /**
- * 
+ * Representa uma participacao no sistema.
  * @author Yuri Silva
- *
+ * @author Tiberio Gadelha
  */
 
 public abstract class Participacao implements Serializable {
@@ -90,8 +90,8 @@ public abstract class Participacao implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * O metodo ira mostrar a pessoa que esta associada a participacao.
+	 * @return Retorna todos os dados da pessoa associada.
 	 */
 	
 	public String mostraPessoa() {
@@ -99,8 +99,8 @@ public abstract class Participacao implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * O metodo ira mostrar o projeto que esta associado a participacao
+	 * @return Retorna o nome do projeto associado.
 	 */
 	
 	public String mostraProjeto() {
@@ -136,12 +136,6 @@ public abstract class Participacao implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
 	
 
 }

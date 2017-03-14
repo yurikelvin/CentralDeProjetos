@@ -488,7 +488,6 @@ public class Facade {
 	
 	public static void main(String[] args) {
 		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt"};
-		// Easy Accept
 		//EasyAccept.main(args); 
 	}
 }

@@ -3,11 +3,10 @@ package participacao;
 import exception.ValidacaoException;
 
 /**
- * 
+ * Representa um aluno de pos-graduacao no sistema.
  * @author Yuri Silva
- *
+ * @author Tiberio Gadelha
  */
-
 public class AlunoPosGraduando extends Participacao {
 	
 	private Vinculo vinculo;
@@ -25,9 +24,9 @@ public class AlunoPosGraduando extends Participacao {
 	}
 	
 	/**
-	 * 
-	 * @param vinculo
-	 * @throws ValidacaoException
+	 * O metodo vai definir o tipo de vinculo do aluno de pos-graduacao.
+	 * @param vinculo A string do vinculo que sera definido.
+	 * @throws ValidacaoException Caso nao seja um vinculo valido, uma excecao sera lancada
 	 */
 	
 	
@@ -43,8 +42,8 @@ public class AlunoPosGraduando extends Participacao {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * O metodo vai retornar o tipo de vinculo do aluno.
+	 * @return Retorna o vinculo do aluno, como string.
 	 */
 	
 	public String getVinculo() {

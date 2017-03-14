@@ -3,9 +3,9 @@ package participacao;
 import java.io.Serializable;
 
 /**
- * 
+ * O enum representa os tipos de cargo de um Profissional.
  * @author Yuri Silva
- *
+ * @author Tiberio Gadelha
  */
 
 public enum Cargo implements Serializable {

@@ -67,8 +67,8 @@ public class Pessoa implements Serializable{
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * O metodo ira mostrar todas as participacoes da pessoa.
+	 * @return Retorna atraves de string as participacoes.
 	 */
 	
 	public String mostraParticipacoes() {
@@ -88,6 +88,11 @@ public class Pessoa implements Serializable{
 		return participacoes;
 	}
 	
+	/**
+	 * Remove determinada participacao dos projetosParticipados da pessoa.
+	 * @param participacaoASerRemovida A participacao que sera removida
+	 * @throws ValidacaoException Lanca excecao se a partipacao nao existir nos projetosParticipados;
+	 */
 	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
 		boolean removeu = this.projetosParticipados.remove(participacaoASerRemovida);
 		

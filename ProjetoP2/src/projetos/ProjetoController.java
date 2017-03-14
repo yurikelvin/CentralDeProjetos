@@ -61,9 +61,8 @@ public class ProjetoController implements Serializable{
 	 * @param dataInicio Data de inicio da monitoria
 	 * @param duracao Tempo de duracao
 	 * @return Retorna o codigo do projeto como int.
-	 * @throws ValidacaoException
-	 * @throws ParseException
-	 * @throws CadastroException
+	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
 	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException{
 		Validacao.validaString(nome, "Nome nulo ou vazio");
@@ -97,8 +96,8 @@ public class ProjetoController implements Serializable{
 	 * @param dataInicio A data que o projeto iniciou
 	 * @param duracao A duracao total do projeto
 	 * @return Retorna um inteiro que representa o codigo do projeto.
-	 * @throws ValidacaoException
-	 * @throws ParseException
+	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
 	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
@@ -127,8 +126,8 @@ public class ProjetoController implements Serializable{
 	 * @param dataInicio A data que o projeto iniciou
 	 * @param duracao A duracao total do projeto.
 	 * @return Retorna um inteiro que representa seu codigo.
-	 * @throws ValidacaoException
-	 * @throws ParseException
+	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
 	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
@@ -155,8 +154,8 @@ public class ProjetoController implements Serializable{
 	 * @param dataInicio Data de inicio do projeto
 	 * @param duracao A duracao total do projeto.
 	 * @return Retorna um inteiro que representa eu codigo.
-	 * @throws ValidacaoException
-	 * @throws ParseException
+	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
 	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws ValidacaoException, ParseException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
@@ -180,8 +179,8 @@ public class ProjetoController implements Serializable{
 	 * @param codigoProjeto O codigo do projeto
 	 * @param atributo A informacao desejada.
 	 * @return Retorna a informacao em forma de string.
-	 * @throws CadastroException
-	 * @throws ValidacaoException
+	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
 	 */
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException{
 		Validacao.validaInt(codigoProjeto,"Codigo invalido");
@@ -277,12 +276,12 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * Verifica se o projeto eh do tipo Monitoria.
-	 * @param projeto
-	 * @param atributo
-	 * @return
+	 * @param projeto O projeto que sera verificado
+	 * @param atributo O atributo que sera verificado.
+	 * @return Retorna true, se for do tipo monitoria, e false, se nao for.
 	 */
 	
-	private boolean ehMonitoria(Projeto projeto,String atributo){
+	private boolean ehMonitoria(Projeto projeto, String atributo){
 		
 		if(projeto instanceof Monitoria){
 			return true;
@@ -310,9 +309,9 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * Verifica se o projeto eh do tipo Extensao
-	 * @param projeto
-	 * @param atributo
-	 * @return
+		 * @param projeto O projeto que sera verificado
+	 * @param atributo O atributo que sera verificado.
+	 * @return Retorna true, se for do tipo Extensao, e false, se nao for.
 	 */
 	
 	private boolean ehExtensao(Projeto projeto,String atributo){
@@ -343,9 +342,9 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * Verifica se o projeto eh do tipo PED.
-	 * @param projeto
-	 * @param atributo
-	 * @return
+	* @param projeto O projeto que sera verificado
+	 * @param atributo O atributo que sera verificado.
+	 * @return Retorna true, se for do tipo PED, e false, se nao for.
 	 */
 	private boolean ehPED(Projeto projeto,String atributo){
 		
@@ -385,9 +384,9 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * Verifica se o projeto eh do tipo PET.
-	 * @param projeto
-	 * @param atributo
-	 * @return
+	 * @param projeto O projeto que sera verificado
+	 * @param atributo O atributo que sera verificado.
+	 * @return Retorna true, se for do tipo PET, e false, se nao for.
 	 */
 	private boolean ehPET(Projeto projeto,String atributo){
 		
@@ -426,11 +425,12 @@ public class ProjetoController implements Serializable{
 	}
 	
 	/**
-	 * O metodo ira procurar um projeto atraves do seu codigo, e retornando-o caso ele exista. Se nao, lanca uma excessao.
-	 * @param codigoProjeto
-	 * @return
-	 * @throws CadastroException
-	 */
+	 * O metodo ira procurar um projeto atraves do seu codigo, e retornando-o caso ele exista. 
+	 * Se nao, lanca uma excessao.
+	 * @param codigoProjeto O codigo do projeto
+	 * @return Retorna o projeto procurado
+	 * @throws CadastroException Caso o projeto nao exista no sistema, uma excecao eh lancada.
+	 */ 
 	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
@@ -445,9 +445,8 @@ public class ProjetoController implements Serializable{
 	 * @param codigoDoProjeto O codigo do projeto que sera modificado.
 	 * @param atributo O atributo que sera modificado.
 	 * @param novoValor O novo valor dado ao atributo.
-	 * @throws CadastroException
-	 * @throws ValidacaoException
-	 * @throws ParseException
+	 * @throws ValidacaoException Lanca uma excecao, se ocorrer um erro na validacao das strings.
+	 * @throws ParseException Lanca uma excecao, se ocorrer um erro na validacao da data 
 	 */
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException{
 		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
@@ -539,8 +538,8 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * Remove um projeto do  banco de projetos, atraves do seu codigo.
-	 * @param codigoDoProjeto
-	 * @throws CadastroException
+	 * @param codigoDoProjeto O codigo do projeto que sera removido
+	 * @throws CadastroException Retorna uma excecao, se o projeto nao for cadastrado no sistema.
 	 */
 	public void removeProjeto(int codigoDoProjeto) throws CadastroException{
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
@@ -558,9 +557,9 @@ public class ProjetoController implements Serializable{
 	
 	/**
 	 * O metodo vai retornar o codigo de um projeto, atraves do seu nome.
-	 * @param nome
-	 * @return
-	 * @throws CadastroException
+	 * @param nome O nome do projeto que sera procurado.
+	 * @return Retorna o inteiro que representa o codigo
+	 * @throws CadastroException Retorna uma excecao, se o projeto nao for cadastrado no sistema.
 	 */
 	public int getCodigoProjeto(String nome) throws CadastroException {
 		Iterator<Projeto> it = this.projetos.iterator();

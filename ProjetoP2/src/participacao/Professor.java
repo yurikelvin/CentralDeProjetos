@@ -1,21 +1,15 @@
 package participacao;
 
 /**
- * 
+ * Representa um Professor no sistema, que pode ser coordenador..
  * @author Yuri Silva
- *
+ * @author Tiberio Gadelha
  */
 
 public class Professor extends Participacao {
 	
 	boolean coordenador;
 	
-	/**
-	 * 
-	 * @param valorHora
-	 * @param qtdHoras
-	 * @param coordenador
-	 */
 
 	public Professor(double valorHora, int qtdHoras, boolean coordenador) {
 		super(valorHora, qtdHoras);

@@ -22,6 +22,13 @@ import projetos.ProjetoController;
 import validacao.ValidaPessoa;
 import validacao.Validacao;
 
+/**
+ * A classe realiza todas as operacoes possiveis com projeto, atraves da classe projetoController,
+ * Salva todas as participacoes ja feitas nos projetos,
+ * e pode cadastrar/editar/remover uma pessoa do sistema.
+ * @author Tiberio Gadelha
+ *
+ */
 public class CentralDeProjetos implements Serializable{
 
 	private PessoaController pessoaController;
@@ -34,21 +41,58 @@ public class CentralDeProjetos implements Serializable{
 		participacoes = new ArrayList<>();
 	}
 	
+	/**
+	 * Cadastra uma nova pessoa no sistema, atraves do cpf, nome e email.
+	 * {@link PessoaController#cadastraPessoa(String, String, String)}
+	 * @param cpf CPF da pessoa que sera cadastrada
+	 * @param nome O nome da pessoa que sera cadastrada
+	 * @param email O email da pessoa que sera cadastrada
+	 * @return	Retorna o cpf como uma string.
+	 * @throws ValidacaoException Caso Nome ou Cpf ou Email sejam invalidos.
+	 * @throws CadastroException Caso a cpf a ser cadastrada ja esteja no sistema.
+	 */
 	public String cadastraPessoa(String cpf, String nome, String email) throws ValidacaoException, CadastroException {
 		return pessoaController.cadastraPessoa(cpf, nome, email);
 	}
 	
-
+	/**
+	 * Pega uma determinada informacao acerca de uma pessoa cadastrada no sistema.
+	 * {@link PessoaController#getInfoPessoa(String, String)}
+	 * @param cpf CPF da pessoa que deseja buscar
+	 * @param atributo A informacao desejada.
+	 * @return Retorna o valor do atributo na forma de string
+	 * @throws ValidacaoException
+	 * @throws IllegalArgumentException Caso o item pesquisado nao seja "Nome" ou "Email".
+	 * @throws CadastroException Caso a pessoa nao esteja cadastrada.
+	 */
 	public String getInfoPessoa(String cpf, String atributo)
 			throws ValidacaoException, IllegalArgumentException, CadastroException {
 		return pessoaController.getInfoPessoa(cpf, atributo);
 	}
-
+	
+	/**
+	 * Modifica uma determinada infomacao acerca de uma pessoa cadastrada no sistema.
+	 * {@link PessoaController#editaPessoa(String, String, String)}
+	 * @param cpf CPF da pessoa que sera modificada
+	 * @param atributo O atributo que sera modificado
+	 * @param novoValor O novo valor do atributo
+	 * @throws CadastroException Caso a pessoa ligada ao cpf nao esteja cadastrada.
+	 * @throws ValidacaoException Caso o cpf nao seja valido ou novoValor nulo/vazio.
+	 * @throws IllegalArgumentException Caso o atributo seja cpf ou atributo invalido.
+	 */
 	public void editaPessoa(String cpf, String atributo, String novoValor)
 			throws CadastroException, ValidacaoException, IllegalArgumentException {
 		pessoaController.editaPessoa(cpf, atributo, novoValor);
 	}
-
+	
+	
+	/**
+	 * Remove determinada pessoa do sistema pelo seu cpf.
+	 * {@link PessoaController#removePessoa(String)}
+	 * @param cpf CPF da pessoa que sera removida
+	 * @throws CadastroException
+	 * @throws ValidacaoException
+	 */
 	public void removePessoa(String cpf) throws CadastroException, ValidacaoException {
 		pessoaController.removePessoa(cpf);
 	}
