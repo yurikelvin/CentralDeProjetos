@@ -3,22 +3,20 @@ package centraldeprojetos;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
+
 import participacao.AlunoGraduando;
 import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 import participacao.Profissional;
-import pessoas.Pessoa;
+
 import pessoas.PessoaController;
-import projetos.Monitoria;
-import projetos.PED;
-import projetos.Projeto;
 import projetos.ProjetoController;
+
 import validacao.ValidaPessoa;
 import validacao.Validacao;
 
@@ -27,6 +25,8 @@ public class CentralDeProjetos implements Serializable{
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;
 	private ArrayList<Participacao> participacoes; 
+	
+	private static final String FIM_DE_LINHA = System.lineSeparator();
 	
 	public CentralDeProjetos() {
 		pessoaController = new PessoaController();
@@ -51,10 +51,6 @@ public class CentralDeProjetos implements Serializable{
 
 	public void removePessoa(String cpf) throws CadastroException, ValidacaoException {
 		pessoaController.removePessoa(cpf);
-	}
-
-	public Pessoa getPessoa(String cpf) throws CadastroException {
-		return pessoaController.getPessoa(cpf);
 	}
 
 	public String mostraPessoas() {
@@ -88,10 +84,6 @@ public class CentralDeProjetos implements Serializable{
 		return projetoController.getInfoProjeto(codigoProjeto, atributo);
 	}
 
-	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
-		return projetoController.getProjetos(codigoProjeto);
-	}
-
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor)
 			throws CadastroException, ValidacaoException, ParseException {
 		projetoController.editaProjeto(codigoDoProjeto, atributo, novoValor);
@@ -116,37 +108,29 @@ public class CentralDeProjetos implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
-		Pessoa professor = this.pessoaController.getPessoa(cpf);
-		Projeto projeto = this.projetoController.getProjetos(codigoProjeto);
+		this.pessoaController.pesquisaPessoa(cpf);
+		this.projetoController.pesquisaProjeto(codigoProjeto);
 		
-		this.validaHoraProfessor(valorHora, projeto);
+		
 		
 		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
 
 			Professor participacao = new Professor(valorHora, qtdHoras, coordenador);
-			participacao.setPessoa(professor);
-			participacao.setProjeto(projeto);
 			
-			projeto.adicionaParticipacao(participacao);
-			professor.setParticipacao(participacao);
+			this.projetoController.validaHoraProfessor(valorHora, codigoProjeto);
+			
+			this.pessoaController.associaPessoa(participacao, cpf);
+			this.projetoController.associaProjeto(participacao, codigoProjeto);
+			
+
+			this.projetoController.adicionaParticipacao(participacao, codigoProjeto);
+			this.pessoaController.adicionaParticipacao(participacao, cpf);
+			
 			this.participacoes.add(participacao);
 		}
 		
 	}
 	
-	private boolean validaHoraProfessor(double valorHora, Projeto projeto) {
-		if(projeto instanceof Monitoria) {
-			Validacao.validaDouble(valorHora, "Valor da hora invalido");
-			if(valorHora > 0) {
-				throw new ValidacaoException("Valor da hora de um professor da monitoria deve ser zero");
-			}
-			return true;
-		}
-		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
-		return false;
-		
-	}
-
 	public void associaGraduando(String cpf, int codigoProjeto, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
@@ -195,7 +179,6 @@ public class CentralDeProjetos implements Serializable{
 		
 	}
 	
-	
 	public void associaPosGraduando(String cpf, int codigoProjeto, String associacao, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
@@ -221,7 +204,6 @@ public class CentralDeProjetos implements Serializable{
 	
 	}
 	
-	
 	public boolean pesquisaParticipacao(String cpf, int codigoProjeto) throws ValidacaoException {
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
@@ -241,9 +223,8 @@ public class CentralDeProjetos implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
-		Pessoa pessoa = pessoaController.getPessoa(cpf);
-		Projeto projeto = projetoController.getProjetos(codigoProjeto);
-		
+		this.pessoaController.pesquisaPessoa(cpf);
+		this.projetoController.pesquisaProjeto(codigoProjeto);
 
 		
 		Iterator<Participacao> it = this.participacoes.iterator();
@@ -269,7 +250,7 @@ public class CentralDeProjetos implements Serializable{
 	public String mostraParticipacoes() {
 		String toString = "";
 		for(Participacao participacao: participacoes) {
-			toString += participacao.getPessoa().getCpf() + " " + participacao.getProjeto().getCodigo() + " " + participacao.getProjeto().getNome() + System.lineSeparator();
+			toString += participacao.getPessoa().getCpf() + " " + participacao.getProjeto().getCodigo() + " " + participacao.getProjeto().getNome() + FIM_DE_LINHA;
 		}
 		
 		return toString;

@@ -425,13 +425,7 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
-	/**
-	 * O metodo ira procurar um projeto atraves do seu codigo, e retornando-o caso ele exista. Se nao, lanca uma excessao.
-	 * @param codigoProjeto
-	 * @return
-	 * @throws CadastroException
-	 */
-	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
+	private Projeto getProjetos(int codigoProjeto) throws CadastroException {
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
 				return projetoAserEncontrado;
@@ -627,6 +621,18 @@ public class ProjetoController implements Serializable{
 		projeto.removeParticipacao(participacao);
 	}
 	
+	public boolean pesquisaProjeto(int codigoProjeto) throws CadastroException {
+		Iterator<Projeto> it = this.projetos.iterator();
+		while(it.hasNext()) {
+			Projeto projetoProcurado = it.next();
+			if(projetoProcurado.getCodigo() == codigoProjeto) {
+				return true;
+			}
+			
+		}
+		
+		throw new CadastroException("Projeto nao encontrado");
+	}
 	
 	@Override
 	public String toString() {
@@ -635,6 +641,21 @@ public class ProjetoController implements Serializable{
 			toString += projeto + FIM_DE_LINHA;
 		}
 		return toString;
+	}
+
+	public boolean validaHoraProfessor(double valorHora, int codigoProjeto) throws CadastroException, ValidacaoException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		if(projeto instanceof Monitoria) {
+			Validacao.validaDouble(valorHora, "Valor da hora invalido");
+			if(valorHora > 0) {
+				throw new ValidacaoException("Valor da hora de um professor da monitoria deve ser zero");
+			}
+			return true;
+		}
+		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
+		return false;
+		
 	}
 	
 	

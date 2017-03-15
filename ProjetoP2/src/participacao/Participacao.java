@@ -110,13 +110,13 @@ public abstract class Participacao implements Serializable {
 	public String getCpf() {
 		return pessoa.getCpf();
 	}
-	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.getPessoa().getCpf() == null) ? 0 : this.getPessoa().getCpf().hashCode());
+		result = prime * result + ((this.getCpf() == null) ? 0 : this.getCpf().hashCode());
+		result = prime * result + this.getCodigoProjeto();
 		return result;
 	}
 
@@ -129,13 +129,18 @@ public abstract class Participacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Participacao other = (Participacao) obj;
-		if (this.getPessoa().getCpf() == null) {
-			if (other.getPessoa().getCpf() != null)
+		if (this.getCpf() == null) {
+			if (other.getCpf() != null)
 				return false;
-		} else if (!this.getPessoa().getCpf().equals(other.getPessoa().getCpf()))
+		} else if (!this.getCpf().equals(other.getCpf()))
+			return false;
+		if (this.getCodigoProjeto() != other.getCodigoProjeto())
 			return false;
 		return true;
 	}
+	
+
+	
 	
 	
 	

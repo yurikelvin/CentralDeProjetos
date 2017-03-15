@@ -162,7 +162,7 @@ public class PessoaController implements Serializable{
 	 * @throws CadastroException
 	 */
 	
-	public Pessoa getPessoa(String cpf) throws CadastroException {
+	private Pessoa getPessoa(String cpf) throws CadastroException {
 		
 		ValidaPessoa.validaCPF(cpf);
 		
@@ -212,6 +212,16 @@ public class PessoaController implements Serializable{
 		Pessoa pessoa = this.getPessoa(cpf);
 		
 		pessoa.setParticipacao(participacao);
+	}
+	
+	public boolean pesquisaPessoa(String cpf) throws CadastroException {
+		for(Pessoa pessoa: this.pessoas) {
+			if(pessoa.getCpf().equals(cpf)) {
+				return true;
+			}
+		}
+		
+		throw new CadastroException("Pessoa nao encontrada");
 	}
 
 	public void removeParticipacao(Participacao participacao, String cpf) throws CadastroException {
