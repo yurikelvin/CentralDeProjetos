@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
 //import easyaccept.EasyAccept;
+
 import exception.CadastroException;
 import exception.ValidacaoException;
 
@@ -488,7 +489,7 @@ public class Facade {
 	
 	public static void main(String[] args) {
 		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt"};
-		//EasyAccept.main(args); 
+	//	EasyAccept.main(args); 
 
 
 	}
