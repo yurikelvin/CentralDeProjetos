@@ -98,10 +98,18 @@ public class PET extends Projeto {
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+		
+		this.cadastroPet(participacaoASerAdicionada);
+		super.participacoes.add(participacaoASerAdicionada);
+		
+	}
+	
+	private void cadastroPet(Participacao participacaoASerAdicionada) throws CadastroException {
+		
 		if(super.ehProfessor(participacaoASerAdicionada)) {
 			Professor prof = (Professor) participacaoASerAdicionada;
 			if(prof.getCoordenador() && this.temTutor == false) {
-				super.participacoes.add(participacaoASerAdicionada);
+				
 			} else {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
@@ -109,9 +117,8 @@ public class PET extends Projeto {
 			if(super.participacoes.contains(participacaoASerAdicionada)) {
 				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 			}
-			super.participacoes.add(participacaoASerAdicionada);
+			
 		}
-		
 	}
 	
 	public void setTemTutor(boolean b) {

@@ -72,6 +72,13 @@ public class Monitoria extends Projeto {
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
+		this.cadastraMonitoria(participacaoASerAdicionada);
+		
+		super.participacoes.add(participacaoASerAdicionada);
+		
+	}
+	
+	private void cadastraMonitoria(Participacao participacaoASerAdicionada) throws CadastroException {
 		if(super.ehProfessor(participacaoASerAdicionada)) {
 			if(this.temProfessor) {
 				throw new CadastroException("Monitoria nao pode ter mais de um professor");
@@ -79,16 +86,15 @@ public class Monitoria extends Projeto {
 				if(participacaoASerAdicionada.getValorHora() > 0) {
 					throw new CadastroException("Valor da hora de um professor da monitoria deve ser zero");
 				}
-				super.participacoes.add(participacaoASerAdicionada);
+				
 				this.temProfessor = true;
 			}
 		} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
 			if(super.participacoes.contains(participacaoASerAdicionada)) {
 				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 			}
-			super.participacoes.add(participacaoASerAdicionada);
+	
 		}
-		
 	}
 
 }

@@ -26,7 +26,7 @@ public class PED extends Projeto {
 	
 	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
-		setCategoria(categoria);
+		this.setCategoria(categoria);
 		this.produtividades = new HashSet<>();
 		
 	}
@@ -87,62 +87,17 @@ public class PED extends Projeto {
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
 		if(verificaCategoria(CategoriaPED.COOPERACAO_EMPRESAS)) { // TIPO COOPERACAO COM EMPRESAS
-			if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
-				Professor prof = (Professor) participacaoASerAdicionada;
-				if(prof.getCoordenador()) { // verifica se professor eh coordenador
-					if(this.temProfessorCoordenador == false) { // verifica se o projeto ja contem um coordenador
-						super.participacoes.add(participacaoASerAdicionada); // adiciona professor coordenador
-						this.temProfessorCoordenador = true;
-					} else {
-						throw new CadastroException("Projetos P&D nao podem ter mais de um coordenador");
-					}
-				
-				} else {
-					if(this.temProfessorCoordenador) { // verifica se ja tem um coordenador cadastrado, para cadastrar o professor
-						if(super.participacoes.contains(participacaoASerAdicionada)) {
-							throw new CadastroException("Professor ja esta cadastrado nesse projeto");
-						}
-						super.participacoes.add(participacaoASerAdicionada); // adiciona professor normal
-						
-					} else {
-						throw new CadastroException("Projetos P&D precisam de um coordenador");
-
-					} // fim de adicao de professores cooperacao
 			
-				} 					
-			} else {
-				if(super.participacoes.contains(participacaoASerAdicionada)) {
-					throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
-				}
-				super.participacoes.add(participacaoASerAdicionada); // adicao de profissionais e alunos
-			}
+			this.cadastraCOOP(participacaoASerAdicionada);
 			
-		} else {
 			
-			if(super.ehProfessor(participacaoASerAdicionada)) {
-				if(temProfessor) {
-					
-					throw new CadastroException("Projetos P&D nao podem ter mais de um professor");
-
-				} else {
-					super.participacoes.add(participacaoASerAdicionada);
-					this.temProfessor = true;
-				}
-				
-			} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
-				if(temAluno) {
-					
-					throw new CadastroException("Projetos P&D nao podem ter mais de um graduando");
-				
+		} else { // TIPO PIBIC, PIBITI e PIVIC
 			
-				} else {
-					super.participacoes.add(participacaoASerAdicionada);
-					this.temAluno = true;
-				}
-				
-			}
+			this.cadastraOutros(participacaoASerAdicionada);	
 			
 		}
+		
+		super.participacoes.add(participacaoASerAdicionada);
 					
 	}
 
@@ -152,6 +107,67 @@ public class PED extends Projeto {
 		}
 		
 		return false;
+	}
+	
+	private void cadastraCOOP(Participacao participacaoASerAdicionada) throws CadastroException {
+		
+		if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
+			Professor prof = (Professor) participacaoASerAdicionada;
+			if(prof.getCoordenador()) { // verifica se professor eh coordenador
+				if(this.temProfessorCoordenador == false) { // verifica se o projeto ja contem um coordenador
+					
+					this.temProfessorCoordenador = true;
+				} else {
+					throw new CadastroException("Projetos P&D nao podem ter mais de um coordenador");
+				}
+			
+			} else {
+				if(this.temProfessorCoordenador) { // verifica se ja tem um coordenador cadastrado, para cadastrar o professor
+					if(super.participacoes.contains(participacaoASerAdicionada)) {
+						throw new CadastroException("Professor ja esta cadastrado nesse projeto");
+					}
+					
+					
+				} else {
+					throw new CadastroException("Projetos P&D precisam de um coordenador");
+
+				} // fim de adicao de professores cooperacao
+		
+			} 					
+		} else {
+			if(super.participacoes.contains(participacaoASerAdicionada)) {
+				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
+			}
+			
+		}
+		
+	}
+	
+	private void cadastraOutros(Participacao participacaoASerAdicionada) throws CadastroException {
+		
+		if(super.ehProfessor(participacaoASerAdicionada)) {
+			if(temProfessor) {
+				
+				throw new CadastroException("Projetos P&D nao podem ter mais de um professor");
+
+			} else {
+
+				this.temProfessor = true;
+			}
+			
+		} else if(participacaoASerAdicionada instanceof AlunoGraduando) {
+			if(temAluno) {
+				
+				throw new CadastroException("Projetos P&D nao podem ter mais de um graduando");
+			
+		
+			} else {
+
+				this.temAluno = true;
+			}
+			
+		}
+		
 	}
 	
 	public void setTemAluno(boolean bool) {
