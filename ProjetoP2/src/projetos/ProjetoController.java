@@ -424,14 +424,8 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
-	/**
-	 * O metodo ira procurar um projeto atraves do seu codigo, e retornando-o caso ele exista. 
-	 * Se nao, lanca uma excessao.
-	 * @param codigoProjeto O codigo do projeto
-	 * @return Retorna o projeto procurado
-	 * @throws CadastroException Caso o projeto nao exista no sistema, uma excecao eh lancada.
-	 */ 
-	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
+	private Projeto getProjetos(int codigoProjeto) throws CadastroException {
+
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
 				return projetoAserEncontrado;
@@ -576,7 +570,7 @@ public class ProjetoController implements Serializable{
 	}
 	
 
-	public void removeParticipacao(Participacao participacao) {
+	public void setParametros(Participacao participacao) {
 		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
 			PED ped = (PED) participacao.getProjeto();
 			Professor professor = (Professor) participacao;
@@ -605,6 +599,39 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	public boolean associaProjeto(Participacao participacao, int codigoProjeto)  throws CadastroException {
+		
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		participacao.setProjeto(projeto);
+		
+		return true;
+		
+	}
+	
+	public void adicionaParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		projeto.adicionaParticipacao(participacao);
+	}
+	
+	public void removeParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		projeto.removeParticipacao(participacao);
+	}
+	
+	public boolean pesquisaProjeto(int codigoProjeto) throws CadastroException {
+		Iterator<Projeto> it = this.projetos.iterator();
+		while(it.hasNext()) {
+			Projeto projetoProcurado = it.next();
+			if(projetoProcurado.getCodigo() == codigoProjeto) {
+				return true;
+			}
+			
+		}
+		
+		throw new CadastroException("Projeto nao encontrado");
+	}
 	
 	@Override
 	public String toString() {
@@ -614,5 +641,22 @@ public class ProjetoController implements Serializable{
 		}
 		return toString;
 	}
+
+	public boolean validaHoraProfessor(double valorHora, int codigoProjeto) throws CadastroException, ValidacaoException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		if(projeto instanceof Monitoria) {
+			Validacao.validaDouble(valorHora, "Valor da hora invalido");
+			if(valorHora > 0) {
+				throw new ValidacaoException("Valor da hora de um professor da monitoria deve ser zero");
+			}
+			return true;
+		}
+		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
+		return false;
+		
+	}
+	
+	
 
 }
