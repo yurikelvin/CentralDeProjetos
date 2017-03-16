@@ -81,6 +81,7 @@ public class PessoaController implements Serializable{
 		
 		ValidaPessoa.validaCPF(cpf);
 		
+		Validacao.validaString(atributo, "atributo nulo ou vazio");
 
 		Pessoa pessoaProcurada = this.getPessoa(cpf);
 		
@@ -114,6 +115,7 @@ public class PessoaController implements Serializable{
 	public void editaPessoa(String cpf, String atributo, String novoValor) throws CadastroException, ValidacaoException, IllegalArgumentException{
 
 		ValidaPessoa.validaCPF(cpf);
+		Validacao.validaString(atributo, "atributo nulo ou vazio");
 		
 		Pessoa pessoaProcurada = this.getPessoa(cpf);
 		
