@@ -13,9 +13,10 @@ import projetos.Monitoria;
 public class AlunoGraduando extends Participacao {
 	
 	private static final double MAXIMO_PONTOS_ATINGIDOS = 0;
-	private static final double BONUS_PARTICIPACAO_MONITORIA = 1.5;
-	private static final double BONUS_PARTICIPACAO = 2.0;
+	private static final double BONUS_PARTICIPACAO_MONITORIA_SEMESTRAL = 1.5;
+	private static final double BONUS_PARTICIPACAO_SEMESTRAL = 2.0;
 	private static final double LIMITE_PONTOS = 8;
+	private static final double DURACAO_INSUFICIENTE = 0.0;
 	
 	private double totalPontos;
 
@@ -33,16 +34,16 @@ public class AlunoGraduando extends Participacao {
 		if(super.getProjeto() instanceof Monitoria) {
 			if(duracao >= 6) {
 				pontosFeitos = duracao / 6;
-				return pontosFeitos * BONUS_PARTICIPACAO_MONITORIA;
+				return pontosFeitos * BONUS_PARTICIPACAO_MONITORIA_SEMESTRAL;
 				
 			}else {
-				return 0;
+				return DURACAO_INSUFICIENTE;
 			}
 		}else {
 			pontosFeitos = duracao / 6;
 			totalPontos += pontosFeitos;
 			if(totalPontos <= LIMITE_PONTOS) {
-				return pontosFeitos * BONUS_PARTICIPACAO;
+				return pontosFeitos * BONUS_PARTICIPACAO_SEMESTRAL;
 			}
 			return MAXIMO_PONTOS_ATINGIDOS;
 		}
