@@ -6,6 +6,7 @@ import exception.ValidacaoException;
  * Representa um Profissional no sistema.
  * @author Yuri Silva
  * @author Tiberio Gadelha
+ * @author Matheus Henrique
  *
  */
 public class Profissional extends Participacao {
@@ -38,6 +39,20 @@ public class Profissional extends Participacao {
 	
 	public String getCargo() {
 		return cargo.getCargo();
+	}
+	
+	
+	// INCOMPLETO
+	@Override
+	
+	public double geraGanhos(){
+		
+		if (getCargo().equals("pesquisador")){
+			return super.geraGanhos() + 100.0;
+		}
+		
+		return 0;
+		
 	}
 
 }
