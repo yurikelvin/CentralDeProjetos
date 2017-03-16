@@ -261,4 +261,18 @@ public class PessoaController implements Serializable{
 		pessoa.removeParticipacao(participacao);
 		
 	}
+	
+	/**
+	 * Retorna a quantidade de pontos obtidos nas participacoes.
+	 * {@link Pessoa#calculaPontuacaoPorParticipacao()}
+	 * @param cpf Cpf da pessoa.
+	 * @return A pontuacao por participacoes da pessoa.
+	 * @throws CadastroException Caso a pessoa nao seja encontrada.
+	 */
+	
+	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException {
+		Pessoa pessoa = this.getPessoa(cpf);
+		
+		return pessoa.calculaPontuacaoPorParticipacao();
+	}
 }

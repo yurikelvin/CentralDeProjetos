@@ -115,6 +115,14 @@ public class Facade {
 		}
 	}
 	
+	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException {
+		try {
+			return pessoaController.calculaPontuacaoPorParticipacao(cpf);
+		}catch(CadastroException e) {
+			throw new CadastroException("Erro no calculo de participacoes: ");
+		}
+	}
+	
 	// metodos de gerencia de Associacao entre Pessoa e Projeto
 	
 	/**
@@ -247,6 +255,7 @@ public class Facade {
 			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
+	
 
 	// metodos de gerencia de projetos
 	

@@ -101,6 +101,21 @@ public class Pessoa implements Serializable{
 		}
 		
 	}
+	
+	/**
+	 * Retorna a pontuacao obtida nas participacoes.
+	 * Cada pessoa sabe calcular seus pontos de participacao no projeto.
+	 * @return A pontuacao obtida nas participacoes efetuadas.
+	 */
+	
+	public double calculaPontuacaoPorParticipacao() {
+		double pontuacao = 0;
+		for(Participacao participacao: this.projetosParticipados) {
+			pontuacao += participacao.geraPontuacaoParticipacao();
+		}
+		
+		return pontuacao;
+	}
 
 	@Override
 	public int hashCode() {
@@ -126,6 +141,7 @@ public class Pessoa implements Serializable{
 			return false;
 		return true;
 	}
+	
 
 	@Override
 	public String toString() {
