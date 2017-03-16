@@ -7,9 +7,9 @@ import exception.ValidacaoException;
 
 public class FactoryDeProjeto implements Serializable {
 	
-	private final String PROD_ACADEMICA = "producao academica";
-	private final String PROD_TECNICA = "producao tecnica";
-	private final String PATENTES = "patentes";
+	private static final String PROD_ACADEMICA = "producao academica";
+	private static final String PROD_TECNICA = "producao tecnica";
+	private static final String PATENTES = "patentes";
 
 	public Monitoria criaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
 			String dataInicio, int duracao,int codigoProjeto) throws ValidacaoException {

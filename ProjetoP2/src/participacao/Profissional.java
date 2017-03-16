@@ -13,6 +13,8 @@ public class Profissional extends Participacao {
 	
 	private Cargo cargo;
 	
+	private final static double BONUS_ADICIONAL = 100.0;
+	
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -48,11 +50,17 @@ public class Profissional extends Participacao {
 	public double geraGanhos(){
 		
 		if (getCargo().equals("pesquisador")){
-			return super.geraGanhos() + 100.0;
+			return super.geraGanhos() + BONUS_ADICIONAL;
 		}
 		
 		return 0;
 		
+	}
+
+	@Override
+	public double geraPontuacaoParticipacao() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
