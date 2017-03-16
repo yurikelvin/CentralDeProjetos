@@ -11,7 +11,8 @@ import projetos.Monitoria;
  */
 
 public class Professor extends Participacao {
-
+	
+	private static final int PONTOS_POR_PARTICIPACAO_ANUAL = 4;
 	boolean coordenador;
 
 	public Professor(double valorHora, int qtdHoras, boolean coordenador) {
@@ -26,8 +27,11 @@ public class Professor extends Participacao {
 	@Override
 	
 	public double geraGanhos() {
-
-		return calculaAdicional() + super.geraGanhos();
+		
+		if(coordenador) {
+			return (calculaAdicional() * super.getQtdHoras());
+		}
+		return super.geraGanhos();
 
 	}
 
@@ -47,7 +51,7 @@ public class Professor extends Participacao {
 	@Override
 	public double geraPontuacaoParticipacao() {
 		double pontuacao = 0.0;
-		pontuacao += 4 * (super.getProjeto().getDuracao()/12);
+		pontuacao += PONTOS_POR_PARTICIPACAO_ANUAL * (super.getProjeto().getDuracao()/12);
 		
 		if(!(super.getProjeto() instanceof Monitoria)) {
 			pontuacao += super.getProjeto().getQtdAlunosNoProjeto();
