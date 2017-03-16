@@ -12,8 +12,11 @@ import projetos.Monitoria;
 
 public class Professor extends Participacao {
 
+	
 	private boolean coordenador;
+	
 	private final static double BONUS_PARTICIPACAO = 4;
+	private final static double BONUS_ADICIONAL = 0.4;
 
 	public Professor(double valorHora, int qtdHoras, boolean coordenador) {
 		super(valorHora, qtdHoras);
@@ -36,7 +39,7 @@ public class Professor extends Participacao {
 
 		double adicional = super.getValorHora();
 		if (coordenador) {
-			adicional += super.getValorHora() * 0.4;
+			adicional += super.getValorHora() * BONUS_ADICIONAL;
 			return adicional;
 		}
 		return super.getValorHora();
