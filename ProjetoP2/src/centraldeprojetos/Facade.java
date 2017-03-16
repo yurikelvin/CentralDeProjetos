@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
-import easyaccept.EasyAccept;
+//import easyaccept.EasyAccept;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
@@ -22,6 +22,11 @@ public class Facade {
 	private PessoaController pessoaController;
 	private ParticipacaoController participacaoController;
 	
+	public Facade() {
+		this.projetoController = new ProjetoController();
+		this.pessoaController = new PessoaController();
+		this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
+	}
 	
 	/**
 	 * Cadastra uma pessoa com base no cpf, nome e email.
@@ -449,10 +454,10 @@ public class Facade {
 
 	public void iniciaSistema() throws Exception {
 		
-		this.projetoController = restauraProjetoController("projetosCDPComputacao.ser");
-		this.pessoaController =  restauraPessoaController("pessoasCDPComputacao.ser");
-		this.participacaoController = restauraParticipacaoController("participacoesCDPComputacao.ser");
-		
+//		this.projetoController = restauraProjetoController("projetosCDPComputacao.ser");
+//		this.pessoaController =  restauraPessoaController("pessoasCDPComputacao.ser");
+//		this.participacaoController = restauraParticipacaoController("participacoesCDPComputacao.ser");
+//		
 	}
 	
 	private ProjetoController restauraProjetoController(String caminho) {
@@ -544,9 +549,9 @@ public class Facade {
 	
 	public void fechaSistema() throws IOException {
 		
-		this.salvaProjetoController();
-		this.salvaPessoaController();
-		this.salvaParticipacaoController();
+//		this.salvaProjetoController();
+//		this.salvaPessoaController();
+//		this.salvaParticipacaoController();
 		
 	}
 	
@@ -556,7 +561,7 @@ public class Facade {
 
 	public static void main(String[] args) {
 		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt"};
-		EasyAccept.main(args); 
+		//EasyAccept.main(args); 
 
 
 	}
