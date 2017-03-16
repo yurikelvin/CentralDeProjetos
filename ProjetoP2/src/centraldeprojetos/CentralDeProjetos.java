@@ -96,51 +96,147 @@ public class CentralDeProjetos implements Serializable{
 	public void removePessoa(String cpf) throws CadastroException, ValidacaoException {
 		pessoaController.removePessoa(cpf);
 	}
-
+	
+	/**
+	 * Mostra todas as pessoas cadastradas no sistema.
+	 * @return Retorna, na forma de string, todas as pessoas cadastradas no sistema.
+	 */
 	public String mostraPessoas() {
 		return pessoaController.toString();
 	}
 
+	/**
+	 * O metodo adiciona um novo projeto do tipo Monitoria no sistema.
+	 * @param nome O nome do projeto
+	 * @param disciplina A disciplina da monitoria
+	 * @param rendimento O rendimento esperado dos alunos.
+	 * @param objetivo O objetivo do projeto.
+	 * @param periodo O periodo de atuacao da monitoria.
+	 * @param dataInicio A data de inicio do projeto.
+	 * @param duracao A duracao do projeto
+	 * {@link ProjetoController#adicionaMonitoria(String, String, int, String, String, String, int)}
+	 * @return Retorna um inteiro que representa o codigo do projeto.
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 * @throws ParseException Lanca uma excecao, se a formatacao da data for invalida.
+	 */
 	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
 			String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException {
 		return projetoController.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio,
 				duracao);
 	}
 
+	/**
+	 * O metodo adiciona um novo projeto do tipo PET no sistema.
+	 * @param nome O nome do projeto
+	 * @param objetivo O objetivo do projeto
+	 * @param impacto O impacto social do projeto
+	 * @param rendimento O rendimento esperado dos alunos
+	 * @param prodTecnica A quantidade de producao tecnica.
+	 * @param prodAcademica A quantidade de producao academica
+	 * @param patentes A quantidade de patentes
+	 * @param dataInicio A data de inicio do projeto
+	 * @param duracao A duracao do projeto
+	 * @return Retorna um inteiro que representa o codigo do projeto
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 * @throws ParseException Lanca uma excecao, se a formatacao da data for invalida.
+	 */
 	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica,
 			int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, ParseException {
 		return projetoController.adicionaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes,
 				dataInicio, duracao);
 	}
 
+	/**
+	 * O metodo adiciona um novo projeto do tipo Extensao no sistema.
+	 * @param nome O nome do projeto
+	 * @param objetivo O objetivo do projeto
+	 * @param impacto O impacto social do projeto
+	 * @param dataInicio A data de inicio do projeto
+	 * @param duracao A duracao do projeto
+	 * {@link ProjetoController#adicionaExtensao(String, String, int, String, int)}
+	 * @return Retorna um inteiro que representa o codigo do projeto
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 * @throws ParseException Lanca uma excecao, se a formatacao da data for invalida.
+	 */
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao)
 			throws ValidacaoException, ParseException {
 		return projetoController.adicionaExtensao(nome, objetivo, impacto, dataInicio, duracao);
 	}
 
+	/**
+	 * O metodo adiciona um novo projeto do tipo PED no sistema.
+	 * @param nome O nome do projeto
+	 * @param categoria A categoria do PED
+	 * @param prodTecnica A quantidade de producao tecnica
+	 * @param prodAcademica A quantidade de producao academica
+	 * @param patentes A quantidade de patentes
+	 * @param objetivo O objetivo do projeto
+	 * @param dataInicio A data de inicio do projeto
+	 * @param duracao A duracao do projeto
+	 * {@link ProjetoController#adicionaPED(String, String, int, int, int, String, String, int)}
+	 * @return Retorna um inteiro que representa o codigo do projeto
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 * @throws ParseException Lanca uma excecao, se a formatacao da data for invalida.
+	 */
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
 			String objetivo, String dataInicio, int duracao) throws ValidacaoException, ParseException {
 		return projetoController.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo,
 				dataInicio, duracao);
 	}
-
+	
+	
+	/**
+	 * O metodo vai retornar uma determinada infomacao de um projeto, identificado pelo codigo
+	 * @param codigoProjeto O codigo do projeto
+	 * @param atributo O atributo que sera pesquisado
+	 * {@link ProjetoController#getInfoProjeto(int, String)}
+	 * @return Retorna a string do atributo desejado.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema, uma excecao eh lancada
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 */
 	public String getInfoProjeto(int codigoProjeto, String atributo) throws CadastroException, ValidacaoException {
 		return projetoController.getInfoProjeto(codigoProjeto, atributo);
 	}
-
+	
+	/**
+	 * O metodo vai modificar determinado atributo de um projeto, identificado pelo cidigo.
+	 * @param codigoDoProjeto O codigo do projeto
+	 * @param atributo O atributo que sera modificado
+	 * @param novoValor O novo valor do atributo
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema, uma excecao eh lancada
+	 * @throws ValidacaoException Lanca uma excecao, se os parametros foram nulos ou vazios.
+	 * @throws ParseException Lanca uma excecao, se a formatacao da data for invalida.
+	 */
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor)
 			throws CadastroException, ValidacaoException, ParseException {
 		projetoController.editaProjeto(codigoDoProjeto, atributo, novoValor);
 	}
 
+	/**
+	 * Remove determinado projeto do sistema pelo seu codigo.
+	 * @param codigoDoProjeto O codigo do projeto
+	 * {@link ProjetoController#removeProjeto(int)}
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema, uma excecao eh lancada.
+	 */
 	public void removeProjeto(int codigoDoProjeto) throws CadastroException {
 		projetoController.removeProjeto(codigoDoProjeto);
 	}
+	
+	/**
+	 * O metodo vai pegar o codigo de um projeto atraves do seu nome
+	 * @param nome O nome do projeto
+	 * @return Retorna o codigo do projeto como inteiro.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema, uma excecao eh lancada.
+	 */
 
 	public int getCodigoProjeto(String nome) throws CadastroException {
 		return projetoController.getCodigoProjeto(nome);
 	}
-
+	
+	/**
+	 * Mostra todos os projetos cadastrados no sistema
+	 * @return Retorna, na forma de string, todos os projetos do sistema.
+	 */
 	public String mostraProjetos() {
 		return projetoController.toString();
 	}
