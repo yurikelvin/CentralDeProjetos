@@ -191,6 +191,15 @@ public class PessoaController implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Associa uma participacao a uma pessoa.
+	 * Dada uma participacao, adiciona uma pessoa nesta participacao.
+	 * @param participacao Participacao a ter a pessoa associada.
+	 * @param cpf Cpf da pessoa a ser procurada.
+	 * @return True se bem sucedido.
+	 * @throws CadastroException Caso a pessoa nao esteja cadastrada.
+	 */
+	
 	public boolean associaPessoa(Participacao participacao, String cpf) throws CadastroException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		
@@ -207,12 +216,27 @@ public class PessoaController implements Serializable{
 		}
 		return to;
 	}
+	
+	/**
+	 * Dada uma participacao com Pessoa e Projeto ja incluso, adiciona em pessoa a participacao dada.
+	 * 
+	 * @param participacao Participacao a ser armazenada.
+	 * @param cpf Cpf da pessoa.
+	 * @throws CadastroException Caso a pessoa nao esteja cadastrada.
+	 */
 
 	public void adicionaParticipacao(Participacao participacao, String cpf) throws CadastroException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		
 		pessoa.setParticipacao(participacao);
 	}
+	
+	/**
+	 * Pesquisa uma pessoa no sistema.
+	 * @param cpf Cpf da pessoa.
+	 * @return True se bem sucedido.
+	 * @throws CadastroException Caso a pessoa nao seja encontrada.
+	 */
 	
 	public boolean pesquisaPessoa(String cpf) throws CadastroException {
 		for(Pessoa pessoa: this.pessoas) {
@@ -223,6 +247,14 @@ public class PessoaController implements Serializable{
 		
 		throw new CadastroException("Pessoa nao encontrada");
 	}
+	
+	/**
+	 * Remove uma participacao que a pessoa tem no sistema.
+	 * Como pessoa tem suas participacoes, ela pode quebrar o contrato e com isso tendo sua participacao removida do projeto.
+	 * @param participacao Participacao a ser removida.
+	 * @param cpf Cpf da pessoa ser removida.
+	 * @throws CadastroException Caso a pessoa nao seja localizada.
+	 */
 
 	public void removeParticipacao(Participacao participacao, String cpf) throws CadastroException {
 		Pessoa pessoa = this.getPessoa(cpf);

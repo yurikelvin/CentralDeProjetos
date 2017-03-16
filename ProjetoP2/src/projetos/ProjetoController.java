@@ -569,6 +569,11 @@ public class ProjetoController implements Serializable{
 		throw new CadastroException("Projeto nao encontrado");
 	}
 	
+	/**
+	 * Modifica as chaves nas respectivas classes de projeto que controlam a adicao de participacao especifica.
+	 * @param participacao Participacao a ter suas chaves trocadas.
+	 */
+	
 
 	public void setParametros(Participacao participacao) {
 		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
@@ -599,6 +604,15 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	/**
+	 * Associa uma participacao a um projeto.
+	 * Dada uma participacao, adiciona um projeto nesta participacao.
+	 * @param participacao Participacao a ser adicionada o projeto.
+	 * @param codigoProjeto Codigo do projeto.
+	 * @return True se bem sucedido.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 */
+	
 	public boolean associaProjeto(Participacao participacao, int codigoProjeto)  throws CadastroException {
 		
 		Projeto projeto = this.getProjetos(codigoProjeto);
@@ -609,16 +623,40 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
+	/**
+	 * Dada uma participacao com Pessoa e Projeto ja incluso, adiciona em projeto a participacao dada.
+	 * 
+	 * @param participacao Participacao a ser armazenada.
+	 * @param codigoProjeto Codigo do projeto.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 */
+	
 	public void adicionaParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
 		projeto.adicionaParticipacao(participacao);
 	}
 	
+	/**
+	 * Remove uma participacao que o projeto tem no sistema.
+	 * Como projeto tem suas participacoes, ele pode remover a pessoa do projeto explicitado, causando assim a quebra da participacao.
+	 * @param participacao Participacao a ser removida.
+	 * @param codigoProjeto Codigo do projeto a ser removido.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 */
+	
+	
 	public void removeParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		projeto.removeParticipacao(participacao);
 	}
+	
+	/**
+	 * Pesquisa um projeto no sistema.
+	 * @param codigoProjeto Codigo do projeto a ser procurado.
+	 * @return True se bem sucedido.
+	 * @throws CadastroException Caso o projeto nao seja encontrado.
+	 */
 	
 	public boolean pesquisaProjeto(int codigoProjeto) throws CadastroException {
 		Iterator<Projeto> it = this.projetos.iterator();
@@ -641,6 +679,15 @@ public class ProjetoController implements Serializable{
 		}
 		return toString;
 	}
+	
+	/**
+	 * Verifica a logica por tras, para um dado professor verificar seu valorHora.
+	 * @param valorHora Valor da hora do professor.
+	 * @param codigoProjeto Codigo do projeto a ser procurado.
+	 * @return True se bem sucedido. False caso contrario.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 * @throws ValidacaoException Caso o valorHora do professor seja invalido para o projeto em questao.
+	 */
 
 	public boolean validaHoraProfessor(double valorHora, int codigoProjeto) throws CadastroException, ValidacaoException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
