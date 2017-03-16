@@ -12,6 +12,8 @@ import java.util.Iterator;
 import comparator.ParticipacaoPeloNomeComparator;
 import exception.CadastroException;
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
+import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 
@@ -178,6 +180,16 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	
 	public String getRepresentacaoDuracao() {
 		return Integer.toString(this.getDuracao());
+	}
+	
+	public int getQtdAlunosNoProjeto() {
+		int qtd = 0;
+		for(Participacao p: participacoes) {
+			if(p instanceof AlunoGraduando || p instanceof AlunoPosGraduando) {
+				qtd += 1;
+			}
+		}
+		return qtd;
 	}
 	
 	/**
