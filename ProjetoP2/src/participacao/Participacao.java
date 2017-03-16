@@ -7,32 +7,35 @@ import projetos.Projeto;
 
 /**
  * Representa uma participacao no sistema.
+ * 
  * @author Yuri Silva
  * @author Tiberio Gadelha
+ * @author Matheus Farias
  */
 
-public abstract class Participacao implements Serializable {
+public abstract class Participacao implements Serializable, Remuneracao {
 
 	private double valorHora;
 	private int qtdHoras;
 	private String dataInicio;
 	private int duracao;
-	
+
 	private Pessoa pessoa;
 	private Projeto projeto;
-	
+
+	private static final double BOLSA_MINIMA = 350.00;
+
 	/**
 	 * 
 	 * @param valorHora
 	 * @param qtdHoras
 	 */
-	
+
 	public Participacao(double valorHora, int qtdHoras) {
-		
+
 		this.valorHora = valorHora;
 		this.qtdHoras = qtdHoras;
-		
-		
+
 	}
 
 	public double getValorHora() {
@@ -42,8 +45,6 @@ public abstract class Participacao implements Serializable {
 	public void setValorHora(double valorHora) {
 		this.valorHora = valorHora;
 	}
-	
-	
 
 	public int getQtdHoras() {
 		return qtdHoras;
@@ -84,31 +85,43 @@ public abstract class Participacao implements Serializable {
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
-	
+
 	public int getCodigoProjeto() {
 		return projeto.getCodigo();
 	}
-	
+
 	/**
 	 * O metodo ira mostrar a pessoa que esta associada a participacao.
+	 * 
 	 * @return Retorna todos os dados da pessoa associada.
 	 */
-	
+
 	public String mostraPessoa() {
 		return pessoa.toString();
 	}
-	
+
 	/**
 	 * O metodo ira mostrar o projeto que esta associado a participacao
+	 * 
 	 * @return Retorna o nome do projeto associado.
 	 */
-	
+
 	public String mostraProjeto() {
 		return projeto.representacao();
 	}
-	
+
 	public String getCpf() {
 		return pessoa.getCpf();
+
+	}
+
+	public double geraGanhos() {
+		double bolsa = getValorHora() * getQtdHoras();
+		if (bolsa < BOLSA_MINIMA) {
+			return BOLSA_MINIMA;
+		}
+
+		return bolsa;
 	}
 
 	@Override
@@ -138,6 +151,5 @@ public abstract class Participacao implements Serializable {
 			return false;
 		return true;
 	}
-	
 
 }

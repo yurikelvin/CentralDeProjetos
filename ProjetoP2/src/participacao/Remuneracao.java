@@ -1,6 +1,6 @@
 package participacao;
 
-public interface Rendimento {
+public interface Remuneracao {
 
 	double geraGanhos();
 }
