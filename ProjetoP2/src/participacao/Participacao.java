@@ -22,6 +22,7 @@ public abstract class Participacao implements Serializable, Remuneracao {
 
 	private Pessoa pessoa;
 	private Projeto projeto;
+	
 
 	private static final double BOLSA_MINIMA = 350.00;
 
@@ -123,6 +124,8 @@ public abstract class Participacao implements Serializable, Remuneracao {
 
 		return bolsa;
 	}
+	
+	public abstract double geraPontuacaoParticipacao();
 
 	@Override
 	public int hashCode() {
