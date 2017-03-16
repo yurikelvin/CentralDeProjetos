@@ -65,4 +65,10 @@ public class AlunoPosGraduando extends Participacao {
 		return super.geraGanhos();
 	}
 
+	@Override
+	public double geraPontuacaoParticipacao() {
+		
+		return 0;
+	}
+
 }

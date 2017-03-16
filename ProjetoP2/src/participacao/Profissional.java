@@ -13,6 +13,8 @@ public class Profissional extends Participacao {
 	
 	private Cargo cargo;
 	
+	private final static double PONTUACAO_PARTICIPACAO = 0;
+	
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -53,6 +55,12 @@ public class Profissional extends Participacao {
 		
 		return 0;
 		
+	}
+
+	@Override
+	public double geraPontuacaoParticipacao() {
+
+		return PONTUACAO_PARTICIPACAO;
 	}
 
 }
