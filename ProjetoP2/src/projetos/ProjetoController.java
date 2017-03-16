@@ -31,7 +31,7 @@ public class ProjetoController implements Serializable{
 	private static final String OBJETIVO = "objetivo";
 	private static final String DISCIPLINA = "disciplina";
 	private static final String RENDIMENTO = "rendimento";
-	private static final String PERIODO = "perido";
+	private static final String PERIODO = "periodo";
 	private static final String DATAINICIO = "data de inicio";
 	private static final String DURACAO = "duracao";
 	private static final String IMPACTO = "impacto";

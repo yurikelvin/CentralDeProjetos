@@ -2,11 +2,14 @@ package projetos.testes;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
+import exception.CadastroException;
+import exception.ValidacaoException;
 import projetos.ProjetoController;
 
 public class ProjetoControllerTest {
@@ -15,8 +18,13 @@ public class ProjetoControllerTest {
 	private ProjetoController projetoController;
 	
 	@Before
-	public void setUP(){
+	public void setUP() throws ValidacaoException, ParseException, CadastroException{
 		projetoController = new ProjetoController();
+		
+		projetoController.adicionaMonitoria("Monitoria Calculo 2", "Calculo", 20, "Ajudar os Alunos", "Segundo", "20/02/2017", 5);
+		projetoController.adicionaPET("Projeto PET", "objetivo muito legal", 2, 50, 2,6,3, "21/02/2017", 5);
+		projetoController.adicionaExtensao("Projeto Extensao","Ficar monstro",1,"22/02/2017",5);
+		projetoController.adicionaPED("Projeto PED", "pibic", 1, 2, 3, "objetivo e ficar monstro", "25/02/2017", 5);
 	}
 	
 	@Test
@@ -261,19 +269,426 @@ public class ProjetoControllerTest {
 	
 	}
 
-	/*@Test
+	@Test
 	public void testAdicionaExtensao() {
-		fail("Not yet implemented");
+		
+		//Adicionando Extensao com o nome Nulo
+		try {
+			projetoController.adicionaExtensao(null,"Ficar monstro",1,"25/02/2017",5);
+			Assert.fail("Lancamento de Exception com Nome de Extensao nulo");
+		} catch (Exception e) {
+			Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+	}
+		
+		//Adicionando Extensao com o nome Nulo
+				try {
+					projetoController.adicionaExtensao("","Ficar monstro",1,"25/02/2017",5);
+					Assert.fail("Lancamento de Exception com Nome de Extensao vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando Extensao com o Objetivo Nulo
+				try {
+					projetoController.adicionaExtensao("Birl",null,1,"25/02/2017",5);
+					Assert.fail("Lancamento de Exception com Objetivo de Extensao nulo");
+				} catch (Exception e) {
+					Assert.assertEquals("Objetivo nulo ou vazio", e.getMessage());
+			}	
+				
+		//Adicionando Extensao com o Objetivo Nulo
+				try {
+					projetoController.adicionaExtensao("Birl","",1,"25/02/2017",5);
+					Assert.fail("Lancamento de Exception com Objetivo de Extensao vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Objetivo nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando Extensao com o Impacto Negativo
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",-1,"25/02/2017",5);
+					Assert.fail("Lancamento de Exception com Impacto de Extensao negativo");
+				} catch (Exception e) {
+					Assert.assertEquals("Impacto invalido", e.getMessage());
+			}
+				
+		//Adicionando Extensao com a data na formatacao errada
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",1,"2502/2017",5);
+					Assert.fail("Lancamento de Exception com a data de extensao na formatacao errada ");
+				} catch (Exception e) {
+					Assert.assertEquals("Data invalida.", e.getMessage());
+			}
+				
+		//Adicionando Extensao com a data nula
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",1,null,5);
+					Assert.fail("Lancamento de Exception com a data de extensao nula ");
+				} catch (Exception e) {
+					Assert.assertEquals("Data nula ou vazia", e.getMessage());
+			}
+				
+		//Adicionando Extensao com a data vazia
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",1,null,5);
+					Assert.fail("Lancamento de Exception com a data de extensao vazia ");
+				} catch (Exception e) {
+					Assert.assertEquals("Data nula ou vazia", e.getMessage());
+			}
+				
+		//Adicionando Extensao com a duracao igual a zero
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",1,"25/02/2017",0);
+					Assert.fail("Lancamento de Exception com a duracao de extensao igual a zero ");
+				} catch (Exception e) {
+					Assert.assertEquals("Duracao invalida", e.getMessage());
+			}
+				
+		//Adicionando Extensao com a duracao igual a zero
+				try {
+					projetoController.adicionaExtensao("Birl","Ficar monstro",1,"25/02/2017",-5);
+					Assert.fail("Lancamento de Exception com a duracao de extensao igual a zero ");
+				} catch (Exception e) {
+					Assert.assertEquals("Duracao invalida", e.getMessage());
+			}
+				
 	}
 
 	@Test
 	public void testAdicionaPED() {
-		fail("Not yet implemented");
+		
+		//Adicionando PED com o nome Nulo
+				try {
+					projetoController.adicionaPED(null, "pibic", 1, 2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com Nome de PED nulo");
+				} catch (Exception e) {
+					Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando PED com o nome Nulo
+				try {
+					projetoController.adicionaPED("", "pibic", 1, 2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com Nome de PED vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando PED com o categoria Nulo
+				try {
+					projetoController.adicionaPED("Birl", null, 1, 2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com categoria de PED nula");
+				} catch (Exception e) {
+					Assert.assertEquals("Categoria invalida", e.getMessage());
+			}
+				
+		//Adicionando PED com o categoria vazio
+				try {
+					projetoController.adicionaPED("Birl", "", 1, 2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com categoria de PED vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Categoria invalida", e.getMessage());
+			}
+				
+		//Adicionando PED com o numero de producoes tecnicas negativa
+				try {
+					projetoController.adicionaPED("Birl", "pibic", -1, 2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com numero de producoes tecnica  de PED negativo");
+				} catch (Exception e) {
+					Assert.assertEquals("Numero de producoes tecnicas invalido", e.getMessage());
+			}
+				
+		//Adicionando PED com o numero de producoes academica negativa
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, -2, 3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com numero de producoes academica  de PED negativo");
+				} catch (Exception e) {
+					Assert.assertEquals("Numero de producoes academicas invalido", e.getMessage());
+			}
+				
+		//Adicionando PED com o numero de patentes negativa
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, -3, "objetivo é ficar monstro", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com numero de patentes  de PED negativo");
+				} catch (Exception e) {
+					Assert.assertEquals("Numero de patentes invalido", e.getMessage());
+			}
+				
+		//Adicionando PED com o objetivo nulo
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, null, "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com o objetivo de PED nulo");
+				} catch (Exception e) {
+					Assert.assertEquals("Objetivo nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando PED com o objetivo nulo
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, "", "25/02/2017", 5);
+					Assert.fail("Lancamento de Exception com o objetivo de PED vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Objetivo nulo ou vazio", e.getMessage());
+			}
+				
+		//Adicionando PED com a data fora da formatacao
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, "objetivo ficar monstrao", "2502/2017", 5);
+					Assert.fail("Lancamento de Exception com a data de PED fora de formatacao");
+				} catch (Exception e) {
+					Assert.assertEquals("Data invalida.", e.getMessage());
+			}
+				
+		//Adicionando PED com a data nula
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, "objetivo ficar monstrao", null, 5);
+					Assert.fail("Lancamento de Exception com a data de PED nula");
+				} catch (Exception e) {
+					Assert.assertEquals("Data nula ou vazia", e.getMessage());
+			}
+				
+		//Adicionando PED com a data vazia
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, "objetivo ficar monstrao", "", 5);
+					Assert.fail("Lancamento de Exception com a data de PED vazia");
+				} catch (Exception e) {
+					Assert.assertEquals("Data nula ou vazia", e.getMessage());
+			}
+				
+		//Adicionando PED com a data vazia
+				try {
+					projetoController.adicionaPED("Birl", "pibic", 1, 2, 3, "objetivo ficar monstrao", "25/02/2017", -5);
+					Assert.fail("Lancamento de Exception com a duracao de PED negativa");
+				} catch (Exception e) {
+					Assert.assertEquals("Duracao invalida", e.getMessage());
+			}
 	}
 
 	@Test
-	public void testGetInfoProjeto() {
-		fail("Not yet implemented");
+	public void testGetInfoProjeto() throws ValidacaoException, ParseException, CadastroException {
+		
+		
+		//Tentando fazer o getInfo como o codigo negativo
+			try {
+				projetoController.getInfoProjeto(-1, "nome");
+				Assert.fail("Lancamento de Exception do getInfo com o codigo negativo");
+		} catch (Exception e) {
+			Assert.assertEquals("Codigo invalido", e.getMessage());
+	}
+			
+		//Tentando fazer o getInfo como o atributo nulo
+			try {
+				projetoController.getInfoProjeto(1, null);
+				Assert.fail("Lancamento de Exception do getInfo com o atributo nulo");
+		} catch (Exception e) {
+			Assert.assertEquals("Atributo nulo ou invalido", e.getMessage());
+	}
+			
+		//Ultilizando o getInfo para acessar o nome dos projetos
+			Assert.assertEquals("Monitoria Calculo 2", projetoController.getInfoProjeto(1, "nome"));
+			Assert.assertEquals("Projeto PET", projetoController.getInfoProjeto(2, "nome"));
+			Assert.assertEquals("Projeto Extensao", projetoController.getInfoProjeto(3, "nome"));
+			Assert.assertEquals("Projeto PED", projetoController.getInfoProjeto(4, "nome"));
+			
+		//Ultilizando o getInfo para acessar o Objetivo dos projetos
+			Assert.assertEquals("Ajudar os Alunos", projetoController.getInfoProjeto(1, "objetivo"));
+			Assert.assertEquals("objetivo muito legal", projetoController.getInfoProjeto(2, "objetivo"));
+			Assert.assertEquals("Ficar monstro", projetoController.getInfoProjeto(3, "objetivo"));
+			Assert.assertEquals("objetivo e ficar monstro", projetoController.getInfoProjeto(4, "objetivo"));
+			
+		//Ultilizando o getInfo para acessar a data de inicio dos projetos
+			Assert.assertEquals("20/02/2017", projetoController.getInfoProjeto(1, "data de inicio"));
+			Assert.assertEquals("21/02/2017", projetoController.getInfoProjeto(2, "data de inicio"));
+			Assert.assertEquals("22/02/2017", projetoController.getInfoProjeto(3, "data de inicio"));
+			Assert.assertEquals("25/02/2017", projetoController.getInfoProjeto(4, "data de inicio"));
+			
+		//Ultilizando o getInfo para acessar a Disciplina
+			//Monitoria
+			Assert.assertEquals("Calculo", projetoController.getInfoProjeto(1, "disciplina"));
+			
+			//PET
+			try {
+				projetoController.getInfoProjeto(2, "disciplina");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar disciplina em PET");
+			} catch (Exception e) {
+				Assert.assertEquals("PET nao possui disciplina", e.getMessage());
+			}
+			
+			//Extensao
+			try {
+				projetoController.getInfoProjeto(3, "disciplina");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar disciplina em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui disciplina", e.getMessage());
+			}
+			
+			//PED
+			try {
+				projetoController.getInfoProjeto(4, "disciplina");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar disciplina em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui disciplina", e.getMessage());
+			}
+			
+		//Ultilizando o getInfo para acessar o Rendimento
+			
+			//Monitoria
+			Assert.assertEquals("20", projetoController.getInfoProjeto(1, "rendimento"));
+			
+			//PET
+			Assert.assertEquals("50", projetoController.getInfoProjeto(2, "rendimento"));
+			
+			//Extensao
+			try {
+				projetoController.getInfoProjeto(3, "rendimento");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar rendimento em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui rendimento", e.getMessage());
+			}
+			
+			//PED
+			try {
+				projetoController.getInfoProjeto(4, "rendimento");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar rendimento em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui rendimento", e.getMessage());
+			}
+			
+		//Ultilizando o getInfo para acessar o periodo
+			
+			//Monitoria
+			Assert.assertEquals("Segundo", projetoController.getInfoProjeto(1, "periodo"));
+			
+			//PET
+			try {
+				projetoController.getInfoProjeto(2, "periodo");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar periodo em PET");
+			} catch (Exception e) {
+				Assert.assertEquals("PET nao possui periodo", e.getMessage());
+			}
+			
+			//Extensao
+			try {
+				projetoController.getInfoProjeto(3, "periodo");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar periodo em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui periodo", e.getMessage());
+			}
+			
+			//PED
+			try {
+				projetoController.getInfoProjeto(4, "periodo");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar periodo em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui periodo", e.getMessage());
+			}
+			
+		//Ultilizando o getInfo para acessar a duracao
+			Assert.assertEquals("5", projetoController.getInfoProjeto(1, "duracao"));
+			Assert.assertEquals("5", projetoController.getInfoProjeto(2, "duracao"));
+			Assert.assertEquals("5", projetoController.getInfoProjeto(3, "duracao"));
+			Assert.assertEquals("5", projetoController.getInfoProjeto(4, "duracao"));
+			
+			
+		//Ultilizando o getInfo para acessar o Impacto
+			
+			//Monitoria
+			try {
+				projetoController.getInfoProjeto(1, "impacto");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar impacto de monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui impacto", e.getMessage());
+			}
+			
+			//PET
+			Assert.assertEquals("Cidade", projetoController.getInfoProjeto(2, "impacto"));
+			
+			//Extensao
+			Assert.assertEquals("Comunidade Academica", projetoController.getInfoProjeto(3, "impacto"));
+			
+			//PED
+			try {
+				projetoController.getInfoProjeto(4, "impacto");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar impacto em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui impacto", e.getMessage());
+			}
+			
+		//Ultilizando o getInfo para acessar Producao tecnica
+			
+			//Monitoria
+			try {
+				projetoController.getInfoProjeto(1, "producao tecnica");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar producao tecnica em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui producao tecnica", e.getMessage());
+			}
+			
+			//PET
+			Assert.assertEquals("2", projetoController.getInfoProjeto(2, "producao tecnica"));
+			
+			//Extensao
+			try {
+				projetoController.getInfoProjeto(3, "producao tecnica");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar producao tecnica em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui producao tecnica", e.getMessage());
+			}
+			
+			//PED
+			Assert.assertEquals("1", projetoController.getInfoProjeto(4, "producao tecnica"));
+			
+		
+			//Ultilizando o getInfo para acessar Producao academica
+			
+				//Monitoria
+				try {
+				projetoController.getInfoProjeto(1, "producao academica");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar producao academica em Monitoria");
+				} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui producao academica", e.getMessage());
+				}
+			
+				//PET
+				Assert.assertEquals("6", projetoController.getInfoProjeto(2, "producao academica"));
+			
+				//Extensao
+				try {
+					projetoController.getInfoProjeto(3, "producao academica");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar producao academica em Extensao");
+				} catch (Exception e) {
+					Assert.assertEquals("Extensao nao possui producao academica", e.getMessage());
+				}
+			
+				//PED
+				Assert.assertEquals("2", projetoController.getInfoProjeto(4, "producao academica"));
+				
+				
+		//Ultilizando o getInfo para acessar Patentes
+				
+				//Monitoria
+				try {
+				projetoController.getInfoProjeto(1, "patentes");
+				Assert.fail("Lancamento de Exception do getInfo: Tentando acessar patentes em Monitoria");
+				} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui patentes", e.getMessage());
+				}
+			
+				//PET
+				Assert.assertEquals("3", projetoController.getInfoProjeto(2, "patentes"));
+			
+				//Extensao
+				try {
+					projetoController.getInfoProjeto(3, "patentes");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar patentes em Extensao");
+				} catch (Exception e) {
+					Assert.assertEquals("Extensao nao possui patentes", e.getMessage());
+				}
+			
+				//PED
+				Assert.assertEquals("3", projetoController.getInfoProjeto(4, "patentes"));
+			
+			
+
+		
 	}
 
 	@Test
@@ -304,6 +719,6 @@ public class ProjetoControllerTest {
 	@Test
 	public void testToString() {
 		fail("Not yet implemented");
-	}*/
+	}
 
 }
