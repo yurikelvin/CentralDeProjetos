@@ -12,6 +12,7 @@ import exception.ValidacaoException;
 public class AlunoPosGraduando extends Participacao {
 
 	private Vinculo vinculo;
+	private final static double PONTOS_PARTICIPACAO = 0;
 
 	/**
 	 * 
@@ -68,7 +69,7 @@ public class AlunoPosGraduando extends Participacao {
 	@Override
 	public double geraPontuacaoParticipacao() {
 		
-		return 0;
+		return PONTOS_PARTICIPACAO;
 	}
 
 }
