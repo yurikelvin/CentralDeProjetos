@@ -5,6 +5,7 @@ import java.util.HashSet;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
+import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 
@@ -107,9 +108,15 @@ public class PET extends Projeto {
 	private void cadastroPet(Participacao participacaoASerAdicionada) throws CadastroException {
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {
+			
 			Professor prof = (Professor) participacaoASerAdicionada;
+			
+			if(super.participacoes.contains(participacaoASerAdicionada)) {
+				throw new CadastroException("Professor ja esta cadastrado nesse projeto");
+			}
+			
 			if(prof.getCoordenador() && this.temTutor == false) {
-				
+				this.temTutor = true;
 			} else {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
@@ -118,6 +125,14 @@ public class PET extends Projeto {
 				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 			}
 			
+		} else if(participacaoASerAdicionada instanceof AlunoPosGraduando) {
+			throw new CadastroException("Tipo de projeto invalido para pos graduando");
+		} else {
+			throw new CadastroException("Tipo de projeto invalido para profissional");
+		}
+		
+		if(super.participacoes.contains(participacaoASerAdicionada)) {
+			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
+import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
 
@@ -19,9 +20,9 @@ public class PED extends Projeto {
 	private HashSet<Produtividade> produtividades;
 	
 
-	boolean temProfessorCoordenador;
-	boolean temProfessor;
-	boolean temAluno;
+	private boolean temProfessorCoordenador;
+	private boolean temProfessor;
+	private boolean temAluno;
 	
 	
 	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
@@ -112,6 +113,7 @@ public class PED extends Projeto {
 	private void cadastraCOOP(Participacao participacaoASerAdicionada) throws CadastroException {
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
+
 			Professor prof = (Professor) participacaoASerAdicionada;
 			if(prof.getCoordenador()) { // verifica se professor eh coordenador
 				if(this.temProfessorCoordenador == false) { // verifica se o projeto ja contem um coordenador
@@ -144,8 +146,14 @@ public class PED extends Projeto {
 	}
 	
 	private void cadastraOutros(Participacao participacaoASerAdicionada) throws CadastroException {
+
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {
+			
+			if(super.participacoes.contains(participacaoASerAdicionada)) {
+				throw new CadastroException("Professor ja esta cadastrado nesse projeto");
+			}
+			
 			if(temProfessor) {
 				
 				throw new CadastroException("Projetos P&D nao podem ter mais de um professor");

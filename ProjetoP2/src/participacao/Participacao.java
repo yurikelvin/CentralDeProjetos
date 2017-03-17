@@ -64,12 +64,9 @@ public abstract class Participacao implements Serializable, Remuneracao {
 	}
 
 	public int getDuracao() {
-		return duracao;
+		return this.getProjeto().getDuracao();
 	}
 
-	public void setDuracao(int duracao) {
-		this.duracao = duracao;
-	}
 
 	public Pessoa getPessoa() {
 		return pessoa;

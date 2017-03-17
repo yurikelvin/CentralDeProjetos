@@ -18,7 +18,7 @@ public class AlunoGraduando extends Participacao {
 	private static final double LIMITE_PONTOS = 8;
 	private static final double DURACAO_INSUFICIENTE = 0.0;
 	
-	private double totalPontos;
+	public static double totalPontos;
 
 	public AlunoGraduando(double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -41,13 +41,27 @@ public class AlunoGraduando extends Participacao {
 			}
 		}else {
 			pontosFeitos = duracao / 6;
-			totalPontos += pontosFeitos;
-			if(totalPontos <= LIMITE_PONTOS) {
-				return pontosFeitos * BONUS_PARTICIPACAO_SEMESTRAL;
+			pontosFeitos *= BONUS_PARTICIPACAO_SEMESTRAL;
+			
+			if(AlunoGraduando.totalPontos + pontosFeitos > LIMITE_PONTOS) {
+				double diferenca = LIMITE_PONTOS - totalPontos;
+				if(pontosFeitos <= diferenca) {
+					AlunoGraduando.totalPontos += diferenca;
+
+					return pontosFeitos;
+				}
+			
+				return MAXIMO_PONTOS_ATINGIDOS;
+				
 			}
-			return MAXIMO_PONTOS_ATINGIDOS;
+			
+			AlunoGraduando.totalPontos += pontosFeitos;
+
+			return pontosFeitos;
+			
 		}
 
 	}
+	
 
 }

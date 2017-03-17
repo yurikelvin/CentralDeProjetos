@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import exception.ValidacaoException;
+import participacao.AlunoGraduando;
 import participacao.Participacao;
 
 /**
@@ -112,7 +113,10 @@ public class Pessoa implements Serializable{
 		double pontuacao = 0;
 		for(Participacao participacao: this.projetosParticipados) {
 			pontuacao += participacao.geraPontuacaoParticipacao();
+		
 		}
+		
+		AlunoGraduando.totalPontos = 0;
 		
 		return pontuacao;
 	}

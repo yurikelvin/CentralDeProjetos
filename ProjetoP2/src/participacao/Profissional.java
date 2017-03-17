@@ -1,6 +1,8 @@
 package participacao;
 
 import exception.ValidacaoException;
+import pessoas.Pessoa;
+import projetos.PED;
 
 /**
  * Representa um Profissional no sistema.
@@ -67,22 +69,32 @@ public class Profissional extends Participacao {
 
 	@Override
 	public double geraPontuacaoParticipacao() {
-		int pontuacao =0;
+		double pontuacao = 0;
 		
 		if(this.getCargo().equals(DESENVOLVEDOR)){
-			pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_DESENVOLVEDOR;
+			pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_DESENVOLVEDOR;
 			
 		}
 		
 		else if(this.getCargo().equals(GERENTE)){
-			 pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_GERENTE;
+			 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_GERENTE;
 		}
 		
 		else if(this.getCargo().equals(PESQUISADOR)){
-			 pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_PESQUISADOR;
+			 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_PESQUISADOR;
 		}
 		
 		return pontuacao;
+	}
+	
+	public static void main(String[] args) {
+		Profissional p = new Profissional("desenvolvedor", 150.0, 25);
+		PED coop = new PED("Teste", "COOP", "Estudar computadores e redes.", "20/02/2017", 24, 2);
+		p.setProjeto(coop);
+		Pessoa pessoa = new Pessoa("108.742.242-51", "Yuri", "yuri.silva");
+		pessoa.setParticipacao(p);
+		System.out.println(pessoa.calculaPontuacaoPorParticipacao());
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package projetos;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.Participacao;
+import participacao.Professor;
 
 /**
  * Representacao de um projeto do tipo Extensao no sistema.
@@ -12,6 +13,7 @@ import participacao.Participacao;
 public class Extensao extends Projeto {
 	
 	private ImpactoSocial impactoSocial;
+	private boolean temProfessorCoordenador;
 	
 	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) {
 		super(nomeProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
@@ -19,6 +21,9 @@ public class Extensao extends Projeto {
 		
 	}
 	
+	public void setProfessor(boolean b) {
+		this.temProfessorCoordenador = b;
+	}
 
 	public String getImpacto() {
 		return impactoSocial.getImpactoSocial();
@@ -51,11 +56,26 @@ public class Extensao extends Projeto {
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+		
+		cadastraExtensao(participacaoASerAdicionada);
+		
+		super.participacoes.add(participacaoASerAdicionada);
+		
+	}
+	
+	private void cadastraExtensao(Participacao participacaoASerAdicionada) throws CadastroException {
+		
 		if(super.participacoes.contains(participacaoASerAdicionada)) {
 			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 		}
-		super.participacoes.add(participacaoASerAdicionada);
-		
+		if(super.ehProfessor(participacaoASerAdicionada)) {
+			Professor prof = (Professor) participacaoASerAdicionada;
+			if(prof.getCoordenador() && this.temProfessorCoordenador == false) {
+				this.temProfessorCoordenador = true;
+			} else {
+				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
+			}
+		} 
 	}
 
 }

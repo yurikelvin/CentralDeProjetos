@@ -600,7 +600,10 @@ public class ProjetoController implements Serializable{
 		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof Monitoria) {
 			Monitoria monitoria = (Monitoria) participacao.getProjeto();
 			monitoria.setProfessor(false);
-		} 
+		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof Extensao) {
+			Extensao extensao = (Extensao) participacao.getProjeto();
+			extensao.setProfessor(false);
+		}
 		
 	}
 	

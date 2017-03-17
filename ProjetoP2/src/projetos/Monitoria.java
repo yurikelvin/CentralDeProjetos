@@ -4,6 +4,7 @@ package projetos;
 import exception.CadastroException;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
+import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 
 /**
@@ -80,6 +81,11 @@ public class Monitoria extends Projeto {
 	
 	private void cadastraMonitoria(Participacao participacaoASerAdicionada) throws CadastroException {
 		if(super.ehProfessor(participacaoASerAdicionada)) {
+			
+			if(super.participacoes.contains(participacaoASerAdicionada)) {
+				throw new CadastroException("Professor ja esta cadastrado nesse projeto");
+			}
+			
 			if(this.temProfessor) {
 				throw new CadastroException("Monitoria nao pode ter mais de um professor");
 			} else {
@@ -94,6 +100,14 @@ public class Monitoria extends Projeto {
 				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 			}
 	
+		}else if(participacaoASerAdicionada instanceof AlunoPosGraduando) {
+			throw new CadastroException("Tipo de projeto invalido para pos graduando");
+		} else {
+			throw new CadastroException("Tipo de projeto invalido para profissional");
+		}
+		
+		if(super.participacoes.contains(participacaoASerAdicionada)) {
+			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 		}
 	}
 

@@ -164,6 +164,8 @@ public class ParticipacaoController implements Serializable{
 		
 		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
 			
+			this.verificaNivel(cpf, associacao);
+			
 			AlunoPosGraduando participacao = new AlunoPosGraduando( valorHora, qtdHoras, associacao);
 
 			this.pessoaController.associaPessoa(participacao, cpf);
@@ -179,6 +181,21 @@ public class ParticipacaoController implements Serializable{
 	
 	}
 	
+	private void verificaNivel(String cpf, String associacao) throws CadastroException{
+		for(Participacao participacao: this.participacoes) {
+			if(participacao instanceof AlunoPosGraduando) {
+				if(participacao.getPessoa().getCpf().equals(cpf)) {
+					AlunoPosGraduando aluno = (AlunoPosGraduando) participacao;
+					if(!(aluno.getVinculo().equalsIgnoreCase(associacao))) {
+						throw new CadastroException("Nivel do aluno insuficiente");
+					}
+					
+				}
+			}
+		}
+		
+	}
+
 	/**
 	 * Pesquisa uma participacao cadastrada no sistema entre uma pessoa e um projeto.
 	 * 
