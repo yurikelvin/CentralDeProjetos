@@ -15,6 +15,14 @@ public class Profissional extends Participacao {
 	
 	private final static double BONUS_BOLSA_ADICIONAL = 100.0;
 	
+	private final static String GERENTE = "gerente";
+	private final static String DESENVOLVEDOR = "desenvolvedor";
+	private final static String PESQUISADOR = "pesquisador";
+	
+	private final static int PONTUACAO_DESENVOLVEDOR = 5;
+	private final static int PONTUACAO_GERENTE = 9;
+	private final static int PONTUACAO_PESQUISADOR = 6;
+	private final static int QTN_MESES_NO_ANO = 12;
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -59,8 +67,22 @@ public class Profissional extends Participacao {
 
 	@Override
 	public double geraPontuacaoParticipacao() {
-		// TODO Auto-generated method stub
-		return 0;
+		int pontuacao =0;
+		
+		if(this.getCargo().equals(DESENVOLVEDOR)){
+			pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_DESENVOLVEDOR;
+			
+		}
+		
+		else if(this.getCargo().equals(GERENTE)){
+			 pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_GERENTE;
+		}
+		
+		else if(this.getCargo().equals(PESQUISADOR)){
+			 pontuacao = (this.getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_PESQUISADOR;
+		}
+		
+		return pontuacao;
 	}
 
 }
