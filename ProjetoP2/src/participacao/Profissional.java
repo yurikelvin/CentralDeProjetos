@@ -15,7 +15,7 @@ public class Profissional extends Participacao {
 	
 	private Cargo cargo;
 	
-	private final static double BONUS_BOLSA_ADICIONAL = 100.0;
+	private final static double BONUS_BOLSA_PESQUISADOR = 100.0;
 	
 	private final static String GERENTE = "gerente";
 	private final static String DESENVOLVEDOR = "desenvolvedor";
@@ -25,6 +25,13 @@ public class Profissional extends Participacao {
 	private final static int PONTUACAO_GERENTE = 9;
 	private final static int PONTUACAO_PESQUISADOR = 6;
 	private final static int QTN_MESES_NO_ANO = 12;
+	
+	private final static int LIMITE_BONUS_GERENTE = 5;
+	private final static int LIMITE_ATINGIDO = 0;
+	private final static int BOLSA_GERENTE = 20;
+	
+	public static int controleGerenteParticipantes;
+	
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -54,16 +61,35 @@ public class Profissional extends Participacao {
 	}
 	
 	
-	// INCOMPLETO
 	@Override
-	
 	public double geraGanhos(){
 		
-		if (getCargo().equals("pesquisador")){
-			return super.geraGanhos() + BONUS_BOLSA_ADICIONAL;
+		if (getCargo().equals(PESQUISADOR)){
+			return super.geraGanhos() + BONUS_BOLSA_PESQUISADOR;
+		} else if(getCargo().equals(GERENTE)) {
+			double bolsa = 0;
+			int participantesProjeto = super.getProjeto().getQtdParticipantes() - 1;
+			
+			if(controleGerenteParticipantes + participantesProjeto > LIMITE_BONUS_GERENTE) {
+				double diferenca = LIMITE_BONUS_GERENTE - controleGerenteParticipantes;
+				if(participantesProjeto <= diferenca) {
+					Profissional.controleGerenteParticipantes += diferenca;
+
+					return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
+				}
+			
+				return LIMITE_ATINGIDO;
+			}
+			
+			Profissional.controleGerenteParticipantes += participantesProjeto;
+			
+			return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
+			
+		} else {
+			return super.geraGanhos();
 		}
 		
-		return 0;
+		
 		
 	}
 
@@ -87,14 +113,5 @@ public class Profissional extends Participacao {
 		return pontuacao;
 	}
 	
-	public static void main(String[] args) {
-		Profissional p = new Profissional("desenvolvedor", 150.0, 25);
-		PED coop = new PED("Teste", "COOP", "Estudar computadores e redes.", "20/02/2017", 24, 2);
-		p.setProjeto(coop);
-		Pessoa pessoa = new Pessoa("108.742.242-51", "Yuri", "yuri.silva");
-		pessoa.setParticipacao(p);
-		System.out.println(pessoa.calculaPontuacaoPorParticipacao());
-		
-	}
 
 }

@@ -116,7 +116,7 @@ public class Pessoa implements Serializable{
 		
 		}
 		
-		AlunoGraduando.totalPontos = 0;
+		AlunoGraduando.controlePontos = 0;
 		
 		return pontuacao;
 	}

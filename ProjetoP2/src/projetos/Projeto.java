@@ -16,6 +16,7 @@ import participacao.AlunoGraduando;
 import participacao.AlunoPosGraduando;
 import participacao.Participacao;
 import participacao.Professor;
+import participacao.Profissional;
 
 /**
  * Classe que representa um Projeto no sistema.
@@ -177,6 +178,19 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return this.getNome();
 	}
 	
+	public double calculaBolsaParticipantes() {
+		
+		double bolsa = 0;
+		
+		for(Participacao participacao: participacoes) {
+			bolsa += participacao.geraGanhos();
+		}
+		
+		Profissional.controleGerenteParticipantes = 0;
+		
+		return bolsa;
+	}
+	
 	
 	public String getRepresentacaoDuracao() {
 		return Integer.toString(this.getDuracao());
@@ -192,6 +206,9 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return qtd;
 	}
 	
+	public int getQtdParticipantes() {
+		return participacoes.size();
+	}
 	/**
 	 * Retorna todas as pessoas associadas ao projeto, atraves de uma string.
 	 * @return
