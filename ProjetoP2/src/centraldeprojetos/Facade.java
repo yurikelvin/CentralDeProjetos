@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
-import easyaccept.EasyAccept;
+//import easyaccept.EasyAccept;
 
 import exception.CadastroException;
 import exception.ValidacaoException;
@@ -461,6 +461,23 @@ public class Facade {
 	}
 	
 	/**
+	 * Retorna o valor total da bolsa de uma pessoa
+	 * @link {@link PessoaController#getValorBolsa(String)}
+	 * @param cpf O cpf da pessoa
+	 * @return Retorna um double que representa a bolsa total.
+	 * @throws CadastroException 
+	 */
+	public double getValorBolsa(String cpf) throws CadastroException {
+		try {
+			return pessoaController.getValorBolsa(cpf);
+		} catch (CadastroException e) {
+
+			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
+		}
+	
+	}
+	
+	/**
 	 * Inicializa os dados contidos no arquivo cpdComputacao.ser
 	 * @throws Exception
 	 */
@@ -573,8 +590,8 @@ public class Facade {
 
 
 	public static void main(String[] args) {
-		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt"};
-		EasyAccept.main(args); 
+		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"};
+		//EasyAccept.main(args); 
 
 
 	}

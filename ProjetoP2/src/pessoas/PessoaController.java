@@ -275,4 +275,15 @@ public class PessoaController implements Serializable{
 		
 		return pessoa.calculaPontuacaoPorParticipacao();
 	}
+	
+	/**
+	 * Retorna o valor total da bolsa de uma pessoa, atraves do seu cpf.
+	 * @param cpf O cpf da pessoa.
+	 * @return Retorna um double que representa a bolsa da pessoa.
+	 * @throws CadastroException Caso o cpf nao esteja cadastrado, uma excecao eh lancada.
+	 */
+	public double getValorBolsa(String cpf) throws CadastroException {
+		Pessoa pessoa = this.getPessoa(cpf);
+		return pessoa.getValorBolsa();
+	}
 }

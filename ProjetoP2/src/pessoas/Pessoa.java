@@ -120,6 +120,20 @@ public class Pessoa implements Serializable{
 		
 		return pontuacao;
 	}
+	
+	/**
+	 * Calcula o total da bolsa de uma pessoa atraves das participacoes.
+	 * @return Retorna um double que representa a bolsa.
+	 */
+	public double getValorBolsa() {
+		double valorBolsa = 0.0;
+		for(Participacao p: projetosParticipados) {
+			valorBolsa += p.geraGanhos();
+			
+		}
+		
+		return valorBolsa;
+	}
 
 	@Override
 	public int hashCode() {

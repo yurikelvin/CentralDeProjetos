@@ -67,14 +67,13 @@ public class Profissional extends Participacao {
 		if (getCargo().equals(PESQUISADOR)){
 			return super.geraGanhos() + BONUS_BOLSA_PESQUISADOR;
 		} else if(getCargo().equals(GERENTE)) {
-			double bolsa = 0;
+			double bolsa = 0.0;
 			int participantesProjeto = super.getProjeto().getQtdParticipantes() - 1;
 			
 			if(controleGerenteParticipantes + participantesProjeto > LIMITE_BONUS_GERENTE) {
 				double diferenca = LIMITE_BONUS_GERENTE - controleGerenteParticipantes;
 				if(participantesProjeto <= diferenca) {
 					Profissional.controleGerenteParticipantes += diferenca;
-
 					return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
 				}
 			
