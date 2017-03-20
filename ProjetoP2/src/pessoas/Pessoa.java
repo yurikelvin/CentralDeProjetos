@@ -7,6 +7,7 @@ import java.util.HashSet;
 import exception.ValidacaoException;
 import participacao.AlunoGraduando;
 import participacao.Participacao;
+import participacao.Profissional;
 
 /**
  * 
@@ -22,6 +23,7 @@ import participacao.Participacao;
 public class Pessoa implements Serializable{
 	
 	
+	private static final double BOLSA_MINIMA = 350.0;
 	private String nome;
 	private String cpf;
 	private String email;
@@ -126,13 +128,20 @@ public class Pessoa implements Serializable{
 	 * @return Retorna um double que representa a bolsa.
 	 */
 	public double getValorBolsa() {
-		double valorBolsa = 0.0;
-		for(Participacao p: projetosParticipados) {
-			valorBolsa += p.geraGanhos();
-			
+		double bolsa = 0;
+		
+
+		for(Participacao participacao: this.projetosParticipados) {
+
+			bolsa += participacao.geraGanhos();
+	
+			}
+		
+		if (bolsa < BOLSA_MINIMA) {
+			return BOLSA_MINIMA;
 		}
 		
-		return valorBolsa;
+		return bolsa;
 	}
 
 	@Override

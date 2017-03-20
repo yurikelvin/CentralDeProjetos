@@ -28,12 +28,10 @@ associaPosGraduando cpfPessoa=${cpf7} codigoProjeto=${cod3} nivel="Doutorado" va
 
 associaPosGraduando cpfPessoa=${cpf6} codigoProjeto=${cod4} nivel="Mestrado" valorHora=90.0 qntHoras=15
 
-associaProfissional cpfPessoa="324.543.674-78" codigoProjeto=${cod5} cargo="Desenvolvedor" valorHora=250.0 qntHoras=20
-
 associaGraduando cpfPessoa=${cpf5} codigoProjeto=${cod5} valorHora=10.0 qntHoras=10
 
 cod6=adicionaPED nome="SAD Computacao" categoria="PIBITI" prodTecnica=2 prodAcademica=4 patentes=1 objetivo="Apoio a docencia do DSC" dataInicio="01/01/2017" duracao=24
-associaProfessor cpfPessoa=${cpf1} codigoProjeto=${cod6} coordenador=false valorHora=200.0 qntHoras=20
+associaProfessor cpfPessoa="024.685.014-52" codigoProjeto=${cod6} coordenador=false valorHora=200.0 qntHoras=20
 
 #############################################
 #   Calculo do valor das bolsas de projeto  #

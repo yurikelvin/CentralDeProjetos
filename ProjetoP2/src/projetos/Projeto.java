@@ -178,36 +178,33 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return this.getNome();
 	}
 	
-	public double calculaBolsaParticipantes() {
-		
-		double bolsa = 0;
-		
-		for(Participacao participacao: participacoes) {
-			bolsa += participacao.geraGanhos();
-		}
-		
-		Profissional.controleGerenteParticipantes = 0;
-		
-		return bolsa;
-	}
-	
-	
 	public String getRepresentacaoDuracao() {
 		return Integer.toString(this.getDuracao());
 	}
 	
 	public int getQtdAlunosNoProjeto() {
 		int qtd = 0;
-		for(Participacao p: participacoes) {
-			if(p instanceof AlunoGraduando || p instanceof AlunoPosGraduando) {
+		for(Participacao participacao: this.participacoes) {
+			if(participacao instanceof AlunoGraduando || participacao instanceof AlunoPosGraduando) {
 				qtd += 1;
 			}
 		}
 		return qtd;
 	}
 	
-	public int getQtdParticipantes() {
-		return participacoes.size();
+	public int getQtdParticipantesSemGerente() {
+		int qtd = 0;
+		for(Participacao participacao: this.participacoes) {
+			if(participacao instanceof Profissional) {
+				if(((Profissional) participacao).getCargo().equals("gerente")){
+					qtd --;
+				}
+			}
+			
+			qtd ++;
+				
+		}
+		return qtd;
 	}
 	/**
 	 * Retorna todas as pessoas associadas ao projeto, atraves de uma string.

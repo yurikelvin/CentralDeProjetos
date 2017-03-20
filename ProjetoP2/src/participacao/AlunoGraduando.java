@@ -24,7 +24,7 @@ public class AlunoGraduando extends Participacao {
 		super(valorHora, qtdHoras);
 
 	}
-
+	
 	@Override
 	public double geraPontuacaoParticipacao() {
 		

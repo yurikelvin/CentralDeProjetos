@@ -114,10 +114,7 @@ public abstract class Participacao implements Serializable, Remuneracao {
 	}
 
 	public double geraGanhos() {
-		double bolsa = getValorHora() * getQtdHoras();
-		if (bolsa < BOLSA_MINIMA) {
-			return BOLSA_MINIMA;
-		}
+		double bolsa = this.getValorHora() * this.getQtdHoras();
 
 		return bolsa;
 	}

@@ -15,7 +15,6 @@ public class Profissional extends Participacao {
 	
 	private Cargo cargo;
 	
-	private final static double BONUS_BOLSA_PESQUISADOR = 100.0;
 	
 	private final static String GERENTE = "gerente";
 	private final static String DESENVOLVEDOR = "desenvolvedor";
@@ -27,10 +26,10 @@ public class Profissional extends Participacao {
 	private final static int QTN_MESES_NO_ANO = 12;
 	
 	private final static int LIMITE_BONUS_GERENTE = 5;
-	private final static int LIMITE_ATINGIDO = 0;
 	private final static int BOLSA_GERENTE = 20;
+	private final static double BONUS_BOLSA_PESQUISADOR = 100.0;
 	
-	public static int controleGerenteParticipantes;
+
 	
 
 	public Profissional(String cargo, double valorHora, int qtdHoras) {
@@ -60,29 +59,30 @@ public class Profissional extends Participacao {
 		return cargo.getCargo();
 	}
 	
+
+	
 	
 	@Override
 	public double geraGanhos(){
 		
 		if (getCargo().equals(PESQUISADOR)){
+			
 			return super.geraGanhos() + BONUS_BOLSA_PESQUISADOR;
 		} else if(getCargo().equals(GERENTE)) {
-			double bolsa = 0.0;
-			int participantesProjeto = super.getProjeto().getQtdParticipantes() - 1;
+			int participantesProjeto = super.getProjeto().getQtdParticipantesSemGerente();
 			
-			if(controleGerenteParticipantes + participantesProjeto > LIMITE_BONUS_GERENTE) {
-				double diferenca = LIMITE_BONUS_GERENTE - controleGerenteParticipantes;
-				if(participantesProjeto <= diferenca) {
-					Profissional.controleGerenteParticipantes += diferenca;
-					return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
-				}
+			int controlaBonus = participantesProjeto - LIMITE_BONUS_GERENTE;
 			
-				return LIMITE_ATINGIDO;
+			// Faz a regulagem de adicional por pessoa, nao excedendo o limite bonus de pessoas que o gerente pode ter.
+			if(controlaBonus > 0) {
+				return (LIMITE_BONUS_GERENTE * BOLSA_GERENTE) + super.geraGanhos();
+			}else if(controlaBonus == 0) {
+				return (LIMITE_BONUS_GERENTE * BOLSA_GERENTE) + super.geraGanhos();
+			} else if(controlaBonus < 0 && controlaBonus > - 4) {
+				return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
+			} else {
+				return super.geraGanhos();
 			}
-			
-			Profissional.controleGerenteParticipantes += participantesProjeto;
-			
-			return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
 			
 		} else {
 			return super.geraGanhos();
