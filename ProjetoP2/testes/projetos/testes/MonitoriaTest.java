@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.Participacao;
@@ -19,7 +20,7 @@ public class MonitoriaTest {
 	public Projeto monitoria;
 	
 	@Before
-	public void setUp() throws ValidacaoException, CadastroException{
+	public void setUp() throws ValidacaoException, CadastroException, DataException{
 		monitoria = new Monitoria("Calculo - monitoria", "calculo", 20, "Auxiliar os alunos a aprender calculo.",
 				"2017.1", "01/03/2017", 12, 2);
 	}

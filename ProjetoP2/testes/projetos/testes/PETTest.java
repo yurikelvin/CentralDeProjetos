@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.pessoa.Pessoa;
@@ -19,7 +20,7 @@ public class PETTest {
 	public PET pet;
 	
 	@Before
-	public void setUP() {
+	public void setUP() throws DataException {
 		pet = new PET("Pet Eletrica", "Auxiliar os alunos", 1, 70, "24/01/2017", 12, 2);
 	}
 	

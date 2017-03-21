@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.factorys.FactoryDeProjeto;
 import cdp.participacao.AlunoGraduando;
@@ -71,8 +72,9 @@ public class ProjetoController implements Serializable{
 	 * @return Retorna o codigo do projeto como int.
 	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
 	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
+	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
-	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException{
+	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException, DataException{
 		Validacao.validaString(nome, "Nome nulo ou vazio");
 		Validacao.validaString(disciplina,"Disciplina nulo ou vazio");
 		Validacao.validaInt(rendimento,"Rendimento invalido");
@@ -106,8 +108,9 @@ public class ProjetoController implements Serializable{
 	 * @return Retorna um inteiro que representa o codigo do projeto.
 	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
 	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
+	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
-	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, ParseException{
+	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, ParseException, DataException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
 		Validacao.validaInt(impacto, "Impacto invalido");
@@ -136,13 +139,15 @@ public class ProjetoController implements Serializable{
 	 * @return Retorna um inteiro que representa seu codigo.
 	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
 	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
+	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
-	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) throws ValidacaoException, ParseException{
+	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao) throws ValidacaoException, ParseException, DataException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
 		Validacao.validaInt(impacto, "Impacto invalido");
 		Validacao.validaData(dataInicio);
 		Validacao.validaIntSemZero(duracao,"Duracao invalida");
+		Validacao.validaImpactoSocial(impacto);
 		
 		this.codigosProjeto++;
 		projetos.add(factoryProjeto.criaExtensao(nome, objetivo, impacto, dataInicio, duracao, codigosProjeto));
@@ -164,8 +169,9 @@ public class ProjetoController implements Serializable{
 	 * @return Retorna um inteiro que representa eu codigo.
 	 * @throws ValidacaoException Lanca uma excecao se ocorrer um erro na validacao das strings.
 	 * @throws ParseException Lanca uma excecao se ocorrer um erro na validacao da data.
+	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
-	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws ValidacaoException, ParseException{
+	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes, String objetivo, String dataInicio, int duracao) throws ValidacaoException, ParseException, DataException{
 		Validacao.validaString(nome,"Nome nulo ou vazio" );
 		Validacao.validaString(categoria, "Categoria invalida");
 		Validacao.validaString(objetivo,"Objetivo nulo ou vazio");
@@ -449,8 +455,9 @@ public class ProjetoController implements Serializable{
 	 * @param novoValor O novo valor dado ao atributo.
 	 * @throws ValidacaoException Lanca uma excecao, se ocorrer um erro na validacao das strings.
 	 * @throws ParseException Lanca uma excecao, se ocorrer um erro na validacao da data 
+	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
-	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException{
+	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException, DataException{
 		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
 		Validacao.validaString(novoValor, atributo + " nulo ou vazio");

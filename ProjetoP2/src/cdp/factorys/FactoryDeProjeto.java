@@ -1,7 +1,10 @@
 package cdp.factorys;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.Extensao;
 import cdp.projetos.Monitoria;
@@ -24,13 +27,13 @@ public class FactoryDeProjeto implements Serializable {
 	private static final String PATENTES = "patentes";
 
 	public Monitoria criaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo,
-			String dataInicio, int duracao,int codigoProjeto) throws ValidacaoException {
+			String dataInicio, int duracao,int codigoProjeto) throws DataException {
 		
 		return new Monitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao, codigoProjeto);
 	}
 
 	public PET criaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica,
-			int patentes, String dataInicio, int duracao, int codigoProjeto) throws ValidacaoException{
+			int patentes, String dataInicio, int duracao, int codigoProjeto) throws DataException{
 		
 		if(impacto < 1 || impacto > 6 ){
 			throw new ValidacaoException("Impacto invalido");
@@ -46,17 +49,13 @@ public class FactoryDeProjeto implements Serializable {
 	}
 
 	public Extensao criaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao,
-			int codigoProjeto) {
-		
-		if(impacto < 1 || impacto > 6){
-			throw new ValidacaoException("Impacto invalido");
-		}
+			int codigoProjeto) throws DataException{
 		
 		return new Extensao(nome, objetivo, impacto, dataInicio, duracao, codigoProjeto);
 	}
 
 	public PED criaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
-			String objetivo, String dataInicio, int duracao, int codigoProjeto) {
+			String objetivo, String dataInicio, int duracao, int codigoProjeto) throws DataException{
 		
 		PED ped = new PED(nome, categoria, objetivo, dataInicio, duracao, codigoProjeto);
 		ped.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);
@@ -68,5 +67,6 @@ public class FactoryDeProjeto implements Serializable {
 		
 		
 	}
+	
 
 }

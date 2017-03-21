@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import cdp.controllers.PessoaController;
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.projetos.PET;
@@ -148,7 +149,7 @@ public class PessoaControllerTest {
 	}
 
 	@Test
-	public void testGetInfoPessoa() throws ValidacaoException, IllegalArgumentException, CadastroException {
+	public void testGetInfoPessoa() throws ValidacaoException, IllegalArgumentException, CadastroException, DataException {
 		meuController.cadastraPessoa("123.123.123-12", "Matheus", "matheus@gmail.com");
 		assertEquals("Matheus", meuController.getInfoPessoa("123.123.123-12", "nome"));
 		assertEquals("matheus@gmail.com", meuController.getInfoPessoa("123.123.123-12", "email"));

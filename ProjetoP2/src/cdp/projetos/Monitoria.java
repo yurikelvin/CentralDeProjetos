@@ -2,6 +2,7 @@ package cdp.projetos;
 
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
@@ -25,7 +26,7 @@ public class Monitoria extends Projeto {
 	private boolean temProfessor;
 
 
-	public Monitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao, int codigo) {
+	public Monitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao, int codigo) throws DataException {
 		super(nome, objetivo, dataInicio, duracao, codigo);
 		this.setDisciplina(disciplina);
 		this.setRendimento(rendimento);

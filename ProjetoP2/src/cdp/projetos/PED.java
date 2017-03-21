@@ -3,6 +3,7 @@ package cdp.projetos;
 import java.util.HashSet;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
@@ -28,7 +29,7 @@ public class PED extends Projeto {
 	private boolean temAluno;
 	
 	
-	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException {
+	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException, DataException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setCategoria(categoria);
 		this.produtividades = new HashSet<>();

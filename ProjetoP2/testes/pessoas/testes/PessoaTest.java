@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import cdp.exception.DataException;
+import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.Participacao;
 import cdp.pessoa.Pessoa;
@@ -54,7 +56,7 @@ public class PessoaTest {
 	}
 	
 	@Test
-	public void testMostraParticipacoes() {
+	public void testMostraParticipacoes() throws ValidacaoException, DataException {
 		
 		assertEquals("", people.mostraParticipacoes());
 		Participacao participacao = new AlunoGraduando(150.0, 25);
@@ -70,7 +72,7 @@ public class PessoaTest {
 	}
 	
 	@Test
-	public void testRemoveParticipacao() {
+	public void testRemoveParticipacao() throws ValidacaoException, DataException {
 		
 		assertEquals("", people.mostraParticipacoes());
 		

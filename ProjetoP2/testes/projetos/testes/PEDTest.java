@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.pessoa.Pessoa;
@@ -19,7 +20,7 @@ public class PEDTest {
 	public Projeto ped;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws ValidacaoException, DataException {
 		ped = new PED("Compt", "PIBIC", "Estudar computadores e redes.", "20/02/2017", 12, 2);
 	}
 	
