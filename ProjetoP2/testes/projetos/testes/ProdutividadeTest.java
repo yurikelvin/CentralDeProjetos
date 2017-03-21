@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import projetos.Produtividade;
+import cdp.projetos.Produtividade;
 
 public class ProdutividadeTest {
 

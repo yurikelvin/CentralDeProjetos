@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import exception.ValidacaoException;
-import participacao.AlunoGraduando;
-import pessoas.Pessoa;
-import projetos.Extensao;
-import projetos.Projeto;
+import cdp.exception.CadastroException;
+import cdp.exception.ValidacaoException;
+import cdp.participacao.AlunoGraduando;
+import cdp.pessoa.Pessoa;
+import cdp.projetos.Extensao;
+import cdp.projetos.Projeto;
 
 public class ExtensaoTest {
 	

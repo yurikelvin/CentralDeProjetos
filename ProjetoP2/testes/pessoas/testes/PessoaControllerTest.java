@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import exception.ValidacaoException;
-import participacao.AlunoGraduando;
-import pessoas.PessoaController;
-import projetos.PET;
+import cdp.controllers.PessoaController;
+import cdp.exception.CadastroException;
+import cdp.exception.ValidacaoException;
+import cdp.participacao.AlunoGraduando;
+import cdp.projetos.PET;
 
 public class PessoaControllerTest {
 

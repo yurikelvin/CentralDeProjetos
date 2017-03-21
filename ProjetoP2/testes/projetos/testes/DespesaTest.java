@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import exception.ValidacaoException;
-import projetos.Despesa;
+import cdp.exception.CadastroException;
+import cdp.exception.ValidacaoException;
+import cdp.projetos.Despesa;
 
 public class DespesaTest {
 

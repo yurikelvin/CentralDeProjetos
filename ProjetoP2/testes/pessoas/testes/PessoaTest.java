@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import participacao.AlunoGraduando;
-import participacao.Participacao;
-import pessoas.Pessoa;
-import projetos.PED;
-import projetos.PET;
+import cdp.participacao.AlunoGraduando;
+import cdp.participacao.Participacao;
+import cdp.pessoa.Pessoa;
+import cdp.projetos.PED;
+import cdp.projetos.PET;
 
 public class PessoaTest {
 	

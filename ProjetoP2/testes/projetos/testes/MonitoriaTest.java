@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import exception.ValidacaoException;
-import participacao.AlunoGraduando;
-import participacao.Participacao;
-import participacao.Professor;
-import pessoas.Pessoa;
-import projetos.Monitoria;
-import projetos.Projeto;
+import cdp.exception.CadastroException;
+import cdp.exception.ValidacaoException;
+import cdp.participacao.AlunoGraduando;
+import cdp.participacao.Participacao;
+import cdp.participacao.Professor;
+import cdp.pessoa.Pessoa;
+import cdp.projetos.Monitoria;
+import cdp.projetos.Projeto;
 
 public class MonitoriaTest {
 	

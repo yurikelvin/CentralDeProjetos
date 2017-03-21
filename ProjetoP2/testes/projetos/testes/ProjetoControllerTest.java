@@ -8,9 +8,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import exception.ValidacaoException;
-import projetos.ProjetoController;
+import cdp.controllers.ProjetoController;
+import cdp.exception.CadastroException;
+import cdp.exception.ValidacaoException;
 
 public class ProjetoControllerTest {
 

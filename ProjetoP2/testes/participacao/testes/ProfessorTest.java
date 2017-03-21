@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.CadastroException;
-import participacao.AlunoGraduando;
-import participacao.AlunoPosGraduando;
-import participacao.Professor;
-import pessoas.Pessoa;
-import projetos.Monitoria;
-import projetos.PET;
-import projetos.Projeto;
+import cdp.exception.CadastroException;
+import cdp.participacao.AlunoGraduando;
+import cdp.participacao.AlunoPosGraduando;
+import cdp.participacao.Professor;
+import cdp.pessoa.Pessoa;
+import cdp.projetos.Monitoria;
+import cdp.projetos.PET;
+import cdp.projetos.Projeto;
 
 public class ProfessorTest {
 	
