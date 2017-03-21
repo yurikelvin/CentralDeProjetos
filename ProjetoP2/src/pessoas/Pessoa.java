@@ -130,13 +130,11 @@ public class Pessoa implements Serializable{
 	public double getValorBolsa() {
 		double bolsa = 0;
 		
-
+		
 		for(Participacao participacao: this.projetosParticipados) {
-
 			bolsa += participacao.geraGanhos();
 	
 			}
-		
 		if (bolsa < BOLSA_MINIMA) {
 			return BOLSA_MINIMA;
 		}

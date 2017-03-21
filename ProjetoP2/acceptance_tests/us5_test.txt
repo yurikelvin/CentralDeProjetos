@@ -50,15 +50,15 @@ associaProfissional cpfPessoa=${cpf9} codigoProjeto=${cod5} cargo="Gerente" valo
 
 #Consultar valor da bolsa
 
-expect 4000.0 getValorBolsa cpf="024.685.014-52"
-expect 4000.0 getValorBolsa cpf="324.543.674-78"
-expect 450.0 getValorBolsa cpf="234.765.067-64"
+expect 11280.0 getValorBolsa cpf="024.685.014-52"
+expect 5000.0 getValorBolsa cpf="324.543.674-78"
+expect 740.0 getValorBolsa cpf="234.765.067-64"
 expect 5600.0 getValorBolsa cpf="734.823.922-79"
 expect 350.0 getValorBolsa cpf=${cpf5}
 expect 1350.0 getValorBolsa cpf=${cpf6}
 expect 3200.0 getValorBolsa cpf=${cpf7}
 expect 1100.0 getValorBolsa cpf=${cpf8}
-expect 5650.0 getValorBolsa cpf=${cpf9}
+expect 5700.0 getValorBolsa cpf=${cpf9}
 expect 350.0 getValorBolsa cpf=${cpf10}
 
 fechaSistema
