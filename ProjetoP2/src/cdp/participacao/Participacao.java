@@ -1,6 +1,7 @@
 package cdp.participacao;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 import cdp.pessoa.Pessoa;
 import cdp.projetos.Projeto;
@@ -18,15 +19,9 @@ public abstract class Participacao implements Serializable, Remuneracao {
 
 	private double valorHora;
 	private int qtdHoras;
-	private String dataInicio;
-	private int duracao;
-
 	private Pessoa pessoa;
 	private Projeto projeto;
 	
-
-	private static final double BOLSA_MINIMA = 350.00;
-
 	/**
 	 * 
 	 * @param valorHora
@@ -56,12 +51,9 @@ public abstract class Participacao implements Serializable, Remuneracao {
 		this.qtdHoras = qtdHoras;
 	}
 
-	public String getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
+	public String getData() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return formatter.format(this.getProjeto().getDate());
 	}
 
 	public int getDuracao() {

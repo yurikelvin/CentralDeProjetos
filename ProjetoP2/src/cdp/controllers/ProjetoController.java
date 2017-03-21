@@ -462,7 +462,7 @@ public class ProjetoController implements Serializable{
 			projetoAserAlterado.setNome(novoValor);
 			break;
 		case OBJETIVO:	
-			projetoAserAlterado.SetObjetivo(novoValor);
+			projetoAserAlterado.setObjetivo(novoValor);
 			break;
 		case DISCIPLINA:
 			if(ehMonitoria(projetoAserAlterado, DISCIPLINA)){

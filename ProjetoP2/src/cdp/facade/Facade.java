@@ -505,7 +505,7 @@ public class Facade {
 
 
 	public static void main(String[] args) {
-		args = new String[] {"centraldeprojetos.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"};
+		args = new String[] {"cdp.facade.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"};
 		EasyAccept.main(args); 
 
 

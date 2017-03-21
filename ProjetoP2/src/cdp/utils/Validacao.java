@@ -148,18 +148,4 @@ public class Validacao {
 		}
 	}
 	
-	public static void main(String[] args) throws ParseException {
-		String dataTeste = "19/12/2016";
-		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataTeste);
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(f.format(date));
-		System.out.println(String.valueOf(date));
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate date1 = LocalDate.parse(dataTeste ,formatter);
-		
-		DateTimeFormatter f1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		System.out.println(f1.format(date1));
-	}
-
 }

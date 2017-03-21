@@ -1,13 +1,10 @@
 package cdp.projetos;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import cdp.comparator.ParticipacaoPeloNomeComparator;
@@ -32,17 +29,18 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
-	private Despesa despesas;
-	private String dataInicio;
 	private int duracao;
 	private int codigo;
 	
+	private Despesa despesas;
+	private LocalDate dataInicio;
+
 	protected List<Participacao> participacoes;
 	
 	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) {
 		this.nomeDoProjeto = nomeDoProjeto;
 		this.objetivoDoProjeto = objetivoDoProjeto;
-		this.dataInicio = dataInicio;
+		this.setDataInicio(dataInicio);
 		this.duracao = duracao;
 		this.despesas = new Despesa();
 		this.participacoes = new ArrayList<>();
@@ -63,16 +61,23 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return this.objetivoDoProjeto;
 	}
 	
-	public void SetObjetivo(String novoObjetivo){
+	public void setObjetivo(String novoObjetivo){
 		this.objetivoDoProjeto = novoObjetivo;
 	}
 	
 	public String getDataInicio(){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return formatter.format(this.dataInicio);
+	}
+	
+	public LocalDate getDate() {
 		return this.dataInicio;
 	}
 	
 	public void setDataInicio(String novaData){
-		this.dataInicio = novaData;
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		this.dataInicio = LocalDate.parse(novaData ,formatter);
 	}
 	
 	public int getDuracao(){
@@ -234,10 +239,8 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
 	public int compareTo(Projeto outroProjeto) {
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate date = LocalDate.parse(this.getDataInicio() ,formatter);
-		
-		LocalDate otherDate = LocalDate.parse(outroProjeto.getDataInicio(), formatter);
+		LocalDate date = this.getDate();
+		LocalDate otherDate = outroProjeto.getDate();
 		
 		int compare = date.compareTo(otherDate);
 		if(compare > 0) {
