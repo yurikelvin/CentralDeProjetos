@@ -83,10 +83,4 @@ public class Extensao extends Projeto implements Contribuicao {
 		} 
 	}
 
-	@Override
-	public int geraContribuicao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
