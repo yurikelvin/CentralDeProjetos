@@ -3,6 +3,7 @@ package cdp.projetos;
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
+import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
 
@@ -79,7 +80,9 @@ public class Extensao extends Projeto {
 			} else {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
-		} 
+		} else if(participacaoASerAdicionada instanceof AlunoPosGraduando) {
+			throw new CadastroException("Aluno Pos Graduando nao pode se cadastrar");
+		}
 	}
 
 }

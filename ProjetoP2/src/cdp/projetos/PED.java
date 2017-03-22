@@ -45,10 +45,10 @@ public class PED extends Projeto {
 	 * @param produtividade
 	 * @return
 	 */
-	public String getProdutividade(String produtividade) {
-		for(Produtividade p: produtividades) {
-			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
-				return String.valueOf(p.getQuantidade());
+	public String getProdutividade(String prod) {
+		for(Produtividade produtividade: this.produtividades) {
+			if (produtividade.getProdutividade().equalsIgnoreCase(prod)) {
+				return String.valueOf(produtividade.getQuantidade());
 			}
 		}
 		return null;
@@ -75,7 +75,7 @@ public class PED extends Projeto {
 
 		for(CategoriaPED categ: CategoriaPED.values()) {
 
-			if(categoria.equalsIgnoreCase(categ.getCategoria())) {
+			if(categoria.equalsIgnoreCase(categ.getValor())) {
 				this.categoria = categ;
 				return true;
 			}
@@ -84,14 +84,14 @@ public class PED extends Projeto {
 		throw new ValidacaoException("Categoria invalida");
 	}
 	
-	public String getCategoria() {
-		return categoria.getCategoria();
+	public CategoriaPED getCategoria() {
+		return categoria;
 	}
 
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
-		if(verificaCategoria(CategoriaPED.COOPERACAO_EMPRESAS)) { // TIPO COOPERACAO COM EMPRESAS
+		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) { // TIPO COOPERACAO COM EMPRESAS
 			
 			this.cadastraCOOP(participacaoASerAdicionada);
 			
@@ -106,14 +106,6 @@ public class PED extends Projeto {
 					
 	}
 
-	private boolean verificaCategoria(CategoriaPED categoria) {
-		if(categoria == this.categoria) {
-			return true;
-		}
-		
-		return false;
-	}
-	
 	private void cadastraCOOP(Participacao participacaoASerAdicionada) throws CadastroException {
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO

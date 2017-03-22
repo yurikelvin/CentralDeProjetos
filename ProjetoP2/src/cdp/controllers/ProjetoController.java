@@ -273,7 +273,7 @@ public class ProjetoController implements Serializable{
 			}
 		case CATEGORIA:
 			if(ehPED(projetoASerConsultado, atributo)) {
-				return ((PED) projetoASerConsultado).getCategoria();
+				return ((PED) projetoASerConsultado).getCategoria().getValor();
 			}
 		case PARTICIPACOES:
 			return projetoASerConsultado.mostraPessoasAssociadas();

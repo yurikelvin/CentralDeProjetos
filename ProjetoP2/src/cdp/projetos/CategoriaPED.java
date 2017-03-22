@@ -24,7 +24,7 @@ public enum CategoriaPED implements Serializable {
 		this.categoria = categoria;
 	}
 	
-	public String getCategoria() {
+	public String getValor() {
 		return categoria;
 	}
 }
