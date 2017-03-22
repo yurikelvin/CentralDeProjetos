@@ -73,7 +73,8 @@ public class Profissional extends Participacao {
 			// Faz a regulagem de adicional por pessoa, nao excedendo o limite bonus de pessoas que o gerente pode ter.
 			if(controlaBonus >= 0) {
 				return (LIMITE_BONUS_GERENTE * BOLSA_GERENTE) + super.geraGanhos();
-			}else if(controlaBonus < 0 && controlaBonus >= - 4) {
+			} else if(controlaBonus < 0 && controlaBonus >= - 4) {
+
 				return (participantesProjeto * BOLSA_GERENTE) + super.geraGanhos();
 			} else {
 				return super.geraGanhos();
