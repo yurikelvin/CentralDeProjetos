@@ -12,6 +12,7 @@ import cdp.exception.CadastroException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
+import cdp.participacao.Cargo;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
 import cdp.participacao.Profissional;
@@ -203,7 +204,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		int qtd = 0;
 		for(Participacao participacao: this.participacoes) {
 			if(participacao instanceof Profissional) {
-				if(((Profissional) participacao).getCargo().equals("gerente")){
+				if(((Profissional) participacao).getCargo().equals(Cargo.GERENTE)){
 					qtd --;
 				}
 			}
