@@ -18,7 +18,7 @@ import cdp.participacao.Professor;
  * @author Matheus Henrique
  * @author Gustavo Victor
  */
-public class PED extends Projeto {
+public class PED extends Projeto implements Contribuicao {
 	
 	private CategoriaPED categoria;
 	private HashSet<Produtividade> produtividades;
@@ -203,11 +203,7 @@ public class PED extends Projeto {
 		
 	}
 
-	@Override
-	public int geraContribuicao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	
 

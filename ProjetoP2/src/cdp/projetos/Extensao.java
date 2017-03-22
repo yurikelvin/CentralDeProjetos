@@ -15,7 +15,7 @@ import cdp.participacao.Professor;
  * @author Matheus Henrique
  * @author Gustavo Victor
  */
-public class Extensao extends Projeto {
+public class Extensao extends Projeto implements Contribuicao {
 	
 	private ImpactoSocial impactoSocial;
 	private boolean temProfessorCoordenador;

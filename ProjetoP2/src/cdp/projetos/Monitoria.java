@@ -116,10 +116,4 @@ public class Monitoria extends Projeto {
 	}
 
 
-	@Override
-	public int geraContribuicao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
