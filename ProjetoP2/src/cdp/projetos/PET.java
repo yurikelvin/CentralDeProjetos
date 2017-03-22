@@ -160,4 +160,10 @@ public class PET extends Projeto {
 		throw new ValidacaoException("Projeto nao tem essa produtividade");
 	}
 
+	@Override
+	public int geraContribuicao() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

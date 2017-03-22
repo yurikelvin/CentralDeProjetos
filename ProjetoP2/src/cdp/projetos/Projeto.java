@@ -181,6 +181,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return false;
 	}
 	
+	public abstract int geraContribuicao() ;
 	
 	public String representacao() {
 

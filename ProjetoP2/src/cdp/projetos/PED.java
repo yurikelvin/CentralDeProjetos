@@ -202,6 +202,12 @@ public class PED extends Projeto {
 		this.temProfessorCoordenador = b;
 		
 	}
+
+	@Override
+	public int geraContribuicao() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 
