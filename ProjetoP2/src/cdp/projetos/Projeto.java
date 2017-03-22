@@ -9,6 +9,7 @@ import java.util.List;
 
 import cdp.comparator.ParticipacaoPeloNomeComparator;
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
@@ -38,7 +39,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 
 	protected List<Participacao> participacoes;
 	
-	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) {
+	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) throws DataException {
 		this.nomeDoProjeto = nomeDoProjeto;
 		this.objetivoDoProjeto = objetivoDoProjeto;
 		this.setDataInicio(dataInicio);
@@ -75,7 +76,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return this.dataInicio;
 	}
 	
-	public void setDataInicio(String novaData){
+	public void setDataInicio(String novaData) throws DataException{
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.dataInicio = LocalDate.parse(novaData ,formatter);
@@ -129,7 +130,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
 	
 	/**
-	 * O m�todo vai remover um participante do projeto.
+	 * O metodo vai remover um participante do projeto.
 	 * @param participacaoASerRemovida A participacao que sera removida.
 	 * @throws ValidacaoException
 	 */

@@ -1,6 +1,7 @@
 package cdp.projetos;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
@@ -18,7 +19,7 @@ public class Extensao extends Projeto {
 	private ImpactoSocial impactoSocial;
 	private boolean temProfessorCoordenador;
 	
-	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) {
+	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) throws DataException {
 		super(nomeProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impacto);
 		

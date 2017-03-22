@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.pessoa.Pessoa;
@@ -17,7 +18,7 @@ public class ExtensaoTest {
 	public Projeto extensao;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws DataException {
 		extensao = new Extensao("A teoria", "Estudar a teoria da criacao do universo", 6, "25/02/2017", 6, 2);
 	}
 	

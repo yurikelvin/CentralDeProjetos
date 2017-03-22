@@ -148,4 +148,11 @@ public class Validacao {
 		}
 	}
 	
+	public static void validaImpactoSocial(int valor) throws ValidacaoException {
+		
+		if(valor < 1 || valor > 6){
+			throw new ValidacaoException("Impacto invalido");
+		}
+	}
+	
 }

@@ -7,6 +7,7 @@ import cdp.controllers.ParticipacaoController;
 import cdp.controllers.PessoaController;
 import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.CategoriaPED;
 import easyaccept.EasyAccept;
@@ -282,9 +283,10 @@ public class Facade {
 	 * @return Retorna o codigo do projeto criado.
 	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazios ou invalidos.
 	 * @throws ParseException Caso ocorra erro quando for fazer a transformacao da data passada.
+	 * @throws DataException Se a data nao estiver de acordo com o calendario.
 	 */
 	
-	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException {
+	public int adicionaMonitoria(String nome, String disciplina, int rendimento, String objetivo, String periodo, String dataInicio, int duracao) throws ValidacaoException, ParseException, CadastroException, DataException {
 		int codigo = 0;
 		try {
 			codigo = projetoController.adicionaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio,duracao);
@@ -294,7 +296,10 @@ public class Facade {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 		}catch(CadastroException e) {
 			throw new CadastroException("Erro no cadastro de projeto: " + e.getMessage());
+		} catch (DataException e) {
+			throw new DataException("Erro no cadastro de projeto: Data invalida com o calendario.");
 		}
+		
 		
 		return codigo;
 			
@@ -314,10 +319,11 @@ public class Facade {
 	 * @param duracao Duracao em meses do projeto de monitoria.
 	 * @return Retorna o codigo do projeto criado.
 	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazios ou invalidos.
+	 * @throws DataException Se a data nao estiver de acordo com o calendario.
 	 * @throws ParseException Caso ocorra erro quando for fazer a transformacao da data passada.
 	 */
 
-	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException {
+	public int adicionaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica, int patentes, String dataInicio, int duracao) throws ValidacaoException, DataException {
 
 			int codigo = 0;
 			try {
@@ -326,6 +332,8 @@ public class Facade {
 				throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 			}catch(ParseException e) {
 				throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
+			} catch (DataException e) {
+				throw new DataException("Erro no cadastro de projeto: Data invalida com o calendario.");
 			}
 			
 			return codigo;
@@ -340,10 +348,11 @@ public class Facade {
 	 * @param duracao Duracao em meses do projeto
 	 * @return Retorna o codigo do projeto criado.
 	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazio ou invalido.
+	 * @throws DataException Se a data nao estiver de acordo com o calendario.
 	 */
 
 	public int adicionaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao)
-			throws ValidacaoException {
+			throws ValidacaoException, DataException {
 			
 		int codigo = 0;
 		try {
@@ -352,6 +361,8 @@ public class Facade {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 		}catch(ParseException e) {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
+		} catch (DataException e) {
+			throw new DataException("Erro no cadastro de projeto: Data invalida com o calendario.");
 		}
 		
 		return codigo;
@@ -371,10 +382,11 @@ public class Facade {
 	 * @param duracao Duracao em meses do projeto.
 	 * @return Retorna o codigo do projeto criado.
 	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazios ou invalidos.
+	 * @throws DataException Se a data nao estiver de acordo com o calendario.
 	 */
 
 	public int adicionaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
-			String objetivo, String dataInicio, int duracao) throws ValidacaoException {
+			String objetivo, String dataInicio, int duracao) throws ValidacaoException, DataException {
 		int codigo = 0;
 		try {
 			codigo = projetoController.adicionaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo,
@@ -383,6 +395,8 @@ public class Facade {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
 		}catch(ParseException e) {
 			throw new ValidacaoException("Erro no cadastro de projeto: " + e.getMessage());
+		} catch (DataException e) {
+			throw new DataException("Erro no cadastro de projeto: Data invalida com o calendario.");
 		}
 		
 		return codigo;
@@ -418,10 +432,11 @@ public class Facade {
 	 * @param novoValor Novo valor a ser adicionado.
 	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
 	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazio ou invalido.
+	 * @throws DataException Se a data nao estiver de acordo com o calendario.
 	 */
 
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor)
-			throws CadastroException, ValidacaoException {
+			throws CadastroException, ValidacaoException, DataException {
 		try {
 			projetoController.editaProjeto(codigoDoProjeto, atributo, novoValor);
 		}catch(CadastroException e) {
@@ -430,6 +445,8 @@ public class Facade {
 			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
 		}catch(ParseException e) {
 			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
+		} catch (DataException e) {
+			throw new DataException("Erro na atualizacao de projeto: Data invalida com o calendario.");
 		}
 	}
 	

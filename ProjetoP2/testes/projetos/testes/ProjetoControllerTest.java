@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 
 public class ProjetoControllerTest {
@@ -18,7 +19,7 @@ public class ProjetoControllerTest {
 	private ProjetoController projetoController;
 	
 	@Before
-	public void setUP() throws ValidacaoException, ParseException, CadastroException{
+	public void setUP() throws ValidacaoException, ParseException, CadastroException, DataException{
 		projetoController = new ProjetoController();
 		
 		projetoController.adicionaMonitoria("Monitoria Calculo 2", "Calculo", 20, "Ajudar os Alunos", "Segundo", "20/02/2017", 5);

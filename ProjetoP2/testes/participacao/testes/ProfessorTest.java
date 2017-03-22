@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Professor;
@@ -55,7 +56,7 @@ public class ProfessorTest {
 	}
 
 	@Test
-	public void testGeraPontuacaoParticipacao() throws CadastroException {
+	public void testGeraPontuacaoParticipacao() throws CadastroException, DataException {
 		Projeto p1 = new PET("PET", "Auxiliar os alunos", 3, 25, "25/10/2017", 12, 1);
 		professor.setProjeto(p1);
 		assertEquals(4, professor.geraPontuacaoParticipacao(), 0.001);
@@ -77,7 +78,7 @@ public class ProfessorTest {
 	}
 	
 	@Test
-	public void testGeraPontuacaoPartipaoEmMonitoria() throws CadastroException {
+	public void testGeraPontuacaoPartipaoEmMonitoria() throws CadastroException, DataException {
 		// Em um projeto de Monitoria, a quantidade de alunos nao conta pontos para o professor.
 		Projeto p1 = new Monitoria("Monitoria", "Calculo", 25, "Auxiliar os alunos", "2017.1", "29/10/2017", 22, 2);
 		professor.setProjeto(p1);

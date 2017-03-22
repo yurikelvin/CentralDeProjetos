@@ -3,6 +3,7 @@ package cdp.projetos;
 import java.util.HashSet;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
@@ -27,7 +28,7 @@ public class PET extends Projeto {
 	
 
 	
-	public PET(String nomeDoProjeto, String objetivoDoProjeto, int impactoSocial, int rendimento,  String dataInicio, int duracao, int codigo) {
+	public PET(String nomeDoProjeto, String objetivoDoProjeto, int impactoSocial, int rendimento,  String dataInicio, int duracao, int codigo) throws DataException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impactoSocial);
 		this.rendimento = rendimento;
