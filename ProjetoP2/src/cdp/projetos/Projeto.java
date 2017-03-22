@@ -205,7 +205,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		int qtd = 0;
 		for(Participacao participacao: this.participacoes) {
 			if(participacao instanceof Profissional) {
-
+				
 				if(((Profissional) participacao).getCargo() == Cargo.GERENTE){
 
 					qtd --;

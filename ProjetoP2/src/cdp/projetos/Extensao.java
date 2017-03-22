@@ -80,9 +80,7 @@ public class Extensao extends Projeto {
 			} else {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
-		} else if(participacaoASerAdicionada instanceof AlunoPosGraduando) {
-			throw new CadastroException("Aluno Pos Graduando nao pode se cadastrar");
-		}
+		} 
 	}
 
 }
