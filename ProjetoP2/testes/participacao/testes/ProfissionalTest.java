@@ -7,6 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cdp.exception.CadastroException;
+import cdp.exception.DataException;
+import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.Cargo;
 import cdp.participacao.Professor;
@@ -44,7 +46,7 @@ public class ProfissionalTest {
 	}
 	
 	@Test
-	public void testGeraGanhoGerente() throws CadastroException {
+	public void testGeraGanhoGerente() throws CadastroException, ValidacaoException, DataException {
 		//Criando um projeto test
 		Projeto p1 = new PED("Pesquisas", "coop", "Fazer novas descobertas", "25/10/2017", 24, 2);
 		
@@ -69,7 +71,7 @@ public class ProfissionalTest {
 	}
 	
 	@Test
-	public void testGeraGanhoDesenvolvedor() {
+	public void testGeraGanhoDesenvolvedor() throws ValidacaoException, DataException {
 		Profissional profissional3 = new Profissional("desenvolvedor", 30, 40);
 		
 		//Criando um projeto test
@@ -84,7 +86,7 @@ public class ProfissionalTest {
 	}
 	
 	@Test
-	public void testGeraGanhoPesquisador() {
+	public void testGeraGanhoPesquisador() throws ValidacaoException, DataException{
 		Profissional profissional2 = new Profissional("pesquisador", 18, 40);
 		
 		//Criando um projeto test
@@ -97,7 +99,7 @@ public class ProfissionalTest {
 	}
 
 	@Test
-	public void testGeraPontuacaoParticipacaoGerente() throws CadastroException {
+	public void testGeraPontuacaoParticipacaoGerente() throws CadastroException, ValidacaoException, DataException{
 		//Criando um projeto test
 		Projeto p1 = new PED("Pesquisas", "coop", "Fazer novas descobertas", "25/10/2017", 24, 2);
 		//Adicionando participantes ao projeto.
@@ -117,7 +119,7 @@ public class ProfissionalTest {
 	}
 	
 	@Test
-	public void testGeraPontuacaoParticipacaoPesquisador() throws CadastroException {
+	public void testGeraPontuacaoParticipacaoPesquisador() throws CadastroException, ValidacaoException, DataException {
 		Profissional profissional2 = new Profissional("pesquisador", 18, 40);
 		
 		//Criando um projeto para ser associado ao profissional
@@ -134,7 +136,7 @@ public class ProfissionalTest {
 	}
 	
 	@Test
-	public void testGeraPontuacaoParticipacaoDesenvolvedor() throws CadastroException {
+	public void testGeraPontuacaoParticipacaoDesenvolvedor() throws CadastroException, ValidacaoException, DataException {
 		Profissional profissional3 = new Profissional("desenvolvedor", 30, 40);
 		
 		//Criando um projeto para ser associado ao profissional.
