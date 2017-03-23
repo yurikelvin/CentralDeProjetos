@@ -215,7 +215,7 @@ public class PED extends Projeto implements Contribuicao {
 	public double geraContribuicao() {
 		double baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
 
-		if(baseDaContribuicao < 10000) {
+		if(baseDaContribuicao <= 10000) {
 			return 0;
 		}
 		
