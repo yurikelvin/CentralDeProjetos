@@ -438,7 +438,7 @@ public class ProjetoController implements Serializable{
 		return false;
 	}
 	
-	private Projeto getProjetos(int codigoProjeto) throws CadastroException {
+	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 
 		for(Projeto projetoAserEncontrado: projetos){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){

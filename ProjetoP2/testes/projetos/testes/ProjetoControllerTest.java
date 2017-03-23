@@ -12,6 +12,7 @@ import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
+import cdp.projetos.Monitoria;
 
 public class ProjetoControllerTest {
 
@@ -687,39 +688,434 @@ public class ProjetoControllerTest {
 				//PED
 				Assert.assertEquals("3", projetoController.getInfoProjeto(4, "patentes"));
 			
-			
+		//Ultilizando o getInfo para acessar Patentes
 
+				//Monitoria
+				try {
+					projetoController.getInfoProjeto(1, "categoria");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar categoria em Monitoria");
+				} catch (Exception e) {
+					Assert.assertEquals("Monitoria nao possui categoria", e.getMessage());
+				}
+				
+				//PET
+				try {
+					projetoController.getInfoProjeto(2, "categoria");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar categoria em PET");
+				} catch (Exception e) {
+					Assert.assertEquals("PET nao possui categoria", e.getMessage());
+				}
+				
+				
+				//Extensao
+				try {
+					projetoController.getInfoProjeto(3, "categoria");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar categoria em Extensao");
+				} catch (Exception e) {
+					Assert.assertEquals("Extensao nao possui categoria", e.getMessage());
+				}
+				
+				//PED
+				Assert.assertEquals("pibic", projetoController.getInfoProjeto(4, "categoria"));
+				
+		//Ultilizando o getInfo para acessar um atributo invalido
+				try {
+					projetoController.getInfoProjeto(3, "Kappa");
+					Assert.fail("Lancamento de Exception do getInfo: Tentando acessar atributo invalido");
+				} catch (Exception e) {
+					Assert.assertEquals("Atributo nulo ou invalido", e.getMessage());
+				}
+				
+				
+	}
+
+		
+	@Test
+	public void testGetProjetos() throws DataException, CadastroException {
+		//Tentando fazer o getProjetos como o codigo negativo
+			try {
+			projetoController.getProjetos(5);
+			Assert.fail("Lancamento de Exception do getProjetos com o codigo de um projeto que n existe");
+			} catch (Exception e) {
+			Assert.assertEquals("Projeto nao encontrado", e.getMessage());
+			
+			//Fazendo o get do  projeto
+			Monitoria monitoria = new Monitoria("Monitoria Calculo 2", "Calculo", 20, "Ajudar os Alunos", "Segundo", "20/02/2017", 5, 1);
+			Assert.assertEquals(monitoria.getNome(), projetoController.getProjetos(1).getNome());
+			
+			
+}
+
+	}
+
+	
+	@Test
+	public void testEditaProjeto() throws ValidacaoException, CadastroException, ParseException, DataException {
+	
+		//Tentando fazer o editaInfo com o codigo negativo
+				try {
+					projetoController.editaProjeto(-1, "nome", "Exemplo");
+					Assert.fail("Lancamento de Exception do getInfo com o codigo invalido");
+				} catch (Exception e) {
+					Assert.assertEquals("Codigo invalido", e.getMessage());
+			}
+		
+		
+		//Tentando fazer o editaInfo com o atributo nulo
+		try {
+			projetoController.editaProjeto(1, null, "Exemplo");
+			Assert.fail("Lancamento de Exception do getInfo com o atributo nulo");
+		} catch (Exception e) {
+			Assert.assertEquals("Atributo nao pode ser vazio ou invalido", e.getMessage());
+	}
+		
+		//Tentando fazer editaInfo com o atributo vazio
+		try {
+			projetoController.editaProjeto(1, "", "Exemplo");
+			Assert.fail("Lancamento de Exception do getInfo com o atributo vazio");
+		} catch (Exception e) {
+			Assert.assertEquals("Atributo nao pode ser vazio ou invalido", e.getMessage());
+	}
+		
+		//Ultilizando o editaInfo: nome dos projetos
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "nome", "Kappa");
+			Assert.assertEquals("Kappa", projetoController.getInfoProjeto(1, "nome"));
+			
+			//PET
+			projetoController.editaProjeto(2, "nome", "Cabalo");
+			Assert.assertEquals("Cabalo", projetoController.getInfoProjeto(2, "nome"));
+			
+			//Extensao
+			projetoController.editaProjeto(3, "nome", "Hastad");
+			Assert.assertEquals("Hastad", projetoController.getInfoProjeto(3, "nome"));
+			
+			//PED
+			projetoController.editaProjeto(4, "nome", "Gugiba");
+			Assert.assertEquals("Gugiba", projetoController.getInfoProjeto(4, "nome"));
+			
+		//Ultilizando o editaInfo: Objetivo dos projetos
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "objetivo", "Kappa");
+			Assert.assertEquals("Kappa", projetoController.getInfoProjeto(1, "objetivo"));
+			
+			//PET
+			projetoController.editaProjeto(2, "objetivo", "Cabalo");
+			Assert.assertEquals("Cabalo", projetoController.getInfoProjeto(2, "objetivo"));
+			
+			//Extensao
+			projetoController.editaProjeto(3, "objetivo", "Hastad");
+			Assert.assertEquals("Hastad", projetoController.getInfoProjeto(3, "objetivo"));
+			
+			//PED
+			projetoController.editaProjeto(4, "objetivo", "Gugiba");
+			Assert.assertEquals("Gugiba", projetoController.getInfoProjeto(4, "objetivo"));
+		
+		//Ultilizando o EditaInfo: Disciplina
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "disciplina", "Kappa");
+			Assert.assertEquals("Kappa", projetoController.getInfoProjeto(1, "disciplina"));
+			
+			//PET
+			try {
+				projetoController.editaProjeto(2, "disciplina", "Cabalo");
+				Assert.fail("Laçando Exception de EditaProjeto: Disciplina em PET");
+			} catch (Exception e) {
+				Assert.assertEquals("PET nao possui disciplina", e.getMessage());
+			}
+			
+			
+		 //Extensao
+			try {
+				projetoController.editaProjeto(3, "disciplina", "terceiro");
+				Assert.fail("Lancamento de Exception do EditaInfo: disciplina em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui disciplina", e.getMessage());
+			}
+			
+			//PED
+			try {
+				projetoController.editaProjeto(4, "disciplina", "Gugiba");
+				Assert.fail("Lancamento de Exception do EditaInfo: disciplina em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui disciplina", e.getMessage());
+			}
+			
+		//Ultilizando o EditaInfo: Periodo
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "periodo", "Kappa");
+			Assert.assertEquals("Kappa", projetoController.getInfoProjeto(1, "periodo"));
+			
+			//PET
+			try {
+				projetoController.editaProjeto(2, "periodo", "Cabalo");
+				Assert.fail("Laçando Exception de EditaProjeto: periodo em PET");
+			} catch (Exception e) {
+				Assert.assertEquals("PET nao possui periodo", e.getMessage());
+			}
+			
+			
+		 //Extensao
+			try {
+				projetoController.editaProjeto(3, "periodo", "Hastad");
+				Assert.fail("Lancamento de Exception do EditaInfo: periodo em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui periodo", e.getMessage());
+			}
+			
+			//PED
+			try {
+				projetoController.editaProjeto(4, "periodo", "Gugiba");
+				Assert.fail("Lancamento de Exception do EditaInfo: periodo em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui periodo", e.getMessage());
+			}
+			
+			
+       //Ultilizando o editaInfo: Data de inicio dos projetos
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "data de inicio", "28/02/2015");
+			Assert.assertEquals("28/02/2015", projetoController.getInfoProjeto(1, "data de inicio"));
+			
+			//PET
+			projetoController.editaProjeto(2, "data de inicio", "28/02/2015");
+			Assert.assertEquals("28/02/2015", projetoController.getInfoProjeto(2, "data de inicio"));
+			
+			//Extensao
+			projetoController.editaProjeto(3, "data de inicio", "28/02/2015");
+			Assert.assertEquals("28/02/2015", projetoController.getInfoProjeto(3, "data de inicio"));
+			
+			//PED
+			projetoController.editaProjeto(4, "data de inicio", "28/02/2015");
+			Assert.assertEquals("28/02/2015", projetoController.getInfoProjeto(4, "data de inicio"));
+			
+			
+      //Ultilizando o EditaInfo: Categoria
+			
+			//Monitoria
+			try {
+				projetoController.editaProjeto(1, "categoria", "pivic");
+				Assert.fail("Laçando Exception de EditaProjeto: categoria em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui categoria", e.getMessage());
+			}
+			
+			//PET
+			try {
+				projetoController.editaProjeto(2, "categoria", "pivic");
+				Assert.fail("Laçando Exception de EditaProjeto: categoria em PET");
+			} catch (Exception e) {
+				Assert.assertEquals("PET nao possui categoria", e.getMessage());
+			}
+			
+			
+		 //Extensao
+			try {
+				projetoController.editaProjeto(3, "categoria", "pivic");
+				Assert.fail("Lancamento de Exception do EditaInfo: categoria em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui categoria", e.getMessage());
+			}
+			
+			//PED
+			projetoController.editaProjeto(4, "categoria", "pivic");
+			Assert.assertEquals("pivic", projetoController.getInfoProjeto(4, "categoria"));
+			
+			
+		//Ultilizando o editaInfo: duracao dos projetos
+			
+			//Monitoria
+			projetoController.editaProjeto(1, "duracao", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(1, "duracao"));
+			
+			//PET
+			projetoController.editaProjeto(2, "duracao", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(2, "duracao"));
+			
+			//Extensao
+			projetoController.editaProjeto(3, "duracao", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(3, "duracao"));
+			
+			//PED
+			projetoController.editaProjeto(4, "duracao", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(4, "duracao"));
+			
+		//Ultilizando o editaInfo: Impacto
+			
+			//Monitoria
+			try {
+				projetoController.editaProjeto(1, "Impacto", "3");
+				Assert.fail("Laçando Exception de EditaProjeto: Impacto em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui impacto", e.getMessage());
+			}
+			
+			//PET
+			projetoController.editaProjeto(2, "Impacto", "3");
+			Assert.assertEquals("Regional (Dentro do Estado)", projetoController.getInfoProjeto(2, "Impacto"));
+			
+			//Extensao
+			projetoController.editaProjeto(3, "Impacto", "3");
+			Assert.assertEquals("Regional (Dentro do Estado)", projetoController.getInfoProjeto(3, "Impacto"));
+			
+			//PED
+			try {
+				projetoController.editaProjeto(4, "Impacto", "3");
+				Assert.fail("Lancamento de Exception do EditaInfo: impacto em PED");
+			} catch (Exception e) {
+				Assert.assertEquals("PED nao possui impacto", e.getMessage());
+			}
+			
+			
+		//Ultilizando o editaInfo: producao tecnica
+			
+			//Monitoria
+			try {
+				projetoController.editaProjeto(1, "producao tecnica", "3");
+				Assert.fail("Laçando Exception de EditaProjeto: producao tecnica em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui producao tecnica", e.getMessage());
+			}
+			
+			//PET
+			projetoController.editaProjeto(2, "producao tecnica", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(2, "producao tecnica"));
+			
+			//Extensao
+			try {
+				projetoController.editaProjeto(3, "producao tecnica", "3");
+				Assert.fail("Lancamento de Exception do EditaInfo: producao tecnica em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui producao tecnica", e.getMessage());
+			}
+			
+			//PED
+			projetoController.editaProjeto(4, "producao tecnica", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(4, "producao tecnica"));
+			
+		//Ultilizando o editaInfo: producao academica
+			
+			//Monitoria
+			try {
+				projetoController.editaProjeto(1, "producao academica", "3");
+				Assert.fail("Laçando Exception de EditaProjeto: producao academica em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui producao academica", e.getMessage());
+			}
+			
+			//PET
+			projetoController.editaProjeto(2, "producao academica", "3");
+			Assert.assertEquals("6", projetoController.getInfoProjeto(2, "producao academica"));
+			
+			//Extensao
+			try {
+				projetoController.editaProjeto(3, "producao academica", "3");
+				Assert.fail("Lancamento de Exception do EditaInfo: producao academica em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui producao academica", e.getMessage());
+			}
+			
+			//PED
+			projetoController.editaProjeto(4, "producao academica", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(4, "producao academica"));
+			
+        //Ultilizando o editaInfo: patentes
+			
+			//Monitoria
+			try {
+				projetoController.editaProjeto(1, "patentes", "3");
+				Assert.fail("Laçando Exception de EditaProjeto: patentes em Monitoria");
+			} catch (Exception e) {
+				Assert.assertEquals("Monitoria nao possui patentes", e.getMessage());
+			}
+			
+			//PET
+			projetoController.editaProjeto(2, "patentes", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(2, "patentes"));
+			
+			//Extensao
+			try {
+				projetoController.editaProjeto(3, "patentes", "3");
+				Assert.fail("Lancamento de Exception do EditaInfo: patentes em Extensao");
+			} catch (Exception e) {
+				Assert.assertEquals("Extensao nao possui patentes", e.getMessage());
+			}
+			
+			//PED
+			projetoController.editaProjeto(4, "patentes", "3");
+			Assert.assertEquals("3", projetoController.getInfoProjeto(4, "patentes"));
+			
+		
+			
+	}
+
+	@Test
+	public void testRemoveProjeto() throws CadastroException {
+		
+		//Fazendo o Remove com o codigo inválido
+			try {
+				projetoController.removeProjeto(-5);
+				Assert.fail("Lancamento de Exception do removeProjetos com o codigo invalido");
+			} catch (Exception e) {
+				Assert.assertEquals("Codigo invalido", e.getMessage());
+			}
+			
+		//Removendo Projeto
+			projetoController.removeProjeto(1);
+			
+			try {
+				projetoController.getProjetos(1);
+				Assert.fail("Lancamento de Exception do removeProjetos");
+				
+			} catch (Exception e) {
+				Assert.assertEquals("Projeto nao encontrado",e.getMessage());
+			}
+	}
+
+	@Test
+	public void testGetCodigoProjeto() throws CadastroException {
+		
+		//GetCodigoProjeto com o nome nulo
+			try {
+				projetoController.getCodigoProjeto(null);
+				Assert.fail("Lancamento de Exception do getCodigo com nome nulo");
+			} catch (Exception e) {
+				Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+		}
+		
+		//GetCodigoProjeto com o nome vazio
+				try {
+					projetoController.getCodigoProjeto("");
+					Assert.fail("Lancamento de Exception do getCodigo com nome vazio");
+				} catch (Exception e) {
+					Assert.assertEquals("Nome nulo ou vazio", e.getMessage());
+				}
+				
+		//GetCodigoProjeto do projeto de 1
+				Assert.assertEquals(1, projetoController.getCodigoProjeto("Monitoria Calculo 2"));
+				
+		
 		
 	}
 
 	@Test
-	public void testGetProjetos() {
-		fail("Not yet implemented");
+	public void testPesquisaProjeto() throws CadastroException{
+		
+		//Codigo de projeto que invalido
+			try {
+				projetoController.pesquisaProjeto(-5);
+				Assert.fail("Laçando Exception de PesquisaProjeto com codigo invalido");
+			} catch (Exception e) {
+				Assert.assertEquals("Projeto nao encontrado", e.getMessage());
+			}
+			
+		//Pesquisando projeto que existe
+			Assert.assertTrue(projetoController.pesquisaProjeto(1));
+		
 	}
-
-	@Test
-	public void testEditaProjeto() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRemoveProjeto() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCodigoProjeto() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRemoveParticipacao() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
 }
