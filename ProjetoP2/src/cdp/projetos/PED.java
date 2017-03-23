@@ -23,10 +23,14 @@ public class PED extends Projeto implements Contribuicao {
 	private CategoriaPED categoria;
 	private HashSet<Produtividade> produtividades;
 	
-
 	private boolean temProfessorCoordenador;
 	private boolean temProfessor;
 	private boolean temAluno;
+	
+	private static double PERCENTUAL_BASE = 10.0;
+	private static final double PERCENTUAL_POR_PRODUCAO_ACADEMICA = 0.2;
+	private static final double PECENTUAL_POR_PRODUCAO_TECNICA = 0.3;
+	private static final double PERCENTUAL_POR_100K_DE_CAPITAL = 1;
 	
 	
 	public PED(String nomeDoProjeto, String categoria, String objetivoDoProjeto, String dataInicio, int duracao, int codigo)  throws ValidacaoException, DataException {
@@ -42,8 +46,8 @@ public class PED extends Projeto implements Contribuicao {
 	
 	/**
 	 * O metodo vai pegar a quantidade de produtividade de um determinado tipo.
-	 * @param produtividade
-	 * @return
+	 * @param produtividade A produtividade que sera pesquisada
+	 * @return Retorna, na forma de string, a quantidade de certa produtividade
 	 */
 	public String getProdutividade(String prod) {
 		for(Produtividade produtividade: this.produtividades) {
@@ -56,8 +60,8 @@ public class PED extends Projeto implements Contribuicao {
 	
 	/**
 	 * Adiciona uma quantidade de produtividade ao projeto, que no caso, pode ser prodAcademica, prodTecnica e patentes.
-	 * @param produtividade
-	 * @param quantidade
+	 * @param produtividade A produtividade que sera adicionada
+	 * @param quantidade A quantidade que sera adicionada
 	 */
 	public void adicionaProdutividade(String produtividade, int quantidade) {
 		Produtividade p = new Produtividade(produtividade, quantidade);
@@ -200,6 +204,43 @@ public class PED extends Projeto implements Contribuicao {
 
 	public void setTemProfessorCoordenador(boolean b) {
 		this.temProfessorCoordenador = b;
+		
+	}
+	
+	
+	/**
+	 * Calcula o total da contribuicao de um projeto para a UASC.
+	 */
+	@Override
+	public double geraContribuicao() {
+		double baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
+
+		if(baseDaContribuicao < 10000) {
+			return 0;
+		}
+		
+		calculaPercentualDeContribuicao();
+		
+		return baseDaContribuicao * PERCENTUAL_BASE;
+		
+	
+	}
+	/**
+	 * Calcula o percentual de um projeto, com base no percentual base (10%). Aumentando e/ou diminuindo esse percentual.
+	 */
+	private void calculaPercentualDeContribuicao() {
+		int qtdPatentes = Integer.parseInt(getProdutividade("patentes"));
+		int qtdProdTecnica = Integer.parseInt(getProdutividade("producao tecnica"));
+		int qtdProdAcademica = Integer.parseInt(getProdutividade("producao academica"));
+		double percentualDoCapital = super.getDespesa("capital")/100000;
+		
+		if(qtdPatentes > 0) {
+			PERCENTUAL_BASE += 3.0;
+		}
+		
+		PERCENTUAL_BASE += qtdProdTecnica * PECENTUAL_POR_PRODUCAO_TECNICA;
+		PERCENTUAL_BASE += percentualDoCapital * PERCENTUAL_POR_100K_DE_CAPITAL;
+		PERCENTUAL_BASE -= qtdProdAcademica * PERCENTUAL_POR_PRODUCAO_ACADEMICA;
 		
 	}
 
