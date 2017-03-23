@@ -15,7 +15,10 @@ import cdp.participacao.Professor;
  * @author Matheus Henrique
  * @author Gustavo Victor
  */
-public class Extensao extends Projeto {
+public class Extensao extends Projeto implements Contribuicao {
+	
+	private static double PERCENTUAL_BASE = 10.0;
+	private final static double PERCENTUAL_IMPACTO_SOCIAL = 0.5;
 	
 	private ImpactoSocial impactoSocial;
 	private boolean temProfessorCoordenador;
@@ -81,6 +84,20 @@ public class Extensao extends Projeto {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
 		} 
+	}
+
+	@Override
+	public double geraContribuicao() {
+		
+		double valorAReduzir = impactoSocial.getValorImpactoSocial() * PERCENTUAL_IMPACTO_SOCIAL;
+		PERCENTUAL_BASE -= valorAReduzir;
+		double baseDaContribuicao = super.getDespesa("custeio") + super.getDespesa("capital");
+		
+		if (baseDaContribuicao <= 10000){
+			return 0;
+		}
+		
+		return baseDaContribuicao * PERCENTUAL_BASE;
 	}
 
 }
