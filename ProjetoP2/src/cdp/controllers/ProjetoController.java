@@ -236,11 +236,11 @@ public class ProjetoController implements Serializable{
 		case IMPACTO:
 			
 			if(ehPET(projetoASerConsultado, atributo)){
-				return ((PET) projetoASerConsultado).getImpactoSocial();
+				return ((PET) projetoASerConsultado).getImpactoSocial().getImpactoSocial();
 			}
 			
 			else if(ehExtensao(projetoASerConsultado, atributo)){
-				return ((Extensao) projetoASerConsultado).getImpacto();
+				return ((Extensao) projetoASerConsultado).getImpacto().getImpactoSocial();
 			}
 			
 		case PRODTECNICA:

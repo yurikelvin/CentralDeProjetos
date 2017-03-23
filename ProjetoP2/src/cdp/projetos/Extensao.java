@@ -30,8 +30,8 @@ public class Extensao extends Projeto {
 		this.temProfessorCoordenador = b;
 	}
 
-	public String getImpacto() {
-		return impactoSocial.getImpactoSocial();
+	public ImpactoSocial getImpacto() {
+		return impactoSocial;
 	}
 	
 	public void setCusteio(double valor) throws ValidacaoException, CadastroException {

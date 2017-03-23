@@ -32,10 +32,11 @@ public class FactoryDeParticipacao {
 	
 	public Participacao criaAssociacaoProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras) throws ValidacaoException, CadastroException {
 	
-		Professor participacao = new Professor(valorHora, qtdHoras, coordenador);
-		
 		this.projetoController.validaHoraProfessor(valorHora, codigoProjeto);
 		
+		Professor participacao = new Professor(valorHora, qtdHoras, coordenador);
+		
+				
 		this.pessoaController.associaPessoa(participacao, cpf);
 		this.projetoController.associaProjeto(participacao, codigoProjeto);
 		

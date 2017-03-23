@@ -65,13 +65,11 @@ public class ParticipacaoController implements Serializable{
 		
 		
 		
-		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
+		Participacao participacao = fParticipacao.criaAssociacaoProfessor(cpf, codigoProjeto, coordenador, valorHora, qtdHoras);
+			
+	
+		this.participacoes.add(participacao);
 
-			Participacao participacao = fParticipacao.criaAssociacaoProfessor(cpf, codigoProjeto, coordenador, valorHora, qtdHoras);
-			
-			
-			this.participacoes.add(participacao);
-		}
 		
 	}
 	
@@ -93,14 +91,10 @@ public class ParticipacaoController implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
-		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
+		Participacao participacao = fParticipacao.criaAssociacaoGraduando(cpf, codigoProjeto, valorHora, qtdHoras);
 			
-			Participacao participacao = fParticipacao.criaAssociacaoGraduando(cpf, codigoProjeto, valorHora, qtdHoras);
+		this.participacoes.add(participacao);
 			
-			this.participacoes.add(participacao);
-			
-		}
-		
 	}
 	
 	/**
@@ -124,13 +118,10 @@ public class ParticipacaoController implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
-		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
-			
-			Participacao participacao = fParticipacao.criaAssociacaoProfissional(cpf, codigoProjeto, cargo, valorHora, qtdHoras);
+		Participacao participacao = fParticipacao.criaAssociacaoProfissional(cpf, codigoProjeto, cargo, valorHora, qtdHoras);
 			
 			
-			this.participacoes.add(participacao);
-		}
+		this.participacoes.add(participacao);
 		
 	}
 	
@@ -155,16 +146,11 @@ public class ParticipacaoController implements Serializable{
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
-		if(!this.pesquisaParticipacao(cpf, codigoProjeto)) {
-			
-			
-			Participacao participacao = fParticipacao.criaAssociacaoPosGraduando(cpf, codigoProjeto, associacao, valorHora, qtdHoras);
+		Participacao participacao = fParticipacao.criaAssociacaoPosGraduando(cpf, codigoProjeto, associacao, valorHora, qtdHoras);
 
 			
-			this.participacoes.add(participacao);
-		}
-		
-	
+		this.participacoes.add(participacao);
+
 	}
 	
 
@@ -182,7 +168,7 @@ public class ParticipacaoController implements Serializable{
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
 		
 		for(Participacao participacao: this.participacoes) {
-			if(participacao.getPessoa().getClass().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
+			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
 				return true;
 		
 			} 

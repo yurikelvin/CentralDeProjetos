@@ -190,7 +190,7 @@ public class PED extends Projeto {
 	 */
 	public String getRepresentacaoProdutividade(String descricao) throws ValidacaoException {
 		for(Produtividade produtividade: this.produtividades) {
-			if(produtividade.getProdutividade().equals(descricao)) {
+			if(produtividade.getProdutividade().equalsIgnoreCase(descricao)) {
 				return Integer.toString(produtividade.getQuantidade());
 			}
 		}
