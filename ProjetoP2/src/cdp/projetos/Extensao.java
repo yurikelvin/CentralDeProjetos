@@ -98,7 +98,6 @@ public class Extensao extends Projeto implements Contribuicao {
 		}
 		
 		return baseDaContribuicao * PERCENTUAL_BASE;
-		
 	}
 
 }
