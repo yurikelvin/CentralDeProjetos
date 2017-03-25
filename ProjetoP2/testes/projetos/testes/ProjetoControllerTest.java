@@ -1010,7 +1010,7 @@ public class ProjetoControllerTest {
 			
 			//PET
 			projetoController.editaProjeto(2, "producao academica", "3");
-			Assert.assertEquals("6", projetoController.getInfoProjeto(2, "producao academica"));
+			Assert.assertEquals("3", projetoController.getInfoProjeto(2, "producao academica"));
 			
 			//Extensao
 			try {

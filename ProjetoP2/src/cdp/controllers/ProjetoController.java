@@ -1,5 +1,9 @@
 package cdp.controllers;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Iterator;
@@ -10,9 +14,7 @@ import cdp.exception.CadastroException;
 import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.factorys.FactoryDeProjeto;
-import cdp.participacao.AlunoGraduando;
 import cdp.participacao.Participacao;
-import cdp.participacao.Professor;
 import cdp.projetos.Extensao;
 import cdp.projetos.Monitoria;
 import cdp.projetos.PED;
@@ -30,7 +32,7 @@ import cdp.utils.Validacao;
  */
 public class ProjetoController implements Serializable{
 
-	private Set<Projeto> projetos;
+	private Set<Projeto> projetosCadastrados;
 	private FactoryDeProjeto factoryProjeto;
 	private int codigosProjeto;
 	
@@ -52,7 +54,7 @@ public class ProjetoController implements Serializable{
 	
 	
 	public ProjetoController(){
-		this.projetos = new TreeSet<>();
+		this.projetosCadastrados = new TreeSet<>();
 		factoryProjeto = new FactoryDeProjeto();
 
 		
@@ -84,7 +86,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaIntSemZero(duracao,"Duracao Invalida");
 		
 		this.codigosProjeto++;
-		projetos.add(factoryProjeto.criaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao, codigosProjeto));
+		projetosCadastrados.add(factoryProjeto.criaMonitoria(nome, disciplina, rendimento, objetivo, periodo, dataInicio, duracao, codigosProjeto));
 		
 		
 		return codigosProjeto;
@@ -122,7 +124,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaIntSemZero(duracao,"Duracao invalida");
 		
 		this.codigosProjeto++;
-		projetos.add(factoryProjeto.criaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao, codigosProjeto));
+		projetosCadastrados.add(factoryProjeto.criaPET(nome, objetivo, impacto, rendimento, prodTecnica, prodAcademica, patentes, dataInicio, duracao, codigosProjeto));
 		
 		return codigosProjeto;
 		
@@ -150,7 +152,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaImpactoSocial(impacto);
 		
 		this.codigosProjeto++;
-		projetos.add(factoryProjeto.criaExtensao(nome, objetivo, impacto, dataInicio, duracao, codigosProjeto));
+		projetosCadastrados.add(factoryProjeto.criaExtensao(nome, objetivo, impacto, dataInicio, duracao, codigosProjeto));
 		
 		return codigosProjeto;
 	}
@@ -182,7 +184,7 @@ public class ProjetoController implements Serializable{
 		Validacao.validaIntSemZero(duracao,"Duracao invalida");
 		
 		this.codigosProjeto++;
-		projetos.add(factoryProjeto.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao, codigosProjeto));		
+		projetosCadastrados.add(factoryProjeto.criaPED(nome, categoria, prodTecnica, prodAcademica, patentes, objetivo, dataInicio, duracao, codigosProjeto));		
 		
 		return codigosProjeto;
 		
@@ -440,7 +442,7 @@ public class ProjetoController implements Serializable{
 	
 	public Projeto getProjetos(int codigoProjeto) throws CadastroException {
 
-		for(Projeto projetoAserEncontrado: projetos){
+		for(Projeto projetoAserEncontrado: projetosCadastrados){
 			if(projetoAserEncontrado.getCodigo() == codigoProjeto){
 				return projetoAserEncontrado;
 			}
@@ -458,7 +460,7 @@ public class ProjetoController implements Serializable{
 	 * @throws DataException Caso a data nao seja uma data valida no calendario.
 	 */
 	public void editaProjeto(int codigoDoProjeto, String atributo, String novoValor) throws CadastroException, ValidacaoException, ParseException, DataException{
-		Validacao.validaString(atributo, atributo + " nao pode ser vazio ou invalido");
+		Validacao.validaString(atributo, "Atributo nao pode ser vazio ou invalido");
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
 		Validacao.validaString(novoValor, atributo + " nulo ou vazio");
 		
@@ -555,7 +557,7 @@ public class ProjetoController implements Serializable{
 		
 		
 		
-		Iterator<Projeto> it = projetos.iterator();
+		Iterator<Projeto> it = projetosCadastrados.iterator();
 		while(it.hasNext()) {
 			Projeto projetoProcurado = it.next();
 			if(projetoProcurado.getCodigo() == codigoDoProjeto) {
@@ -571,7 +573,9 @@ public class ProjetoController implements Serializable{
 	 * @throws CadastroException Retorna uma excecao, se o projeto nao for cadastrado no sistema.
 	 */
 	public int getCodigoProjeto(String nome) throws CadastroException {
-		Iterator<Projeto> it = this.projetos.iterator();
+		Validacao.validaString(nome, "Nome nulo ou vazio");
+		
+		Iterator<Projeto> it = this.projetosCadastrados.iterator();
 		while(it.hasNext()) {
 			Projeto projetoProcurado = it.next();
 			if(projetoProcurado.getNome().equals(nome)) {
@@ -582,44 +586,6 @@ public class ProjetoController implements Serializable{
 		
 		
 		throw new CadastroException("Projeto nao encontrado");
-	}
-	
-	/**
-	 * Modifica as chaves nas respectivas classes de projeto que controlam a adicao de participacao especifica.
-	 * @param participacao Participacao a ter suas chaves trocadas.
-	 */
-	
-
-	public void setParametros(Participacao participacao) {
-		if(participacao instanceof Professor && participacao.getProjeto() instanceof PED) {
-			PED ped = (PED) participacao.getProjeto();
-			Professor professor = (Professor) participacao;
-			if(ped.getCategoria().equals("coop") && professor.getCoordenador() == true) {
-				ped.setTemProfessorCoordenador(false);
-			} 
-			if(!ped.getCategoria().equals("coop")) {
-				ped.setTemProfessor(false);
-			}
-			
-		} else if(participacao instanceof AlunoGraduando && participacao.getProjeto() instanceof PED) {
-			PED ped = (PED) participacao.getProjeto();
-			if(!ped.getCategoria().equals("coop")) {
-				ped.setTemAluno(false);
-			}
-		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof PET) {
-			PET pet = (PET) participacao.getProjeto();
-			Professor prof = (Professor) participacao;
-			if(prof.getCoordenador()) {
-				pet.setTemTutor(false);
-			}
-		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof Monitoria) {
-			Monitoria monitoria = (Monitoria) participacao.getProjeto();
-			monitoria.setProfessor(false);
-		} else if(participacao instanceof Professor && participacao.getProjeto() instanceof Extensao) {
-			Extensao extensao = (Extensao) participacao.getProjeto();
-			extensao.setProfessor(false);
-		}
-		
 	}
 	
 	/**
@@ -677,7 +643,7 @@ public class ProjetoController implements Serializable{
 	 */
 	
 	public boolean pesquisaProjeto(int codigoProjeto) throws CadastroException {
-		Iterator<Projeto> it = this.projetos.iterator();
+		Iterator<Projeto> it = this.projetosCadastrados.iterator();
 		while(it.hasNext()) {
 			Projeto projetoProcurado = it.next();
 			if(projetoProcurado.getCodigo() == codigoProjeto) {
@@ -692,7 +658,7 @@ public class ProjetoController implements Serializable{
 	@Override
 	public String toString() {
 		String toString = "";
-		for(Projeto projeto: this.projetos) {
+		for(Projeto projeto: this.projetosCadastrados) {
 			toString += projeto + FIM_DE_LINHA;
 		}
 		return toString;
@@ -722,7 +688,40 @@ public class ProjetoController implements Serializable{
 		
 	}
 	
-
+	public String geraRelatorioCadProjetos() throws IOException {
+		String relatorio = "Cadastro de Projetos: " + this.projetosCadastrados.size() + " projetos registrados" + FIM_DE_LINHA;
+		
+		int contProjetos = 1;
+		for(Projeto projeto: this.projetosCadastrados) {
+			relatorio += "==> Projeto " + contProjetos + ":" + FIM_DE_LINHA;
+			relatorio += projeto.toString() + FIM_DE_LINHA; // depois resolver
+			
+		}
+		int totalProjetosConcluidos = 0; // rever
+		
+		relatorio += "Total de projetos concluidos: " + totalProjetosConcluidos + FIM_DE_LINHA;
+		// esperar testes da us7
+		relatorio += "% Participacao da graduacao: ";
+		
+		this.salvaRelatorio(relatorio);
+		
+		return relatorio;
+	}
+	
+	private void salvaRelatorio(String relatorio) throws IOException {
+		PrintWriter arquivo = null;
+		
+		try {
+			arquivo = new PrintWriter(new BufferedWriter(new FileWriter("arquivos_sistema/relatorios/cad_projetos.txt")));
+			arquivo.println(relatorio);
+		} finally {
+			if(arquivo != null) {
+				arquivo.close();
+			}
+			
+		}
+		
+	}
 	
 
 }

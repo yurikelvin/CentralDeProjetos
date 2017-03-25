@@ -1,5 +1,6 @@
 package cdp.controllers;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,6 +52,7 @@ public class ParticipacaoController implements Serializable{
 	 * @param qtdHoras Quantidade de horas trabalhadas.
 	 * @throws CadastroException Caso a pessoa/projeto nao esteja cadastrado no sistema.
 	 * @throws ValidacaoException Caso os parametros sejam nulo/vazio ou invalido.
+
 	 */
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
@@ -200,7 +202,6 @@ public class ParticipacaoController implements Serializable{
 			Participacao participacao = it.next();
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
 				
-				this.projetoController.setParametros(participacao);
 				this.projetoController.removeParticipacao(participacao, codigoProjeto);
 				this.pessoaController.removeParticipacao(participacao, cpf);
 
@@ -212,7 +213,7 @@ public class ParticipacaoController implements Serializable{
 
 		throw new CadastroException("Pessoa nao possui participacao no projeto indicado");
 	}
-
+	
 	/**
 	 * Retorna as participacoes existentes no sistema.
 	 * @return As participacoes existentes no sistema.

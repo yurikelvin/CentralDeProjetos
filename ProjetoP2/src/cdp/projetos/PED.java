@@ -1,6 +1,8 @@
 package cdp.projetos;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
@@ -21,7 +23,7 @@ import cdp.participacao.Professor;
 public class PED extends Projeto implements Contribuicao {
 	
 	private CategoriaPED categoria;
-	private HashSet<Produtividade> produtividades;
+	private Set<Produtividade> produtividades;
 	
 	private boolean temProfessorCoordenador;
 	private boolean temProfessor;
@@ -64,8 +66,16 @@ public class PED extends Projeto implements Contribuicao {
 	 * @param quantidade A quantidade que sera adicionada
 	 */
 	public void adicionaProdutividade(String produtividade, int quantidade) {
-		Produtividade p = new Produtividade(produtividade, quantidade);
 		
+		Iterator<Produtividade> it = this.produtividades.iterator();
+		while(it.hasNext()) {
+			Produtividade prod = it.next();
+			if(prod.getProdutividade().equalsIgnoreCase(produtividade)) {
+				it.remove();
+				break;
+			}
+		}
+		Produtividade p = new Produtividade(produtividade, quantidade);
 		produtividades.add(p);
 	}
 	
@@ -137,6 +147,7 @@ public class PED extends Projeto implements Contribuicao {
 		
 			} 					
 		} else {
+			
 			if(super.participacoes.contains(participacaoASerAdicionada)) {
 				throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 			}
@@ -174,6 +185,31 @@ public class PED extends Projeto implements Contribuicao {
 				this.temAluno = true;
 			}
 			
+		}
+		
+	}
+	
+	@Override
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+		
+		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) {
+			if(participacaoASerRemovida instanceof Professor && ((Professor) participacaoASerRemovida).getCoordenador()) {
+				this.setTemProfessorCoordenador(false);
+			}
+			
+			
+		} else {
+			if(participacaoASerRemovida instanceof Professor) {
+				this.setTemProfessor(false);
+			} else {
+				this.setTemAluno(false);
+			}
+		}
+		
+		boolean removeu = super.participacoes.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
+			throw new ValidacaoException("Participacao nao encontrada");
 		}
 		
 	}

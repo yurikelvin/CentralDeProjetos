@@ -31,7 +31,7 @@ public class PEDTest {
 
 	@Test
 	public void testGetCategoria() {
-		assertEquals("pibic", ((PED) ped).getCategoria());
+		assertEquals("pibic", ((PED) ped).getCategoria().getValor());
 	}
 	
 	@Test

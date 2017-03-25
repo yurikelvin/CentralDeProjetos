@@ -69,7 +69,7 @@ public class ProfessorTest {
 		assertEquals(5, professor.geraPontuacaoParticipacao(), 0.0001);
 		
 		//Adicionando mais um aluno ao projeto
-		AlunoPosGraduando aluno2 = new AlunoPosGraduando(8, 20, "mestrado");
+		AlunoGraduando aluno2 = new AlunoGraduando(8, 20);
 		Pessoa pessoa3 = new Pessoa("Walber", "333.333.333-33", "walber@hotmail.com");
 		aluno2.setPessoa(pessoa3);
 		p1.adicionaParticipacao(aluno2);
@@ -92,7 +92,7 @@ public class ProfessorTest {
 		assertEquals(4, professor.geraPontuacaoParticipacao(), 0.0001);
 			
 		//Adicionando mais um aluno ao projeto
-		AlunoPosGraduando aluno2 = new AlunoPosGraduando(8, 20, "mestrado");
+		AlunoGraduando aluno2 = new AlunoGraduando(8, 20);
 		Pessoa pessoa3 = new Pessoa("Walber", "333.333.333-33", "walber@hotmail.com");
 		aluno2.setPessoa(pessoa3);
 		p1.adicionaParticipacao(aluno2);

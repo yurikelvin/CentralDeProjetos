@@ -7,6 +7,7 @@ import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
+import cdp.participacao.Professor;
 
 /**
  * Representa um projeto do tipo Monitoria no sistema.
@@ -113,6 +114,21 @@ public class Monitoria extends Projeto {
 		if(super.participacoes.contains(participacaoASerAdicionada)) {
 			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 		}
+	}
+	
+	@Override
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+		
+		if(participacaoASerRemovida instanceof Professor) {
+			this.setProfessor(false);
+		}
+		
+		boolean removeu = super.participacoes.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
+			throw new ValidacaoException("Participacao nao encontrada");
+		}
+		
 	}
 
 

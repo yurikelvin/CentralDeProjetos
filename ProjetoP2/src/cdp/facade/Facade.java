@@ -143,7 +143,7 @@ public class Facade {
 	 */
 	
 	public void associaProfessor(String cpf, int codigoProjeto, boolean coordenador, double valorHora, int qtdHoras)
-			throws CadastroException, ValidacaoException {
+			throws CadastroException, ValidacaoException{
 		try {
 			
 			participacaoController.associaProfessor(cpf, codigoProjeto, coordenador, valorHora, qtdHoras);

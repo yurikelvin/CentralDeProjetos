@@ -85,6 +85,21 @@ public class Extensao extends Projeto implements Contribuicao {
 			}
 		} 
 	}
+	
+	@Override
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+		
+		if(participacaoASerRemovida instanceof Professor) {
+			this.setProfessor(false);
+		}
+		
+		boolean removeu = super.participacoes.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
+			throw new ValidacaoException("Participacao nao encontrada");
+		}
+		
+	}
 
 	@Override
 	public double geraContribuicao() {

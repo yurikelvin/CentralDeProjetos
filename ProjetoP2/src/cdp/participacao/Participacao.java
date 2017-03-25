@@ -51,10 +51,6 @@ public abstract class Participacao implements Serializable, Remuneracao {
 		this.qtdHoras = qtdHoras;
 	}
 
-	public String getData() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		return formatter.format(this.getProjeto().getDate());
-	}
 
 	public int getDuracao() {
 		return this.getProjeto().getDuracao();
@@ -141,5 +137,6 @@ public abstract class Participacao implements Serializable, Remuneracao {
 			return false;
 		return true;
 	}
+	
 
 }

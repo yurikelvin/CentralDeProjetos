@@ -134,16 +134,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	 * @param participacaoASerRemovida A participacao que sera removida.
 	 * @throws ValidacaoException
 	 */
-	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
-		
-		boolean removeu = this.participacoes.remove(participacaoASerRemovida);
-		
-		if(!removeu) {
-			throw new ValidacaoException("Participacao nao encontrada");
-		}
-
-		
-	}
+	public abstract void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException;
 	
 	/**
 	 * Verifica se determinada participacao ja esta no projeto, recebendo a propria participacao.
@@ -191,6 +182,11 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return Integer.toString(this.getDuracao());
 	}
 	
+	public String getData() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return formatter.format(this.getDate());
+	}
+	
 	public int getQtdAlunosNoProjeto() {
 		int qtd = 0;
 		for(Participacao participacao: this.participacoes) {
@@ -217,6 +213,42 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		}
 		return qtd;
 	}
+	
+	public int getTotalParticipantes(String participante) {
+		int alunoGraduando = 0;
+		int alunoPosGraduando = 0;
+		int profissionais = 0;
+		
+		for(Participacao participacao: this.participacoes) {
+			if(participacao instanceof AlunoGraduando) {
+				alunoGraduando ++;
+			} else if(participacao instanceof AlunoPosGraduando) {
+				alunoPosGraduando ++;
+			}else if(participacao instanceof Profissional) {
+				profissionais ++;
+			}
+		}
+		
+		if(participante.equals("Aluno Graduando")) {
+			return alunoGraduando;
+		} else if(participante.equals("Aluno Pos Graduando")) {
+			return alunoPosGraduando;
+		} else if(participante.equals("Profissional")) {
+			return profissionais;
+		}
+		return 0;
+	}
+	
+	public int getTotalParticipantes() {
+		int participantes = 0;
+		for(Participacao participacao: this.participacoes) {
+			if(!(participacao instanceof Professor)) {
+				participantes ++;
+			}
+		}
+		return participantes;
+	}
+	
 	/**
 	 * Retorna todas as pessoas associadas ao projeto, atraves de uma string.
 	 * @return
@@ -240,6 +272,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return pessoas;
 	}
 	
+	
 
 	public int compareTo(Projeto outroProjeto) {
 		
@@ -249,18 +282,87 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		int compare = date.compareTo(otherDate);
 		if(compare > 0) {
 			return 1;
+		} else if(compare == 0) {
+			boolean igual = false;
+			
+			if(this.hashCode() == outroProjeto.hashCode() && this.equals(outroProjeto)) {
+				igual = true;
+			}
+			
+			if(igual) {
+				return 0;
+			}
+			
+			return -1;
+			
 		} else {
 			return -1;
 		}
 	
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.getDataInicio() == null) ? 0 : this.getDataInicio().hashCode());
+		result = prime * result + this.getDuracao();
+		result = prime * result + ((this.getNome() == null) ? 0 : this.getNome().hashCode());
+		result = prime * result + ((this.getObjetivo() == null) ? 0 : this.getObjetivo().hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Projeto other = (Projeto) obj;
+		if (this.getDataInicio() == null) {
+			if (other.getDataInicio() != null)
+				return false;
+		} else if (!this.getDataInicio().equals(other.getDataInicio()))
+			return false;
+		if (this.getDuracao() != other.getDuracao())
+			return false;
+		if (this.getNome() == null) {
+			if (other.getNome() != null)
+				return false;
+		} else if (!this.getNome().equals(other.getNome()))
+			return false;
+		if (this.getObjetivo() == null) {
+			if (other.getObjetivo() != null)
+				return false;
+		} else if (!this.getObjetivo().equals(other.getObjetivo()))
+			return false;
+		return true;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Projeto [nomeDoProjeto=" + nomeDoProjeto + ", objetivoDoProjeto=" + objetivoDoProjeto + ", dataInicio="
-				+ dataInicio + ", duracao=" + duracao + ", codigo=" + codigo + ", representacao()=" + representacao()
-				+ "]";
+		String FIM_DE_LINHA = System.lineSeparator();
+		
+		String projeto = "Nome: " + this.getNome() + FIM_DE_LINHA +
+								"Data de inicio: " + this.getData() + FIM_DE_LINHA;
+		
+		for(Participacao participacao: this.participacoes) {
+			if(participacao instanceof Professor) {
+				if(((Professor) participacao).getCoordenador()) {
+					projeto += "Coordenador: " + participacao.getPessoa() + FIM_DE_LINHA;
+				}
+			}
+		}
+		
+		String situacao = "";
+		
+		projeto += "Situacao: " + situacao; 
+		
+		return projeto;
 	}
 	
 	

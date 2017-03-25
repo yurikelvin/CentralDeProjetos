@@ -23,7 +23,7 @@ import cdp.utils.Validacao;
 
 public class PessoaController implements Serializable{
 
-	private Set<Pessoa> pessoas;
+	private Set<Pessoa> pessoasCadastradas;
 	
 	private static final String NOME = "nome";
 	private static final String EMAIL = "email";
@@ -35,7 +35,7 @@ public class PessoaController implements Serializable{
 
 	
 	public PessoaController() {
-		pessoas = new HashSet<>();
+		pessoasCadastradas = new HashSet<>();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class PessoaController implements Serializable{
 
 		
 		if(!temPessoa(cpf)) {
-			pessoas.add(new Pessoa(nome, cpf, email));
+			pessoasCadastradas.add(new Pessoa(nome, cpf, email));
 		} else {
 			throw new CadastroException("Pessoa com mesmo CPF ja cadastrada");
 		}
@@ -150,7 +150,7 @@ public class PessoaController implements Serializable{
 	public void removePessoa(String cpf) throws CadastroException, ValidacaoException {
 		ValidaPessoa.validaCPF(cpf);
 		Pessoa pessoaARemover = this.getPessoa(cpf);
-		pessoas.remove(pessoaARemover);
+		pessoasCadastradas.remove(pessoaARemover);
 	}
 	
 	
@@ -165,7 +165,7 @@ public class PessoaController implements Serializable{
 		
 		ValidaPessoa.validaCPF(cpf);
 		
-		for(Pessoa pessoaProcurada: pessoas) {
+		for(Pessoa pessoaProcurada: pessoasCadastradas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {
 				return pessoaProcurada;
 			}
@@ -180,7 +180,7 @@ public class PessoaController implements Serializable{
 	 * @return Retorna true, se o cpf estiver cadastrado no sistema, e false, se nao estiver.
 	 */
 	private boolean temPessoa(String cpf) {
-		for(Pessoa pessoaProcurada: pessoas) {
+		for(Pessoa pessoaProcurada: pessoasCadastradas) {
 			if(pessoaProcurada.getCpf().equals(cpf)) {
 				return true;
 			}
@@ -209,7 +209,7 @@ public class PessoaController implements Serializable{
 	@Override
 	public String toString() {
 		String to = "";
-		for(Pessoa pessoa: pessoas) {
+		for(Pessoa pessoa: pessoasCadastradas) {
 			to += pessoa + FIM_DE_LINHA;
 		}
 		return to;
@@ -237,7 +237,7 @@ public class PessoaController implements Serializable{
 	 */
 	
 	public boolean pesquisaPessoa(String cpf) throws CadastroException {
-		for(Pessoa pessoa: this.pessoas) {
+		for(Pessoa pessoa: this.pessoasCadastradas) {
 			if(pessoa.getCpf().equals(cpf)) {
 				return true;
 			}

@@ -1,6 +1,8 @@
 package cdp.projetos;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
@@ -22,7 +24,7 @@ public class PET extends Projeto {
 	
 	private int rendimento;
 	private ImpactoSocial impactoSocial;
-	private HashSet<Produtividade> produtividades;
+	private Set<Produtividade> produtividades;
 	
 	private boolean temTutor;
 	
@@ -77,6 +79,14 @@ public class PET extends Projeto {
 	 * @param quantidade
 	 */
 	public void adicionaProdutividade(String produtividade, int quantidade) {
+		Iterator<Produtividade> it = this.produtividades.iterator();
+		while(it.hasNext()) {
+			Produtividade prod = it.next();
+			if(prod.getProdutividade().equalsIgnoreCase(produtividade)) {
+				it.remove();
+				break;
+			}
+		}
 		Produtividade p = new Produtividade(produtividade, quantidade);
 		produtividades.add(p);
 	}
@@ -160,5 +170,21 @@ public class PET extends Projeto {
 		throw new ValidacaoException("Projeto nao tem essa produtividade");
 	}
 
+	@Override
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+		
+		if(participacaoASerRemovida instanceof Professor) {
+			this.setTemTutor(false);
+		}
+		
+		
+		boolean removeu = super.participacoes.remove(participacaoASerRemovida);
+		
+		if(!removeu) {
+			throw new CadastroException("Participacao nao encontrada");
+		}
+		
+	}
+	
 
 }

@@ -37,7 +37,7 @@ public class PETTest {
 	
 	@Test
 	public void testGetImpacto() {
-		assertEquals("Comunidade Academica", pet.getImpactoSocial());
+		assertEquals("Comunidade Academica", pet.getImpactoSocial().getImpactoSocial());
 	}
 	
 	@Test

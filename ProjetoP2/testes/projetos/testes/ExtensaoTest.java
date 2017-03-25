@@ -39,7 +39,7 @@ public class ExtensaoTest {
 	
 	@Test
 	public void getImpacto() {
-		assertEquals("Federacao (Brasil)", ((Extensao) extensao).getImpacto());
+		assertEquals("Federacao (Brasil)", ((Extensao) extensao).getImpacto().getImpactoSocial());
 	}
 	
 	@Test

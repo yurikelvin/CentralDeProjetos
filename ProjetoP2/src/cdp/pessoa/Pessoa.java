@@ -171,7 +171,7 @@ public class Pessoa implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", email=" + email + "]";
+		return this.getNome();
 	}
 	
 
