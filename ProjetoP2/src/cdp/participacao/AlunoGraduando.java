@@ -14,12 +14,19 @@ import cdp.projetos.Monitoria;
 public class AlunoGraduando extends Participacao {
 	
 	private static final double MAXIMO_PONTOS_ATINGIDOS = 0;
+	private static final int MESES_MINIMO = 6;
+	
+	
 	private static final double BONUS_PARTICIPACAO_MONITORIA_SEMESTRAL = 1.5;
-	private static final double BONUS_PARTICIPACAO_SEMESTRAL = 2.0;
-	private static final double LIMITE_PONTOS = 8;
+	private static final double BONUS_PARTICIPACAO_PED_SEMESTRAL = 2.0;
+	
+	private static final double LIMITE_PONTOS_PED = 8;
+	private static final double LIMITE_PONTOS_MONITORIA = 6;
+	
 	private static final double DURACAO_INSUFICIENTE = 0.0;
 	
-	public static double controlePontos;
+	public static double controlePontosPED;
+	public static double controlePontosMonitoria;
 
 	public AlunoGraduando(double valorHora, int qtdHoras) {
 		super(valorHora, qtdHoras);
@@ -29,39 +36,57 @@ public class AlunoGraduando extends Participacao {
 	@Override
 	public double geraPontuacaoParticipacao() {
 		
-		int pontosFeitos;
+		double pontosFeitos;
 		int duracao = super.getProjeto().getDuracao();
 		
 		if(super.getProjeto() instanceof Monitoria) {
-			if(duracao >= 6) {
-				pontosFeitos = duracao / 6;
-				return pontosFeitos * BONUS_PARTICIPACAO_MONITORIA_SEMESTRAL;
+			if(duracao >= MESES_MINIMO) {
+				pontosFeitos = (duracao / MESES_MINIMO) * BONUS_PARTICIPACAO_MONITORIA_SEMESTRAL;
+				
+				if(AlunoGraduando.controlePontosMonitoria + pontosFeitos > LIMITE_PONTOS_MONITORIA) {
+					double diferenca = LIMITE_PONTOS_MONITORIA - controlePontosMonitoria;
+					if(pontosFeitos <= diferenca) {
+						AlunoGraduando.controlePontosMonitoria += diferenca;
+
+						return pontosFeitos;
+					}
+				
+					return MAXIMO_PONTOS_ATINGIDOS;
+					
+				}
+				
+				AlunoGraduando.controlePontosMonitoria += pontosFeitos;
+
+				return pontosFeitos;
 				
 			}else {
 				return DURACAO_INSUFICIENTE;
 			}
 		}else {
-			pontosFeitos = duracao / 6;
-			pontosFeitos *= BONUS_PARTICIPACAO_SEMESTRAL;
-			
-			if(AlunoGraduando.controlePontos + pontosFeitos > LIMITE_PONTOS) {
-				double diferenca = LIMITE_PONTOS - controlePontos;
-				if(pontosFeitos <= diferenca) {
-					AlunoGraduando.controlePontos += diferenca;
-
-					return pontosFeitos;
-				}
-			
-				return MAXIMO_PONTOS_ATINGIDOS;
+			if(duracao >= MESES_MINIMO) {
+				pontosFeitos = ( duracao / MESES_MINIMO ) * BONUS_PARTICIPACAO_PED_SEMESTRAL;
 				
+				
+				if(AlunoGraduando.controlePontosPED + pontosFeitos > LIMITE_PONTOS_PED) {
+					double diferenca = LIMITE_PONTOS_PED - controlePontosPED;
+					if(pontosFeitos <= diferenca) {
+						AlunoGraduando.controlePontosPED += diferenca;
+
+						return pontosFeitos;
+					}
+				
+					return MAXIMO_PONTOS_ATINGIDOS;
+					
+				}
+				
+				AlunoGraduando.controlePontosPED += pontosFeitos;
+
+				return pontosFeitos;
+			} else {
+				return DURACAO_INSUFICIENTE;
 			}
-			
-			AlunoGraduando.controlePontos += pontosFeitos;
 
-			return pontosFeitos;
-			
 		}
-
 	}
 	
 
