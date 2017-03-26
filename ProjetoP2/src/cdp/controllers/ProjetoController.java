@@ -678,13 +678,12 @@ public class ProjetoController implements Serializable{
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
 		if(projeto instanceof Monitoria) {
-			Validacao.validaDouble(valorHora, "Valor da hora invalido");
+			
 			if(valorHora > 0) {
 				throw new ValidacaoException("Valor da hora de um professor da monitoria deve ser zero");
 			}
 			return true;
 		}
-		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
 		return false;
 		
 	}

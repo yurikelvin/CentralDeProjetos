@@ -61,6 +61,7 @@ public class ParticipacaoController implements Serializable{
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
 		ValidaPessoa.validaCPF(cpf);
 		Validacao.validaIntSemZero(codigoProjeto, "Codigo do projeto invalido");
+		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		
 		this.pessoaController.pesquisaPessoa(cpf);
 		this.projetoController.pesquisaProjeto(codigoProjeto);
