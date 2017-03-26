@@ -24,7 +24,7 @@ import cdp.participacao.Profissional;
 public class Pessoa implements Serializable{
 	
 	
-	private static final double BOLSA_MINIMA = 350.0;
+	
 	private String nome;
 	private String cpf;
 	private String email;
@@ -136,9 +136,7 @@ public class Pessoa implements Serializable{
 			bolsa += participacao.geraGanhos();
 	
 			}
-		if (bolsa < BOLSA_MINIMA) {
-			return BOLSA_MINIMA;
-		}
+
 		
 		return bolsa;
 	}

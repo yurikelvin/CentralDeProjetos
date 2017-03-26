@@ -684,6 +684,7 @@ public class ProjetoController implements Serializable{
 			}
 			return true;
 		}
+		Validacao.validaDoubleSemZero(valorHora, "Valor da hora invalido");
 		return false;
 		
 	}

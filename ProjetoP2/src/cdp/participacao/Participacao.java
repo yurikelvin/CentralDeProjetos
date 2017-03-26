@@ -17,6 +17,9 @@ import cdp.projetos.Projeto;
 
 public abstract class Participacao implements Serializable, Remuneracao {
 
+	
+	private static final double BOLSA_MINIMA = 350.0;
+	
 	private double valorHora;
 	private int qtdHoras;
 	private Pessoa pessoa;
@@ -101,9 +104,15 @@ public abstract class Participacao implements Serializable, Remuneracao {
 		return pessoa.getCpf();
 
 	}
+	
+
 
 	public double geraGanhos() {
 		double bolsa = this.getValorHora() * this.getQtdHoras();
+		
+		if(bolsa < BOLSA_MINIMA) {
+			return BOLSA_MINIMA;
+		}
 
 		return bolsa;
 	}
