@@ -117,6 +117,8 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		despesas.setDespesa(descricao, valor);
 	}
 	
+	public abstract void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException;
+	
 	public double getDespesa(String descricao) {
 		return despesas.getDespesa(descricao);
 	}
@@ -271,6 +273,8 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		
 		return pessoas;
 	}
+	
+	public abstract double geraContribuicao();
 	
 	
 

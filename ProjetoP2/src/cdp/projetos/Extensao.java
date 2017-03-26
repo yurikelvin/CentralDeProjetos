@@ -15,7 +15,7 @@ import cdp.participacao.Professor;
  * @author Matheus Henrique
  * @author Gustavo Victor
  */
-public class Extensao extends Projeto implements Contribuicao {
+public class Extensao extends Projeto {
 	
 	private static double PERCENTUAL_BASE = 10.0;
 	private final static double PERCENTUAL_IMPACTO_SOCIAL = 0.5;
@@ -35,6 +35,11 @@ public class Extensao extends Projeto implements Contribuicao {
 
 	public ImpactoSocial getImpacto() {
 		return impactoSocial;
+	}
+	
+	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		this.setDespesa("custeio", montanteCusteio);
+		this.setDespesa("bolsa", montanteBolsas);
 	}
 	
 	public void setCusteio(double valor) throws ValidacaoException, CadastroException {
@@ -106,13 +111,14 @@ public class Extensao extends Projeto implements Contribuicao {
 		
 		double valorAReduzir = impactoSocial.getValorImpactoSocial() * PERCENTUAL_IMPACTO_SOCIAL;
 		PERCENTUAL_BASE -= valorAReduzir;
-		double baseDaContribuicao = super.getDespesa("custeio") + super.getDespesa("capital");
+	
+		double baseDaContribuicao = super.getDespesa("custeio") + super.getDespesa("bolsa");
 		
 		if (baseDaContribuicao <= 10000){
 			return 0;
 		}
-		
-		return baseDaContribuicao * PERCENTUAL_BASE;
+	
+		return (baseDaContribuicao * PERCENTUAL_BASE)/100.0;
 	}
 
 }

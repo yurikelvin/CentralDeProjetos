@@ -20,7 +20,7 @@ import cdp.participacao.Professor;
  * @author Matheus Henrique
  * @author Gustavo Victor
  */
-public class PED extends Projeto implements Contribuicao {
+public class PED extends Projeto {
 	
 	private CategoriaPED categoria;
 	private Set<Produtividade> produtividades;
@@ -100,6 +100,16 @@ public class PED extends Projeto implements Contribuicao {
 	
 	public CategoriaPED getCategoria() {
 		return categoria;
+	}
+	
+	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		if(getCategoria().equals(CategoriaPED.PIBIC) || getCategoria().equals(CategoriaPED.PIBITI) || getCategoria().equals(CategoriaPED.PIVIC)) {
+			this.setDespesa("bolsa", montanteBolsas);
+		} else {
+			this.setDespesa("bolsa", montanteBolsas);
+			this.setDespesa("custeio", montanteCusteio);
+			this.setDespesa("capital", montanteCapital);
+		}
 	}
 
 	@Override
@@ -249,15 +259,23 @@ public class PED extends Projeto implements Contribuicao {
 	 */
 	@Override
 	public double geraContribuicao() {
-		double baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
+		double baseDaContribuicao = 0;
+		
+		if(getCategoria().equals(CategoriaPED.PIBIC) || getCategoria().equals(CategoriaPED.PIBITI) || getCategoria().equals(CategoriaPED.PIVIC)) {
+			return 0.0;
+			
+		} else {
+			baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
+			System.out.println(baseDaContribuicao);
+		}
 
 		if(baseDaContribuicao <= 10000) {
-			return 0;
+			return 0.0;
 		}
 		
 		calculaPercentualDeContribuicao();
 		
-		return baseDaContribuicao * PERCENTUAL_BASE;
+		return (baseDaContribuicao * PERCENTUAL_BASE)/100.0;
 		
 	
 	}
@@ -269,14 +287,16 @@ public class PED extends Projeto implements Contribuicao {
 		int qtdProdTecnica = Integer.parseInt(getProdutividade("producao tecnica"));
 		int qtdProdAcademica = Integer.parseInt(getProdutividade("producao academica"));
 		double percentualDoCapital = super.getDespesa("capital")/100000;
-		
 		if(qtdPatentes > 0) {
 			PERCENTUAL_BASE += 3.0;
 		}
 		
+		
 		PERCENTUAL_BASE += qtdProdTecnica * PECENTUAL_POR_PRODUCAO_TECNICA;
+		System.out.println(percentualDoCapital * PERCENTUAL_POR_100K_DE_CAPITAL);
 		PERCENTUAL_BASE += percentualDoCapital * PERCENTUAL_POR_100K_DE_CAPITAL;
 		PERCENTUAL_BASE -= qtdProdAcademica * PERCENTUAL_POR_PRODUCAO_ACADEMICA;
+		System.out.println(PERCENTUAL_BASE);
 		
 	}
 

@@ -34,6 +34,9 @@ public class Monitoria extends Projeto {
 		this.setPeriodo(periodo);
 	}
 	
+	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		this.setDespesa("bolsa", montanteBolsas);
+	}
 	
 	public void setBolsa(double valor) throws ValidacaoException, CadastroException {
 		this.setDespesa("bolsa", valor);
@@ -129,6 +132,12 @@ public class Monitoria extends Projeto {
 			throw new ValidacaoException("Participacao nao encontrada");
 		}
 		
+	}
+
+	@Override
+	public double geraContribuicao() {
+		
+		return 0.0;
 	}
 
 

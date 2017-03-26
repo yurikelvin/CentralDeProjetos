@@ -72,5 +72,17 @@ public class PEDTest {
 		ped.removeParticipacao(p1);
 		assertFalse(ped.verificaParticipacao(p1));
 	}
+	
+	@Test
+	public void testGeraContribuicao() throws ValidacaoException, DataException, CadastroException {
+		PED p2 = new PED("Projeto", "coop", "Criar novos projetos", "25/10/2017", 40, 3);
+		p2.adicionaProdutividade("producao academica", 2);
+		p2.adicionaProdutividade("producao tecnica", 2);
+		p2.adicionaProdutividade("patentes", 5);
+		p2.atualizaDespesasProjeto(35000.0, 280000.0, 60000.0);
+		
+		assertEquals(0, ped.geraContribuicao(), 0.0001);
+		assertEquals(49500, p2.geraContribuicao(), 0.001);
+	}
 
 }

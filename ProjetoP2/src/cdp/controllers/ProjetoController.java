@@ -15,6 +15,7 @@ import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.factorys.FactoryDeProjeto;
 import cdp.participacao.Participacao;
+import cdp.projetos.CategoriaPED;
 import cdp.projetos.Extensao;
 import cdp.projetos.Monitoria;
 import cdp.projetos.PED;
@@ -721,6 +722,96 @@ public class ProjetoController implements Serializable{
 			
 		}
 		
+	}
+
+	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		if(Integer.toString(codigoProjeto).trim().equals("") || Integer.toString(codigoProjeto) == null) {
+			
+			throw new ValidacaoException("codigo nulo ou vazio");	
+		}
+		
+		validaMontantesProjeto(montanteBolsas, montanteCusteio, montanteCapital);
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		
+		if(projeto instanceof Monitoria) {
+			validaDespesasMonitoria(montanteBolsas, montanteCusteio, montanteCapital);
+		} else if(projeto instanceof PET) {
+			validaDespesasPET(montanteBolsas, montanteCusteio, montanteCapital);
+		} else if(projeto instanceof PED) {
+			validaDespesasPED(projeto, montanteBolsas, montanteCusteio, montanteCapital);
+		} else if(projeto instanceof Extensao) {
+			validaDespesasExtensao(montanteBolsas, montanteCusteio, montanteCapital);
+		}
+		
+		projeto.atualizaDespesasProjeto(montanteBolsas, montanteCusteio, montanteCapital);
+	}
+	
+	private void validaMontantesProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		if(montanteBolsas < 0 || montanteCusteio < 0 || montanteCapital < 0) {
+			throw new ValidacaoException("valor negativo");
+		 
+		}
+		
+	}
+	
+	private void validaDespesasMonitoria(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		
+		if(montanteBolsas == 0) {
+			throw new ValidacaoException("montante nulo ou vazio");
+		}
+		
+		if(montanteCusteio > 0 || montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo monitoria nao permite despesas de custeio ou capital");
+		}
+		
+	
+	}
+	
+	private void validaDespesasPET(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		
+		if(montanteBolsas == 0 || montanteCusteio == 0) {
+			throw new ValidacaoException("montante nulo ou vazio");
+		}
+		
+		if(montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo PET nao permite despesas de capital");
+		}
+		
+	}
+	
+	private void validaDespesasExtensao(double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		
+		if(montanteBolsas == 0 || montanteCusteio == 0) {
+			throw new ValidacaoException("montante nulo ou vazio");
+		}
+		
+		if(montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo Extensao nao permite despesas de capital");
+		}
+		
+	}
+	
+	private void validaDespesasPED(Projeto projeto, double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		
+		if(((PED) projeto).getCategoria() == CategoriaPED.PIBIC || ((PED) projeto).getCategoria() == CategoriaPED.PIBITI) {
+			
+			if(montanteBolsas == 0) {
+				throw new ValidacaoException("montante nulo ou vazio");
+			}
+			
+			if(montanteCusteio > 0 || montanteCapital > 0) {
+				throw new ValidacaoException("projeto do tipo P&D - PIBIC ou PIBIT nao permite despesas de custeio ou capital");
+			}
+		} else {
+			if(montanteBolsas == 0 || montanteCusteio == 0 || montanteCapital == 0) {
+				throw new ValidacaoException("projeto do tipo Coop devem possuir todas as despesas");
+			}
+		}
+	}
+
+	public double calculaColaboracaoUASC(int codigoProjeto) throws CadastroException {
+		Projeto projeto = this.getProjetos(codigoProjeto);
+		return  projeto.geraContribuicao();
 	}
 	
 

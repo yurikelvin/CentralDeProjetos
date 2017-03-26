@@ -76,5 +76,13 @@ public class ExtensaoTest {
 		extensao.removeParticipacao(p1);
 		assertFalse(extensao.verificaParticipacao(p1));
 	}
+	
+	@Test
+	public void testGeraContribuicao() throws ValidacaoException, CadastroException, DataException {
+		Extensao p2 = new Extensao("Projeto" , "Auxiliar os demais", 4, "02/03/2017", 16, 3);
+		p2.atualizaDespesasProjeto(15000, 18000, 0.0);
+		extensao.atualizaDespesasProjeto(15000, 18000, 0);
+		System.out.println(p2.geraContribuicao());
+	}
 
 }

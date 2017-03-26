@@ -10,6 +10,7 @@ import cdp.exception.CadastroException;
 import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.CategoriaPED;
+import cdp.uasc.UASC;
 import easyaccept.EasyAccept;
 
 /**
@@ -27,11 +28,13 @@ public class Facade {
 	private ProjetoController projetoController;
 	private PessoaController pessoaController;
 	private ParticipacaoController participacaoController;
+	private UASC uasc;
 	
 	public Facade() {
 		this.projetoController = new ProjetoController();
 		this.pessoaController = new PessoaController();
 		this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
+		uasc = new UASC();
 	}
 	
 	/**
@@ -499,6 +502,30 @@ public class Facade {
 	
 	}
 	
+	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) {
+		try{
+			projetoController.atualizaDespesasProjeto(codigoProjeto, montanteBolsas, montanteCusteio, montanteCapital);
+		} catch(Exception e) {
+			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
+		}
+		
+	
+	}
+	
+	public double calculaColaboracaoUASC(int codigoProjeto) throws CadastroException {
+		uasc.aumentaReceita(projetoController.calculaColaboracaoUASC(codigoProjeto));
+		return projetoController.calculaColaboracaoUASC(codigoProjeto);
+		
+	}
+	
+	public void diminuiReceita(double valor) {
+		uasc.diminuiReceita(valor);
+	}
+	
+	public double calculaColaboracaoTotalUASC() {
+		return uasc.getReceita();
+	}
+	
 	/**
 	 * Inicializa os dados contidos no arquivo cpdComputacao.ser
 	 */
@@ -522,7 +549,8 @@ public class Facade {
 
 
 	public static void main(String[] args) {
-		args = new String[] {"cdp.facade.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"};
+		args = new String[] {"cdp.facade.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"
+				, "acceptance_tests/us6_test.txt", "acceptance_tests/us6_test_exception.txt"};
 		EasyAccept.main(args); 
 
 

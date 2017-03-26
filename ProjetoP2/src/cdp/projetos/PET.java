@@ -99,6 +99,11 @@ public class PET extends Projeto {
 		return impactoSocial;
 	}
 	
+	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		this.setDespesa("custeio", montanteCusteio);
+		this.setDespesa("bolsa", montanteBolsas);
+	}
+	
 	public void setBolsa(double valor) throws ValidacaoException, CadastroException {
 		this.setDespesa("bolsa", valor);
 	}
@@ -184,6 +189,12 @@ public class PET extends Projeto {
 			throw new CadastroException("Participacao nao encontrada");
 		}
 		
+	}
+
+	@Override
+	public double geraContribuicao() {
+		
+		return 0.0;
 	}
 	
 
