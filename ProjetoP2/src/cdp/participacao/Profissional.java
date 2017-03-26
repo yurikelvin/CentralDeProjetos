@@ -91,18 +91,20 @@ public class Profissional extends Participacao {
 	@Override
 	public double geraPontuacaoParticipacao() {
 		double pontuacao = 0;
-		
-		if(this.getCargo() == Cargo.DESENVOLVEDOR){
-			pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_DESENVOLVEDOR;
+		if(super.getProjeto() instanceof PED) {
 			
-		}
-		
-		else if(this.getCargo() == Cargo.GERENTE){
-			 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_GERENTE;
-		}
-		
-		else if(this.getCargo() == Cargo.PESQUISADOR){
-			 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_PESQUISADOR;
+			if(this.getCargo() == Cargo.DESENVOLVEDOR){
+				pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_DESENVOLVEDOR;
+				
+			}
+			
+			else if(this.getCargo() == Cargo.GERENTE){
+				 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_GERENTE;
+			}
+			
+			else if(this.getCargo() == Cargo.PESQUISADOR){
+				 pontuacao = (super.getProjeto().getDuracao()/QTN_MESES_NO_ANO) * PONTUACAO_PESQUISADOR;
+			}
 		}
 		
 		return pontuacao;
