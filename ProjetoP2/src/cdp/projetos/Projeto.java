@@ -149,15 +149,16 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	}
 	
 	/**
-	 * Verifica se determinada participacao ja esta no projeto atraves do cpf do participante e codigo do projeto.
-	 * @param cpf
-	 * @param codigoProjeto
-	 * @return Retorna true, se a participacao estiver, e false, se nao estiver no projeto.
+	 * Verifica se uma pessoa ja tem uma participacao neste projeto como outra funcao.
+	 * @param cpf Cpf da pessoa
+	 * @param codigoProjeto Codigo do projeto
+	 * @return False caso a pessoa nao esteja em outra funcao no projeto
+	 * @throws CadastroException Caso a pessoa esteja ja cadastrada no projeto.
 	 */
 	public boolean verificaParticipacao(String cpf, int codigoProjeto) {
 		for(Participacao participacao: this.participacoes) {
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
-				return true;
+				throw new ValidacaoException("Pessoa ja esta cadastrada neste projeto com outra funcao.");
 			}
 		}
 		

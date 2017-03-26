@@ -115,6 +115,7 @@ public class PED extends Projeto {
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
+			
 		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) { // TIPO COOPERACAO COM EMPRESAS
 			
 			this.cadastraCOOP(participacaoASerAdicionada);
@@ -164,6 +165,8 @@ public class PED extends Projeto {
 			
 		}
 		
+		super.verificaParticipacao(participacaoASerAdicionada.getCpf(), participacaoASerAdicionada.getCodigoProjeto());
+		
 	}
 	
 	private void cadastraOutros(Participacao participacaoASerAdicionada) throws CadastroException {
@@ -196,6 +199,8 @@ public class PED extends Projeto {
 			}
 			
 		}
+		
+		super.verificaParticipacao(participacaoASerAdicionada.getCpf(), participacaoASerAdicionada.getCodigoProjeto());
 		
 	}
 	

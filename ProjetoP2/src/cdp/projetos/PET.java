@@ -153,6 +153,8 @@ public class PET extends Projeto {
 		if(super.participacoes.contains(participacaoASerAdicionada)) {
 			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
 		}
+		
+		super.verificaParticipacao(participacaoASerAdicionada.getCpf(), participacaoASerAdicionada.getCodigoProjeto());
 	}
 	
 	public void setTemTutor(boolean b) {

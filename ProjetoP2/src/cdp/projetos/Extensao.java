@@ -70,7 +70,7 @@ public class Extensao extends Projeto {
 	@Override
 	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
 		
-		cadastraExtensao(participacaoASerAdicionada);
+		this.cadastraExtensao(participacaoASerAdicionada);
 		
 		super.participacoes.add(participacaoASerAdicionada);
 		
@@ -89,6 +89,8 @@ public class Extensao extends Projeto {
 				throw new CadastroException("Projetos PET nao podem ter mais de um coordenador");
 			}
 		} 
+		
+		super.verificaParticipacao(participacaoASerAdicionada.getCpf(), participacaoASerAdicionada.getCodigoProjeto());
 	}
 	
 	@Override
