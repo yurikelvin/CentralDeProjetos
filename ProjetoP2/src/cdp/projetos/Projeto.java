@@ -27,7 +27,7 @@ import cdp.participacao.Profissional;
  * @author Gustavo Victor
  */
 
-public abstract class Projeto implements Serializable, Comparable<Projeto> {
+public abstract class Projeto implements Serializable, Comparable<Projeto>, Contribuicao {
 
 	private String nomeDoProjeto;
 	private String objetivoDoProjeto;
@@ -119,7 +119,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	
 	public abstract void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException;
 	
-	public double getDespesa(String descricao) {
+	public double getDespesa(String descricao) throws ValidacaoException {
 		return despesas.getDespesa(descricao);
 	}
 	
@@ -129,14 +129,14 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	 * @throws CadastroException
 	 */
 	
-	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException;
+	public abstract void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException;
 	
 	/**
 	 * O metodo vai remover um participante do projeto.
 	 * @param participacaoASerRemovida A participacao que sera removida.
 	 * @throws ValidacaoException
 	 */
-	public abstract void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException;
+	public abstract void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException, ValidacaoException;
 	
 	/**
 	 * Verifica se determinada participacao ja esta no projeto, recebendo a propria participacao.
@@ -153,9 +153,10 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 	 * @param cpf Cpf da pessoa
 	 * @param codigoProjeto Codigo do projeto
 	 * @return False caso a pessoa nao esteja em outra funcao no projeto
+	 * @throws ValidacaoException 
 	 * @throws CadastroException Caso a pessoa esteja ja cadastrada no projeto.
 	 */
-	public boolean verificaParticipacao(String cpf, int codigoProjeto) {
+	public boolean verificaParticipacao(String cpf, int codigoProjeto) throws ValidacaoException {
 		for(Participacao participacao: this.participacoes) {
 			if(participacao.getPessoa().getCpf().equals(cpf) && participacao.getProjeto().getCodigo() == codigoProjeto) {
 				throw new ValidacaoException("Pessoa ja esta cadastrada neste projeto com outra funcao.");
@@ -275,10 +276,6 @@ public abstract class Projeto implements Serializable, Comparable<Projeto> {
 		return pessoas;
 	}
 	
-	public abstract double geraContribuicao();
-	
-	
-
 	public int compareTo(Projeto outroProjeto) {
 		
 		LocalDate date = this.getDate();

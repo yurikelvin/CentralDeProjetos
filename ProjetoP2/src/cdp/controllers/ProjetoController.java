@@ -296,9 +296,10 @@ public class ProjetoController implements Serializable{
 	 * @param projeto O projeto que sera verificado
 	 * @param atributo O atributo que sera verificado.
 	 * @return Retorna true, se for do tipo monitoria, e false, se nao for.
+	 * @throws ValidacaoException 
 	 */
 	
-	private boolean ehMonitoria(Projeto projeto, String atributo){
+	private boolean ehMonitoria(Projeto projeto, String atributo) throws ValidacaoException{
 		
 		if(projeto instanceof Monitoria){
 			return true;
@@ -329,9 +330,10 @@ public class ProjetoController implements Serializable{
 		 * @param projeto O projeto que sera verificado
 	 * @param atributo O atributo que sera verificado.
 	 * @return Retorna true, se for do tipo Extensao, e false, se nao for.
+	 * @throws ValidacaoException 
 	 */
 	
-	private boolean ehExtensao(Projeto projeto,String atributo){
+	private boolean ehExtensao(Projeto projeto,String atributo) throws ValidacaoException{
 		
 		if(projeto instanceof Extensao){
 			return true;
@@ -362,8 +364,9 @@ public class ProjetoController implements Serializable{
 	* @param projeto O projeto que sera verificado
 	 * @param atributo O atributo que sera verificado.
 	 * @return Retorna true, se for do tipo PED, e false, se nao for.
+	 * @throws ValidacaoException 
 	 */
-	private boolean ehPED(Projeto projeto,String atributo){
+	private boolean ehPED(Projeto projeto,String atributo) throws ValidacaoException{
 		
 		if(projeto instanceof PED){
 			return true;
@@ -404,8 +407,9 @@ public class ProjetoController implements Serializable{
 	 * @param projeto O projeto que sera verificado
 	 * @param atributo O atributo que sera verificado.
 	 * @return Retorna true, se for do tipo PET, e false, se nao for.
+	 * @throws ValidacaoException 
 	 */
-	private boolean ehPET(Projeto projeto,String atributo){
+	private boolean ehPET(Projeto projeto,String atributo) throws ValidacaoException{
 		
 		if(projeto instanceof PET){
 			return true;
@@ -552,8 +556,9 @@ public class ProjetoController implements Serializable{
 	 * Remove um projeto do  banco de projetos, atraves do seu codigo.
 	 * @param codigoDoProjeto O codigo do projeto que sera removido
 	 * @throws CadastroException Retorna uma excecao, se o projeto nao for cadastrado no sistema.
+	 * @throws ValidacaoException Caso o codigo do projeto seja invalido.
 	 */
-	public void removeProjeto(int codigoDoProjeto) throws CadastroException{
+	public void removeProjeto(int codigoDoProjeto) throws CadastroException, ValidacaoException{
 		Validacao.validaInt(codigoDoProjeto, "Codigo invalido");
 		
 		
@@ -572,8 +577,9 @@ public class ProjetoController implements Serializable{
 	 * @param nome O nome do projeto que sera procurado.
 	 * @return Retorna o inteiro que representa o codigo
 	 * @throws CadastroException Retorna uma excecao, se o projeto nao for cadastrado no sistema.
+	 * @throws ValidacaoException Caso o nome seja nulo/vazio
 	 */
-	public int getCodigoProjeto(String nome) throws CadastroException {
+	public int getCodigoProjeto(String nome) throws CadastroException, ValidacaoException {
 		Validacao.validaString(nome, "Nome nulo ou vazio");
 		
 		Iterator<Projeto> it = this.projetosCadastrados.iterator();
@@ -614,9 +620,10 @@ public class ProjetoController implements Serializable{
 	 * @param participacao Participacao a ser armazenada.
 	 * @param codigoProjeto Codigo do projeto.
 	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazio
 	 */
 	
-	public void adicionaParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException, ValidacaoException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
 		projeto.adicionaParticipacao(participacao);
@@ -628,10 +635,11 @@ public class ProjetoController implements Serializable{
 	 * @param participacao Participacao a ser removida.
 	 * @param codigoProjeto Codigo do projeto a ser removido.
 	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazios
 	 */
 	
 	
-	public void removeParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException {
+	public void removeParticipacao(Participacao participacao, int codigoProjeto) throws CadastroException, ValidacaoException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		projeto.removeParticipacao(participacao);
 	}

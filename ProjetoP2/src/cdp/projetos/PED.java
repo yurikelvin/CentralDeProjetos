@@ -113,7 +113,7 @@ public class PED extends Projeto {
 	}
 
 	@Override
-	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 			
 		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) { // TIPO COOPERACAO COM EMPRESAS
@@ -131,7 +131,7 @@ public class PED extends Projeto {
 					
 	}
 
-	private void cadastraCOOP(Participacao participacaoASerAdicionada) throws CadastroException {
+	private void cadastraCOOP(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {  // inicio de adicao de professores COOPERACAO
 
@@ -169,7 +169,7 @@ public class PED extends Projeto {
 		
 	}
 	
-	private void cadastraOutros(Participacao participacaoASerAdicionada) throws CadastroException {
+	private void cadastraOutros(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {
@@ -205,7 +205,7 @@ public class PED extends Projeto {
 	}
 	
 	@Override
-	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException, ValidacaoException {
 		
 		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) {
 			if(participacaoASerRemovida instanceof Professor && ((Professor) participacaoASerRemovida).getCoordenador()) {
@@ -261,9 +261,10 @@ public class PED extends Projeto {
 	
 	/**
 	 * Calcula o total da contribuicao de um projeto para a UASC.
+	 * @throws ValidacaoException 
 	 */
 	@Override
-	public double geraContribuicao() {
+	public double geraContribuicao() throws ValidacaoException {
 		double baseDaContribuicao = 0;
 		
 		if(getCategoria().equals(CategoriaPED.PIBIC) || getCategoria().equals(CategoriaPED.PIBITI) || getCategoria().equals(CategoriaPED.PIVIC)) {
@@ -271,7 +272,7 @@ public class PED extends Projeto {
 			
 		} else {
 			baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
-			System.out.println(baseDaContribuicao);
+			
 		}
 
 		if(baseDaContribuicao <= 10000) {
@@ -286,8 +287,9 @@ public class PED extends Projeto {
 	}
 	/**
 	 * Calcula o percentual de um projeto, com base no percentual base (10%). Aumentando e/ou diminuindo esse percentual.
+	 * @throws ValidacaoException 
 	 */
-	private void calculaPercentualDeContribuicao() {
+	private void calculaPercentualDeContribuicao() throws ValidacaoException {
 		int qtdPatentes = Integer.parseInt(getProdutividade("patentes"));
 		int qtdProdTecnica = Integer.parseInt(getProdutividade("producao tecnica"));
 		int qtdProdAcademica = Integer.parseInt(getProdutividade("producao academica"));

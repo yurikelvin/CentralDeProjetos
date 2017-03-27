@@ -33,11 +33,7 @@ public class FactoryDeProjeto implements Serializable {
 	}
 
 	public PET criaPET(String nome, String objetivo, int impacto, int rendimento, int prodTecnica, int prodAcademica,
-			int patentes, String dataInicio, int duracao, int codigoProjeto) throws DataException{
-		
-		if(impacto < 1 || impacto > 6 ){
-			throw new ValidacaoException("Impacto invalido");
-		}
+			int patentes, String dataInicio, int duracao, int codigoProjeto) throws DataException, ValidacaoException{
 		
 		PET pet = new PET(nome, objetivo, impacto , rendimento, dataInicio, duracao , codigoProjeto);
 		pet.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);
@@ -49,13 +45,13 @@ public class FactoryDeProjeto implements Serializable {
 	}
 
 	public Extensao criaExtensao(String nome, String objetivo, int impacto, String dataInicio, int duracao,
-			int codigoProjeto) throws DataException{
+			int codigoProjeto) throws DataException, ValidacaoException{
 		
 		return new Extensao(nome, objetivo, impacto, dataInicio, duracao, codigoProjeto);
 	}
 
 	public PED criaPED(String nome, String categoria, int prodTecnica, int prodAcademica, int patentes,
-			String objetivo, String dataInicio, int duracao, int codigoProjeto) throws DataException{
+			String objetivo, String dataInicio, int duracao, int codigoProjeto) throws DataException, ValidacaoException{
 		
 		PED ped = new PED(nome, categoria, objetivo, dataInicio, duracao, codigoProjeto);
 		ped.adicionaProdutividade(PROD_ACADEMICA, prodAcademica);

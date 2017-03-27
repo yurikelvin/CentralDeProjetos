@@ -9,7 +9,7 @@ package cdp.exception;
  * @author Gustavo Victor
  */
 
-public class ValidacaoException extends RuntimeException {
+public class ValidacaoException extends Exception {
 
 	public ValidacaoException() {
 

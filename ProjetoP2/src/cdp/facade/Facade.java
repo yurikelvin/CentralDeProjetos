@@ -124,10 +124,12 @@ public class Facade {
 		}
 	}
 	
-	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException {
+	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException, ValidacaoException {
 		try {
 			return pessoaController.calculaPontuacaoPorParticipacao(cpf);
 		}catch(CadastroException e) {
+			throw new CadastroException("Erro no calculo de participacoes: ");
+		}catch(ValidacaoException e) {
 			throw new CadastroException("Erro no calculo de participacoes: ");
 		}
 	}
@@ -255,12 +257,15 @@ public class Facade {
 	 * @param codigoProjeto Codigo do projeto.
 	 * @return Retorna true caso consiga fazer a remocao da associacao.
 	 * @throws CadastroException Caso o cpf nao esteja cadastrado no projeto indicado.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio/invalido ou codigo do projeto invalido
 	 */
 	
-	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException {
+	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException, ValidacaoException {
 		try {
 			return participacaoController.removeParticipacao(cpf, codigoProjeto);
 		}catch(CadastroException e) {
+			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
+		}catch(ValidacaoException e) {
 			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
 		}
 	}
@@ -458,12 +463,15 @@ public class Facade {
 	 * 
 	 * @param codigoDoProjeto Codigo do projeto.
 	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema.
+	 * @throws ValidacaoException Caso o codigo do projeto seja invalido.
 	 */
 
-	public void removeProjeto(int codigoDoProjeto) throws CadastroException {
+	public void removeProjeto(int codigoDoProjeto) throws CadastroException, ValidacaoException {
 		try {
 			projetoController.removeProjeto(codigoDoProjeto);
 		}catch(CadastroException e) {
+			throw new CadastroException("Erro na atualizacao de projeto: " + e.getMessage());
+		}catch(ValidacaoException e) {
 			throw new CadastroException("Erro na atualizacao de projeto: " + e.getMessage());
 		}
 	
@@ -474,12 +482,15 @@ public class Facade {
 	 * @param nome Nome do projeto.
 	 * @return Retorna o codigo do projeto.
 	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 * @throws ValidacaoException Caso o nome do projeto seja nulo/invalido.
 	 */
 
-	public int getCodigoProjeto(String nome) throws CadastroException {
+	public int getCodigoProjeto(String nome) throws CadastroException, ValidacaoException {
 		try {
 			return projetoController.getCodigoProjeto(nome);
 		}catch(CadastroException e) {
+			throw new CadastroException("Erro na obtencao de codigo de projeto: " + e.getMessage());
+		}catch(ValidacaoException e) {
 			throw new CadastroException("Erro na obtencao de codigo de projeto: " + e.getMessage());
 		}
 		
@@ -490,22 +501,26 @@ public class Facade {
 	 * @link {@link PessoaController#getValorBolsa(String)}
 	 * @param cpf O cpf da pessoa
 	 * @return Retorna um double que representa a bolsa total.
-	 * @throws CadastroException 
+	 * @throws CadastroException Caso a pessoa nao esteja cadastrada no sistema.
+	 * @throws ValidacaoException Caso o cpf seja nulo/invalido/vazio.
 	 */
-	public double getValorBolsa(String cpf) throws CadastroException {
+	public double getValorBolsa(String cpf) throws CadastroException, ValidacaoException {
 		try {
 			return pessoaController.getValorBolsa(cpf);
 		} catch (CadastroException e) {
-
+			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
+		}catch(ValidacaoException e) {
 			throw new CadastroException("Erro na remocao de participacao: " + e.getMessage());
 		}
 	
 	}
 	
-	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) {
+	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
 		try{
 			projetoController.atualizaDespesasProjeto(codigoProjeto, montanteBolsas, montanteCusteio, montanteCapital);
-		} catch(Exception e) {
+		} catch(ValidacaoException e) {
+			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
+		} catch(CadastroException e) {
 			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
 		}
 		

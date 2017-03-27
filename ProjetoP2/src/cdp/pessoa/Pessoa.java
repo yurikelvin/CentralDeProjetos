@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import cdp.exception.CadastroException;
 import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.participacao.Participacao;
@@ -95,13 +96,13 @@ public class Pessoa implements Serializable{
 	/**
 	 * Remove determinada participacao dos projetosParticipados da pessoa.
 	 * @param participacaoASerRemovida A participacao que sera removida
-	 * @throws ValidacaoException Lanca excecao se a partipacao nao existir nos projetosParticipados;
+	 * @throws CadastroException Lanca excecao se a partipacao nao existir nos projetosParticipados;
 	 */
-	public void removeParticipacao(Participacao participacaoASerRemovida) throws ValidacaoException {
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
 		boolean removeu = this.projetosParticipados.remove(participacaoASerRemovida);
 		
 		if(!removeu) {
-			throw new ValidacaoException("Participacao nao encontrada");
+			throw new CadastroException("Participacao nao encontrada");
 		}
 		
 	}

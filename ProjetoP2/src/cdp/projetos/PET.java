@@ -30,7 +30,7 @@ public class PET extends Projeto {
 	
 
 	
-	public PET(String nomeDoProjeto, String objetivoDoProjeto, int impactoSocial, int rendimento,  String dataInicio, int duracao, int codigo) throws DataException {
+	public PET(String nomeDoProjeto, String objetivoDoProjeto, int impactoSocial, int rendimento,  String dataInicio, int duracao, int codigo) throws DataException, ValidacaoException {
 		super(nomeDoProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impactoSocial);
 		this.rendimento = rendimento;
@@ -117,14 +117,14 @@ public class PET extends Projeto {
 	}
 
 	@Override
-	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		this.cadastroPet(participacaoASerAdicionada);
 		super.participacoes.add(participacaoASerAdicionada);
 		
 	}
 	
-	private void cadastroPet(Participacao participacaoASerAdicionada) throws CadastroException {
+	private void cadastroPet(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		if(super.ehProfessor(participacaoASerAdicionada)) {
 			

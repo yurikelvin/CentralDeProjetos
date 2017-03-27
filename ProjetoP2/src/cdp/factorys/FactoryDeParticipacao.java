@@ -49,7 +49,7 @@ public class FactoryDeParticipacao {
 		return participacao;
 	}
 	
-	public Participacao criaAssociacaoGraduando(String cpf, int codigoProjeto, double valorHora, int qtdHoras) throws CadastroException {
+	public Participacao criaAssociacaoGraduando(String cpf, int codigoProjeto, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		AlunoGraduando participacao = new AlunoGraduando(valorHora, qtdHoras);
 		
 		this.pessoaController.associaPessoa(participacao, cpf);
@@ -62,7 +62,7 @@ public class FactoryDeParticipacao {
 		return participacao;
 	}
 	
-	public Participacao criaAssociacaoProfissional(String cpf, int codigoProjeto, String cargo, double valorHora, int qtdHoras) throws CadastroException {
+	public Participacao criaAssociacaoProfissional(String cpf, int codigoProjeto, String cargo, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		Profissional participacao = new Profissional(cargo.toLowerCase(), valorHora, qtdHoras);
 		
 		this.pessoaController.associaPessoa(participacao, cpf);
@@ -75,7 +75,7 @@ public class FactoryDeParticipacao {
 		return participacao;
 	}
 	
-	public Participacao criaAssociacaoPosGraduando(String cpf, int codigoProjeto, String associacao, double valorHora, int qtdHoras) throws CadastroException {
+	public Participacao criaAssociacaoPosGraduando(String cpf, int codigoProjeto, String associacao, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
 		AlunoPosGraduando participacao = new AlunoPosGraduando( valorHora, qtdHoras, associacao);
 
 		this.pessoaController.associaPessoa(participacao, cpf);

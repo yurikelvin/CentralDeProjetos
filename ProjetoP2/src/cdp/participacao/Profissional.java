@@ -29,7 +29,7 @@ public class Profissional extends Participacao {
 
 	
 
-	public Profissional(String cargo, double valorHora, int qtdHoras) {
+	public Profissional(String cargo, double valorHora, int qtdHoras) throws ValidacaoException {
 		super(valorHora, qtdHoras);
 		this.setCargo(cargo);
 	

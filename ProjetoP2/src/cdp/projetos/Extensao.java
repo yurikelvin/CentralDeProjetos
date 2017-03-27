@@ -23,7 +23,7 @@ public class Extensao extends Projeto {
 	private ImpactoSocial impactoSocial;
 	private boolean temProfessorCoordenador;
 	
-	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) throws DataException {
+	public Extensao(String nomeProjeto, String objetivoDoProjeto, int impacto, String dataInicio, int duracao, int codigo) throws DataException, ValidacaoException {
 		super(nomeProjeto, objetivoDoProjeto, dataInicio, duracao, codigo);
 		this.setImpacto(impacto);
 		
@@ -68,7 +68,7 @@ public class Extensao extends Projeto {
 	}
 
 	@Override
-	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		this.cadastraExtensao(participacaoASerAdicionada);
 		
@@ -76,7 +76,7 @@ public class Extensao extends Projeto {
 		
 	}
 	
-	private void cadastraExtensao(Participacao participacaoASerAdicionada) throws CadastroException {
+	private void cadastraExtensao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		if(super.participacoes.contains(participacaoASerAdicionada)) {
 			throw new CadastroException("Aluno ja esta cadastrado nesse projeto");
@@ -94,7 +94,7 @@ public class Extensao extends Projeto {
 	}
 	
 	@Override
-	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException, ValidacaoException {
 		
 		if(participacaoASerRemovida instanceof Professor) {
 			this.setProfessor(false);
@@ -109,7 +109,7 @@ public class Extensao extends Projeto {
 	}
 
 	@Override
-	public double geraContribuicao() {
+	public double geraContribuicao() throws ValidacaoException {
 		
 		double valorAReduzir = impactoSocial.getValorImpactoSocial() * PERCENTUAL_IMPACTO_SOCIAL;
 		PERCENTUAL_BASE -= valorAReduzir;

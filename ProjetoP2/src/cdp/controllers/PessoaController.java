@@ -159,9 +159,10 @@ public class PessoaController implements Serializable{
 	 * @param cpf CPF da pessoa que sera procurada
 	 * @return Retorna o objeto da Pessoa procurada.
 	 * @throws CadastroException Lanca uma excecao caso o cpf ainda nao tenha sido cadastrado no sistema.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio
 	 */
 	
-	private Pessoa getPessoa(String cpf) throws CadastroException {
+	private Pessoa getPessoa(String cpf) throws CadastroException, ValidacaoException {
 		
 		ValidaPessoa.validaCPF(cpf);
 		
@@ -196,9 +197,10 @@ public class PessoaController implements Serializable{
 	 * @param cpf Cpf da pessoa a ser procurada.
 	 * @return True se bem sucedido.
 	 * @throws CadastroException Caso a pessoa nao esteja cadastrada.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio
 	 */
 	
-	public boolean associaPessoa(Participacao participacao, String cpf) throws CadastroException {
+	public boolean associaPessoa(Participacao participacao, String cpf) throws CadastroException, ValidacaoException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		
 		participacao.setPessoa(pessoa);
@@ -221,9 +223,10 @@ public class PessoaController implements Serializable{
 	 * @param participacao Participacao a ser armazenada.
 	 * @param cpf Cpf da pessoa.
 	 * @throws CadastroException Caso a pessoa nao esteja cadastrada.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio
 	 */
 
-	public void adicionaParticipacao(Participacao participacao, String cpf) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacao, String cpf) throws CadastroException, ValidacaoException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		
 		pessoa.setParticipacao(participacao);
@@ -252,9 +255,10 @@ public class PessoaController implements Serializable{
 	 * @param participacao Participacao a ser removida.
 	 * @param cpf Cpf da pessoa ser removida.
 	 * @throws CadastroException Caso a pessoa nao seja localizada.
+	 * @throws ValidacaoException Caso o cpf seja invalido
 	 */
 
-	public void removeParticipacao(Participacao participacao, String cpf) throws CadastroException {
+	public void removeParticipacao(Participacao participacao, String cpf) throws CadastroException, ValidacaoException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		pessoa.removeParticipacao(participacao);
 		
@@ -266,9 +270,10 @@ public class PessoaController implements Serializable{
 	 * @param cpf Cpf da pessoa.
 	 * @return A pontuacao por participacoes da pessoa.
 	 * @throws CadastroException Caso a pessoa nao seja encontrada.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio
 	 */
 	
-	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException {
+	public double calculaPontuacaoPorParticipacao(String cpf) throws CadastroException, ValidacaoException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		
 		return pessoa.calculaPontuacaoPorParticipacao();
@@ -279,8 +284,9 @@ public class PessoaController implements Serializable{
 	 * @param cpf O cpf da pessoa.
 	 * @return Retorna um double que representa a bolsa da pessoa.
 	 * @throws CadastroException Caso o cpf nao esteja cadastrado, uma excecao eh lancada.
+	 * @throws ValidacaoException Caso o cpf seja nulo/vazio
 	 */
-	public double getValorBolsa(String cpf) throws CadastroException {
+	public double getValorBolsa(String cpf) throws CadastroException, ValidacaoException {
 		Pessoa pessoa = this.getPessoa(cpf);
 		return pessoa.getValorBolsa();
 	}

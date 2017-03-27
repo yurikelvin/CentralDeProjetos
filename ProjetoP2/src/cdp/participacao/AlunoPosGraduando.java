@@ -20,9 +20,10 @@ public class AlunoPosGraduando extends Participacao {
 	 * @param valorHora
 	 * @param qtdHoras
 	 * @param vinculo
+	 * @throws ValidacaoException 
 	 */
 
-	public AlunoPosGraduando(double valorHora, int qtdHoras, String vinculo) {
+	public AlunoPosGraduando(double valorHora, int qtdHoras, String vinculo) throws ValidacaoException {
 		super(valorHora, qtdHoras);
 		this.setVinculo(vinculo);
 	}

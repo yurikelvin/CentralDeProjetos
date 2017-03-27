@@ -79,7 +79,7 @@ public class Monitoria extends Projeto {
 	
 
 	@Override
-	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException {
+	public void adicionaParticipacao(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		
 		this.cadastraMonitoria(participacaoASerAdicionada);
 		
@@ -87,7 +87,7 @@ public class Monitoria extends Projeto {
 		
 	}
 	
-	private void cadastraMonitoria(Participacao participacaoASerAdicionada) throws CadastroException {
+	private void cadastraMonitoria(Participacao participacaoASerAdicionada) throws CadastroException, ValidacaoException {
 		if(super.ehProfessor(participacaoASerAdicionada)) {
 			
 			if(super.participacoes.contains(participacaoASerAdicionada)) {
@@ -122,7 +122,7 @@ public class Monitoria extends Projeto {
 	}
 	
 	@Override
-	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException {
+	public void removeParticipacao(Participacao participacaoASerRemovida) throws CadastroException, ValidacaoException {
 		
 		if(participacaoASerRemovida instanceof Professor) {
 			this.setProfessor(false);
