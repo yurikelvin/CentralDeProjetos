@@ -5,13 +5,13 @@ import cdp.exception.CadastroException;
 import cdp.exception.ValidacaoException;
 import cdp.utils.Validacao;
 
-public class UASC {
+public class FinancasAcademicas {
 	
 	private static double receita;
 	
 	private ProjetoController projetoController;
 	
-	public UASC(ProjetoController projetoController) {
+	public FinancasAcademicas(ProjetoController projetoController) {
 
 		this.projetoController = projetoController;
 	}

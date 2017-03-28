@@ -10,7 +10,7 @@ import cdp.exception.CadastroException;
 import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.CategoriaPED;
-import cdp.uasc.UASC;
+import cdp.uasc.FinancasAcademicas;
 import easyaccept.EasyAccept;
 
 /**
@@ -28,13 +28,13 @@ public class Facade {
 	private ProjetoController projetoController;
 	private PessoaController pessoaController;
 	private ParticipacaoController participacaoController;
-	private UASC uasc;
+	private FinancasAcademicas uasc;
 	
 	public Facade() {
 		this.projetoController = new ProjetoController();
 		this.pessoaController = new PessoaController();
 		this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
-		this.uasc = new UASC(this.projetoController);
+		this.uasc = new FinancasAcademicas(this.projetoController);
 	}
 	
 	/**
@@ -543,7 +543,7 @@ public class Facade {
 		try {
 			uasc.diminuiReceita(valor);
 		}catch(ValidacaoException e) {
-			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
+			throw new ValidacaoException("Erro na atualizacao da receita da unidade: " + e.getMessage());
 		}
 	}
 	
