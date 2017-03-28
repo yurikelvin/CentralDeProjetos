@@ -51,7 +51,7 @@ public class PEDTest {
 	}	
 	
 	@Test
-	public void testAdicionaParticipacao() throws CadastroException {
+	public void testAdicionaParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);
@@ -62,7 +62,7 @@ public class PEDTest {
 	}
 	
 	@Test
-	public void testRemoveParticipacao() throws CadastroException {
+	public void testRemoveParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);

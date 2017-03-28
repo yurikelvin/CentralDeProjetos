@@ -113,7 +113,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 	 * @throws CadastroException
 	 */
 	
-	public void setDespesa(String descricao, double valor) throws ValidacaoException, CadastroException {
+	public void setDespesa(String descricao, double valor) throws ValidacaoException, CadastroException{
 		despesas.setDespesa(descricao, valor);
 	}
 	

@@ -24,7 +24,7 @@ public class ProfissionalTest {
 	private Pessoa pessoa;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws ValidacaoException {
 		profissional = new Profissional("gerente", 25, 40);
 		pessoa = new Pessoa("Maria Joana", "222.222.222-22", "m.j@hotmail.com");
 		profissional.setPessoa(pessoa);

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
+import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Vinculo;
 import cdp.pessoa.Pessoa;
@@ -26,14 +27,14 @@ public class AlunoPosGraduandoTest {
 	}
 
 	@Test
-	public void testGeraGanhos() {
+	public void testGeraGanhos() throws ValidacaoException {
 		assertEquals(600, aluno.geraGanhos(), 0.0001);
 		AlunoPosGraduando aluno2 = new AlunoPosGraduando(15, 30, "mestrado");
 		assertEquals(450, aluno2.geraGanhos(), 0.0001);
 	}
 
 	@Test
-	public void testGeraPontuacaoParticipacao() throws DataException, CadastroException {
+	public void testGeraPontuacaoParticipacao() throws DataException, CadastroException, ValidacaoException {
 		Projeto p1 = new Extensao("Extensao", "aumentar o conhecimento", 3, "25/04/2017", 28, 3);
 		aluno.setProjeto(p1);
 		p1.adicionaParticipacao(aluno);
@@ -41,7 +42,7 @@ public class AlunoPosGraduandoTest {
 	}
 
 	@Test
-	public void testGetVinculo() {
+	public void testGetVinculo() throws ValidacaoException {
 		assertEquals(Vinculo.DOUTORADO, aluno.getVinculo());
 		AlunoPosGraduando aluno2 = new AlunoPosGraduando(15, 30, "mestrado");
 		assertEquals(Vinculo.MESTRADO, aluno2.getVinculo());

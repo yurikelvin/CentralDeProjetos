@@ -37,12 +37,17 @@ public class Extensao extends Projeto {
 		return impactoSocial;
 	}
 	
-	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException{
+		
+		if(montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo Extensao nao permite despesas de capital");
+		}
+		
 		this.setDespesa("custeio", montanteCusteio);
 		this.setDespesa("bolsa", montanteBolsas);
 	}
 	
-	public void setCusteio(double valor) throws ValidacaoException, CadastroException {
+	public void setCusteio(double valor) throws ValidacaoException, CadastroException{
 		this.setDespesa("custeio", valor);
 	}
 	

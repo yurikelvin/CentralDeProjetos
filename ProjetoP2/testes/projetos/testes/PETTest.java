@@ -20,7 +20,7 @@ public class PETTest {
 	public PET pet;
 	
 	@Before
-	public void setUP() throws DataException {
+	public void setUP() throws DataException, ValidacaoException {
 		pet = new PET("Pet Eletrica", "Auxiliar os alunos", 1, 70, "24/01/2017", 12, 2);
 	}
 	
@@ -60,7 +60,7 @@ public class PETTest {
 	}
 	
 	@Test
-	public void testAdicionaParticipacao() throws CadastroException {
+	public void testAdicionaParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);
@@ -71,7 +71,7 @@ public class PETTest {
 	}
 	
 	@Test
-	public void testRemoveParticipacao() throws CadastroException {
+	public void testRemoveParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);

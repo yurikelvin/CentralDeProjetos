@@ -35,6 +35,11 @@ public class Monitoria extends Projeto {
 	}
 	
 	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		
+		if(montanteCusteio > 0 || montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo monitoria nao permite despesas de custeio ou capital");
+		}
+		
 		this.setDespesa("bolsa", montanteBolsas);
 	}
 	

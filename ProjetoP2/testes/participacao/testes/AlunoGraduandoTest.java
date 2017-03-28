@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
+import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoGraduando;
 import cdp.pessoa.Pessoa;
 import cdp.projetos.Extensao;
@@ -43,7 +44,7 @@ public class AlunoGraduandoTest {
 	}
   
 	@Test
-	public void testGeraPontuacaoParticipacaoMonitoria() throws DataException, CadastroException {
+	public void testGeraPontuacaoParticipacaoMonitoria() throws DataException, CadastroException, ValidacaoException {
 		//Adicionando um projeto a participacao.
 		Projeto p1 = new Monitoria("Monitoria", "p2", 45, "Auxiliar os alunos", "2017.1", "12/04/2017", 14, 1);
 		aluno.setProjeto(p1);
@@ -55,7 +56,7 @@ public class AlunoGraduandoTest {
 	}
 	
 	@Test
-	public void testGeraPontuacaoParticipacao() throws DataException, CadastroException {
+	public void testGeraPontuacaoParticipacao() throws DataException, CadastroException, ValidacaoException {
 		//Adicionando um projeto a participacao.
 		Projeto p1 = new Extensao("Extensao", "aumentar o conhecimento", 3, "25/04/2017", 28, 3);
 		aluno.setProjeto(p1);

@@ -103,12 +103,27 @@ public class PED extends Projeto {
 	}
 	
 	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
-		if(getCategoria().equals(CategoriaPED.PIBIC) || getCategoria().equals(CategoriaPED.PIBITI) || getCategoria().equals(CategoriaPED.PIVIC)) {
-			this.setDespesa("bolsa", montanteBolsas);
-		} else {
+		if(this.getCategoria() == CategoriaPED.COOPERACAO_EMPRESAS) {
+			
+			if(montanteBolsas == 0 || montanteCusteio == 0 || montanteCapital == 0) {
+				throw new ValidacaoException("projeto do tipo Coop devem possuir todas as despesas");
+			}
+		
+			
 			this.setDespesa("bolsa", montanteBolsas);
 			this.setDespesa("custeio", montanteCusteio);
 			this.setDespesa("capital", montanteCapital);
+			
+		} else {
+			
+			this.setDespesa("bolsa", montanteBolsas);
+			
+			if(this.getCategoria() == CategoriaPED.PIBIC || this.getCategoria() == CategoriaPED.PIBITI) {
+				if(montanteCusteio > 0 || montanteCapital > 0) {
+					throw new ValidacaoException("projeto do tipo P&D - PIBIC ou PIBIT nao permite despesas de custeio ou capital");
+				}
+			}
+
 		}
 	}
 

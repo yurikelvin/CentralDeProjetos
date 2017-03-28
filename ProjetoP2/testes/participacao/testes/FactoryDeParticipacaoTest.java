@@ -119,7 +119,7 @@ public class FactoryDeParticipacaoTest {
 	}
 
 	@Test
-	public void testCriaAssociacaoGraduando() throws CadastroException {
+	public void testCriaAssociacaoGraduando() throws CadastroException, ValidacaoException {
 		AlunoGraduando alunoG = (AlunoGraduando) this.fParticipacao.criaAssociacaoGraduando(this.cpf3, this.cod5, 150.0, 20);
 		
 		PED inteligenciaArtificial = null;
@@ -150,7 +150,7 @@ public class FactoryDeParticipacaoTest {
 	}
 
 	@Test
-	public void testCriaAssociacaoProfissional() throws CadastroException {
+	public void testCriaAssociacaoProfissional() throws CadastroException, ValidacaoException {
 		
 		// Teste cpf2, cod1 Gerente
 		Profissional profissional = (Profissional) this.fParticipacao.criaAssociacaoProfissional(cpf2, cod1, "Gerente", 300, 40);
@@ -248,7 +248,7 @@ public class FactoryDeParticipacaoTest {
 	}
 
 	@Test
-	public void testCriaAssociacaoPosGraduando() throws CadastroException {
+	public void testCriaAssociacaoPosGraduando() throws CadastroException, ValidacaoException {
 		// Teste cpf2, cod6 Mestrado
 		AlunoPosGraduando pos1 = (AlunoPosGraduando) this.fParticipacao.criaAssociacaoPosGraduando(cpf2, cod6, "Mestrado", 210, 15);
 		

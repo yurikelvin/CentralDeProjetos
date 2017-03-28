@@ -100,6 +100,11 @@ public class PET extends Projeto {
 	}
 	
 	public void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+		
+		if(montanteCapital > 0) {
+			throw new ValidacaoException("projeto do tipo PET nao permite despesas de capital");
+		}
+		
 		this.setDespesa("custeio", montanteCusteio);
 		this.setDespesa("bolsa", montanteBolsas);
 	}

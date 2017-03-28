@@ -148,11 +148,48 @@ public class Validacao {
 		}
 	}
 	
-	public static void validaImpactoSocial(int valor) throws ValidacaoException {
+	/**
+	 * Valida o impacto social que extensao possui. Possivel: 1 a 6.
+	 * @param valor Valor do impacto Social.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Caso o impacto social nao esteja no intervalo dado;
+	 */
+	
+	public static void validaImpactoSocial(int valor, String msg) throws ValidacaoException {
 		
 		if(valor < 1 || valor > 6){
-			throw new ValidacaoException("Impacto invalido");
+			throw new ValidacaoException(msg);
 		}
 	}
+	
+	/**
+	 * Valida o montante recebido para despesa de projeto.
+	 * @param montante1 Montante de despesa do projeto.
+	 * @param montante2 Montante de despesa do projeto.
+	 * @param montante3 Montante de despesa do projeto.
+	 * @param msg Mensagem de Erro.
+	 * @throws ValidacaoException Caso o montante seja invalido.
+	 */
+	
+	public static void validaMontanteDespesa(double montante1, double montante2, double montante3, String msg) throws ValidacaoException {
+		if(montante1 == 0 || montante2 == 0 || montante3 == 0) {
+			throw new ValidacaoException(msg);
+		}
+	}
+	
+	/**
+	 * Valida a representacao em string de um codigo de projeto.
+	 * @param codigo Codigo do projeto.
+	 * @param msg Mensagem de erro.
+	 * @throws ValidacaoException Caso o codigo seja nulo/vazio.
+	 */
+	
+	public static void validaRepresentacaoCodigoProjeto(int codigo, String msg) throws ValidacaoException {
+		if(Integer.toString(codigo).trim().equals("") || Integer.toString(codigo) == null) {
+			
+			throw new ValidacaoException(msg);	
+		}
+	}
+	
 	
 }

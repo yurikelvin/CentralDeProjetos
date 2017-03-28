@@ -18,7 +18,7 @@ public class ExtensaoTest {
 	public Projeto extensao;
 
 	@Before
-	public void setUp() throws DataException {
+	public void setUp() throws DataException, ValidacaoException {
 		extensao = new Extensao("A teoria", "Estudar a teoria da criacao do universo", 6, "25/02/2017", 6, 2);
 	}
 	
@@ -55,7 +55,7 @@ public class ExtensaoTest {
 	}
 
 	@Test
-	public void testAdicionaParticipacao() throws CadastroException {
+	public void testAdicionaParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);
@@ -66,7 +66,7 @@ public class ExtensaoTest {
 	}
 	
 	@Test
-	public void testRemoveParticipacao() throws CadastroException {
+	public void testRemoveParticipacao() throws CadastroException, ValidacaoException {
 		AlunoGraduando p1 = new AlunoGraduando(10, 20);
 		Pessoa pessoa = new Pessoa("Joao C", "111.111.111-11", "joao@gmail.com");
 		p1.setPessoa(pessoa);

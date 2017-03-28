@@ -34,7 +34,7 @@ public class Facade {
 		this.projetoController = new ProjetoController();
 		this.pessoaController = new PessoaController();
 		this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
-		uasc = new UASC();
+		this.uasc = new UASC(this.projetoController);
 	}
 	
 	/**
@@ -527,41 +527,39 @@ public class Facade {
 	
 	}
 	
-	public double calculaColaboracaoUASC(int codigoProjeto) throws CadastroException {
-		uasc.aumentaReceita(projetoController.calculaColaboracaoUASC(codigoProjeto));
-		return projetoController.calculaColaboracaoUASC(codigoProjeto);
+	public double calculaColaboracaoUASC(int codigoProjeto) throws ValidacaoException, CadastroException {
+		
+		try {
+			return uasc.calculaColaboracaoUASC(codigoProjeto);
+		}catch(ValidacaoException e) {
+			throw new ValidacaoException("Erro na atualizacao da receita da unidade: " + e.getMessage());
+		}catch(CadastroException e) {
+			throw new CadastroException("Erro na atualizacao da receita da unidade: " + e.getMessage());
+		}
 		
 	}
 	
-	public void diminuiReceita(double valor) {
-		uasc.diminuiReceita(valor);
+	public void diminuiReceita(double valor) throws ValidacaoException {
+		try {
+			uasc.diminuiReceita(valor);
+		}catch(ValidacaoException e) {
+			throw new ValidacaoException("Erro na atualizacao de projeto: " + e.getMessage());
+		}
 	}
 	
 	public double calculaColaboracaoTotalUASC() {
 		return uasc.getReceita();
 	}
 	
-	/**
-	 * Inicializa os dados contidos no arquivo cpdComputacao.ser
-	 */
 
 	public void iniciaSistema() throws Exception {
 		
 
 	}
 	
-	/**
-	 * Mantem a persistencia dos dados do sistema na saida do mesmo.
-	 */
-	
-	
 	public void fechaSistema() throws IOException {
 		
 	}
-	
-
-
-
 
 	public static void main(String[] args) {
 		args = new String[] {"cdp.facade.Facade","acceptance_tests/us1_test.txt", "acceptance_tests/us1_test_exception.txt", "acceptance_tests/us2_test.txt", "acceptance_tests/us2_test_exception.txt", "acceptance_tests/us3_test.txt", "acceptance_tests/us3_test_exception.txt", "acceptance_tests/us4_test.txt", "acceptance_tests/us5_test.txt"

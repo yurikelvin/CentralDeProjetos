@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cdp.exception.DataException;
+import cdp.exception.ValidacaoException;
 import cdp.factorys.FactoryDeProjeto;
 import cdp.projetos.CategoriaPED;
 import cdp.projetos.Extensao;
@@ -40,7 +41,7 @@ public class FactoryDeProjetoTest {
 	}
 
 	@Test
-	public void testCriaPET() throws DataException {
+	public void testCriaPET() throws DataException, ValidacaoException {
 		PET projeto = this.fProjeto.criaPET("Grupo GET", "Transcender os alunos", 3, 70, 2, 2, 3, "03/02/2017", 24, 2);
 		
 		assertEquals("Grupo GET", projeto.getNome());
@@ -67,7 +68,7 @@ public class FactoryDeProjetoTest {
 	}
 
 	@Test
-	public void testCriaExtensao() throws DataException {
+	public void testCriaExtensao() throws DataException, ValidacaoException {
 		Extensao projeto = this.fProjeto.criaExtensao("Ingles Basico I", "Ensinar ingles a comunidade", 1, "29/01/2017", 6, 3);
 		
 		
@@ -93,7 +94,7 @@ public class FactoryDeProjetoTest {
 	}
 
 	@Test
-	public void testCriaPED() throws DataException {
+	public void testCriaPED() throws DataException, ValidacaoException {
 		PED projeto1 = this.fProjeto.criaPED("ePol", "coop", 3, 2, 1, "Integralizar a pf", "19/02/2017", 32, 4);
 		
 		assertEquals("ePol", projeto1.getNome());

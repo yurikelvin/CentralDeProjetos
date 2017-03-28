@@ -1055,7 +1055,7 @@ public class ProjetoControllerTest {
 	}
 
 	@Test
-	public void testRemoveProjeto() throws CadastroException {
+	public void testRemoveProjeto() throws CadastroException, ValidacaoException {
 		
 		//Fazendo o Remove com o codigo inválido
 			try {
@@ -1078,7 +1078,7 @@ public class ProjetoControllerTest {
 	}
 
 	@Test
-	public void testGetCodigoProjeto() throws CadastroException {
+	public void testGetCodigoProjeto() throws CadastroException, ValidacaoException {
 		
 		//GetCodigoProjeto com o nome nulo
 			try {

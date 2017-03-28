@@ -1,33 +1,48 @@
 package cdp.uasc;
 
+import cdp.controllers.ProjetoController;
+import cdp.exception.CadastroException;
 import cdp.exception.ValidacaoException;
+import cdp.utils.Validacao;
 
 public class UASC {
 	
-	private double receita;
+	private static double receita;
 	
-	public UASC() {
-		receita = 0;
+	private ProjetoController projetoController;
+	
+	public UASC(ProjetoController projetoController) {
+
+		this.projetoController = projetoController;
 	}
 	
 	public double getReceita() {
 		return receita;
 	}
 	
-	public void aumentaReceita(double valor){
+	public void aumentaReceita(double valor) throws ValidacaoException{
+		Validacao.validaDouble(valor, "valor negativo");
 		
 		receita += valor;
 	}
 	
 	public void diminuiReceita(double valor) throws ValidacaoException {
-		if(valor < 0) {
-			throw new ValidacaoException("Erro na atualizacao da receita da unidade: valor negativo");
-		}
+		
+		Validacao.validaDouble(valor, "valor negativo");
 		
 		if(receita - valor < 0) {
-			throw new ValidacaoException("Erro na atualizacao da receita da unidade: a unidade nao possui fundos suficientes");
+			throw new ValidacaoException("a unidade nao possui fundos suficientes");
 		}
+		
 		receita -= valor;
+	}
+	
+	public double calculaColaboracaoUASC(int codigoProjeto) throws ValidacaoException, CadastroException  {
+		double colaboracao = projetoController.calculaColaboracaoUASC(codigoProjeto);
+		
+		this.aumentaReceita(colaboracao);
+		
+		return colaboracao;
 	}
 
 }
