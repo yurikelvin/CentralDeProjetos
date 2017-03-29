@@ -740,8 +740,6 @@ public class ProjetoController implements Serializable{
 		Validacao.validaDouble(montanteCusteio, "valor negativo");
 		Validacao.validaDouble(montanteCapital, "valor negativo");
 		
-		Validacao.validaMontanteDespesa(montanteBolsas, montanteCusteio, montanteCapital, "montante nulo ou vazio");
-		
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
 		projeto.atualizaDespesasProjeto(montanteBolsas, montanteCusteio, montanteCapital);

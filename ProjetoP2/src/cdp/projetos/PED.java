@@ -11,6 +11,7 @@ import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
+import cdp.utils.Validacao;
 
 /**
  * Representa um projeto do tipo PED no sistema.
@@ -108,6 +109,8 @@ public class PED extends Projeto {
 			if(montanteBolsas == 0 || montanteCusteio == 0 || montanteCapital == 0) {
 				throw new ValidacaoException("projeto do tipo Coop devem possuir todas as despesas");
 			}
+			
+			Validacao.validaMontanteDespesa(montanteBolsas, montanteCusteio, montanteCapital, "montante nulo ou vazio");
 		
 			
 			this.setDespesa("bolsa", montanteBolsas);
@@ -116,13 +119,19 @@ public class PED extends Projeto {
 			
 		} else {
 			
-			this.setDespesa("bolsa", montanteBolsas);
+			
+			
+			
 			
 			if(this.getCategoria() == CategoriaPED.PIBIC || this.getCategoria() == CategoriaPED.PIBITI) {
 				if(montanteCusteio > 0 || montanteCapital > 0) {
 					throw new ValidacaoException("projeto do tipo P&D - PIBIC ou PIBIT nao permite despesas de custeio ou capital");
 				}
 			}
+			
+			Validacao.validaDouble(montanteBolsas, "montante nulo ou vazio");
+			
+			this.setDespesa("bolsa", montanteBolsas);
 
 		}
 	}

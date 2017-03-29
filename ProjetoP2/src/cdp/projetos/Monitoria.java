@@ -8,6 +8,7 @@ import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
+import cdp.utils.Validacao;
 
 /**
  * Representa um projeto do tipo Monitoria no sistema.
@@ -39,6 +40,8 @@ public class Monitoria extends Projeto {
 		if(montanteCusteio > 0 || montanteCapital > 0) {
 			throw new ValidacaoException("projeto do tipo monitoria nao permite despesas de custeio ou capital");
 		}
+
+		Validacao.validaDouble(montanteBolsas, "montante nulo ou vazio");
 		
 		this.setDespesa("bolsa", montanteBolsas);
 	}

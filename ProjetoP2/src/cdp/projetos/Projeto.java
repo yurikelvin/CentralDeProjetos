@@ -105,17 +105,27 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 	}
 	
 	/**
-	 * O metodo vai adicionar um valor a um tipo de despesa. Apos ter adicionado esse valor em um tipo de despesa,
+	 * Adiciona um valor a um tipo de despesa. Apos ter adicionado esse valor em um tipo de despesa,
 	 * nao ha mais como mudar.
 	 * @param descricao O tipo de despesa
 	 * @param valor O valor da despesa
-	 * @throws ValidacaoException
-	 * @throws CadastroException
+	 * @throws ValidacaoException Caso o valor da despesa seja invalida.
+	 * @throws CadastroException Caso a despesa seja invalida.
 	 */
 	
 	public void setDespesa(String descricao, double valor) throws ValidacaoException, CadastroException{
 		despesas.setDespesa(descricao, valor);
 	}
+	
+	/**
+	 * Cadastra o orcamento do projeto.
+	 * 
+	 * @param montanteBolsas Montante destinado a bolsas.
+	 * @param montanteCusteio Montante destinado a custeio.
+	 * @param montanteCapital Montante destinado a capital.
+	 * @throws ValidacaoException 
+	 * @throws CadastroException
+	 */
 	
 	public abstract void atualizaDespesasProjeto(double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException;
 	

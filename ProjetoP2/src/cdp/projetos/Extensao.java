@@ -6,6 +6,7 @@ import cdp.exception.ValidacaoException;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
+import cdp.utils.Validacao;
 
 /**
  * Representacao de um projeto do tipo Extensao no sistema.
@@ -42,6 +43,9 @@ public class Extensao extends Projeto {
 		if(montanteCapital > 0) {
 			throw new ValidacaoException("projeto do tipo Extensao nao permite despesas de capital");
 		}
+		
+		Validacao.validaDouble(montanteCusteio, "montante nulo ou vazio");
+		Validacao.validaDouble(montanteBolsas, "montante nulo ou vazio");
 		
 		this.setDespesa("custeio", montanteCusteio);
 		this.setDespesa("bolsa", montanteBolsas);

@@ -11,6 +11,7 @@ import cdp.participacao.AlunoGraduando;
 import cdp.participacao.AlunoPosGraduando;
 import cdp.participacao.Participacao;
 import cdp.participacao.Professor;
+import cdp.utils.Validacao;
 
 /**
  * Representacao de um projeto do tipo PET no sistema.
@@ -39,10 +40,10 @@ public class PET extends Projeto {
 	}
 	
 	/**
-	 * O metodo vai classificar o impacto social desse projeto.
-	 * @param impacto
-	 * @return
-	 * @throws ValidacaoException
+	 * Adiciona um impacto social ao projeto.
+	 * @param impacto Impacto social.
+	 * @return True se bem sucedido.
+	 * @throws ValidacaoException Caso o impacto social seja invalido.
 	 */
 	public boolean setImpacto(int impacto) throws ValidacaoException {
 		for (ImpactoSocial impac : ImpactoSocial.values()) {
@@ -59,11 +60,6 @@ public class PET extends Projeto {
 		return produtividades.toString();
 	}
 	
-	/**
-	 * O metodo vai pegar a quantidade de produtividade de um determinado tipo.
-	 * @param produtividade
-	 * @return
-	 */
 	public String getProdutividade(String produtividade) {
 		for(Produtividade p: produtividades) {
 			if (p.getProdutividade().equalsIgnoreCase(produtividade)) {
@@ -104,6 +100,9 @@ public class PET extends Projeto {
 		if(montanteCapital > 0) {
 			throw new ValidacaoException("projeto do tipo PET nao permite despesas de capital");
 		}
+		
+		Validacao.validaDouble(montanteBolsas, "montante nulo ou vazio");
+		Validacao.validaDouble(montanteCusteio, "montante nulo ou vazio");
 		
 		this.setDespesa("custeio", montanteCusteio);
 		this.setDespesa("bolsa", montanteBolsas);
