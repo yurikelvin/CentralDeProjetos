@@ -121,6 +121,7 @@ public class Extensao extends Projeto {
 	public double geraContribuicao() throws ValidacaoException {
 		
 		double valorAReduzir = impactoSocial.getValorImpactoSocial() * PERCENTUAL_IMPACTO_SOCIAL;
+		
 		PERCENTUAL_BASE -= valorAReduzir;
 	
 		double baseDaContribuicao = super.getDespesa("custeio") + super.getDespesa("bolsa");

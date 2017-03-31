@@ -179,13 +179,13 @@ public class Validacao {
 	
 	/**
 	 * Valida a representacao em string de um codigo de projeto.
-	 * @param codigo Codigo do projeto.
+	 * @param codigoProjeto Codigo do projeto.
 	 * @param msg Mensagem de erro.
 	 * @throws ValidacaoException Caso o codigo seja nulo/vazio.
 	 */
 	
-	public static void validaRepresentacaoCodigoProjeto(int codigo, String msg) throws ValidacaoException {
-		if(Integer.toString(codigo).trim().equals("") || Integer.toString(codigo) == null) {
+	public static void validaRepresentacaoCodigoProjeto(String codigoProjeto, String msg) throws ValidacaoException {
+		if((codigoProjeto).trim().equals("") || (codigoProjeto) == null) {
 			
 			throw new ValidacaoException(msg);	
 		}

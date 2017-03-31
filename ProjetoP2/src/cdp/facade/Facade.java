@@ -11,6 +11,7 @@ import cdp.exception.DataException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.CategoriaPED;
 import cdp.uasc.FinancasAcademicas;
+import cdp.utils.Validacao;
 import easyaccept.EasyAccept;
 
 /**
@@ -515,7 +516,7 @@ public class Facade {
 	
 	}
 	
-	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+	public void atualizaDespesasProjeto(String codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
 		try{
 			projetoController.atualizaDespesasProjeto(codigoProjeto, montanteBolsas, montanteCusteio, montanteCapital);
 		} catch(ValidacaoException e) {
@@ -527,7 +528,13 @@ public class Facade {
 	
 	}
 	
-	public double calculaColaboracaoUASC(int codigoProjeto) throws ValidacaoException, CadastroException {
+	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException {
+		
+		try {
+			Validacao.validaRepresentacaoCodigoProjeto(codigoProjeto, "codigo nulo ou vazio");
+		} catch(ValidacaoException e) {
+			throw new ValidacaoException("Erro na consulta de projeto: " + e.getMessage());
+		}
 		
 		try {
 			return uasc.calculaColaboracaoUASC(codigoProjeto);
@@ -548,9 +555,12 @@ public class Facade {
 	}
 	
 	public double calculaColaboracaoTotalUASC() {
-		return uasc.getReceita();
+		return uasc.getTotalContribuicao();
 	}
 	
+	public double calculaTotalEmCaixaUASC() {
+		return uasc.getReceita();
+	}
 
 	public void iniciaSistema() throws Exception {
 		

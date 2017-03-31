@@ -9,6 +9,8 @@ public class FinancasAcademicas {
 	
 	private static double receita;
 	
+	private static double totalContribuicao;
+	
 	private ProjetoController projetoController;
 	
 	public FinancasAcademicas(ProjetoController projetoController) {
@@ -23,6 +25,7 @@ public class FinancasAcademicas {
 	public void aumentaReceita(double valor) throws ValidacaoException{
 		Validacao.validaDouble(valor, "valor negativo");
 		
+		totalContribuicao += valor;
 		receita += valor;
 	}
 	
@@ -37,12 +40,19 @@ public class FinancasAcademicas {
 		receita -= valor;
 	}
 	
-	public double calculaColaboracaoUASC(int codigoProjeto) throws ValidacaoException, CadastroException  {
-		double colaboracao = projetoController.calculaColaboracaoUASC(codigoProjeto);
+	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException  {
+		
+		Validacao.validaRepresentacaoCodigoProjeto(codigoProjeto, "codigo nulo ou vazio");
+		
+		double colaboracao = projetoController.calculaColaboracaoUASC(Integer.parseInt(codigoProjeto));
 		
 		this.aumentaReceita(colaboracao);
 		
 		return colaboracao;
+	}
+	
+	public double getTotalContribuicao() {
+		return totalContribuicao;
 	}
 
 }

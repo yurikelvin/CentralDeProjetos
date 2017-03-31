@@ -62,4 +62,3 @@ expect 5700.0 getValorBolsa cpf=${cpf9}
 expect 350.0 getValorBolsa cpf=${cpf10}
 
 fechaSistema
-

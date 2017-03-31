@@ -120,10 +120,11 @@ public class PED extends Projeto {
 		} else {
 			
 			
-			
-			
-			
 			if(this.getCategoria() == CategoriaPED.PIBIC || this.getCategoria() == CategoriaPED.PIBITI) {
+				if(montanteBolsas == 0) {
+					throw new ValidacaoException("projeto do tipo P&D - PIBIC ou PIBIT deve permitir despesas de bolsas");
+				}
+				
 				if(montanteCusteio > 0 || montanteCapital > 0) {
 					throw new ValidacaoException("projeto do tipo P&D - PIBIC ou PIBIT nao permite despesas de custeio ou capital");
 				}
@@ -292,10 +293,11 @@ public class PED extends Projeto {
 		double baseDaContribuicao = 0;
 		
 		if(getCategoria().equals(CategoriaPED.PIBIC) || getCategoria().equals(CategoriaPED.PIBITI) || getCategoria().equals(CategoriaPED.PIVIC)) {
+			
 			return 0.0;
 			
 		} else {
-			baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio");
+			baseDaContribuicao = super.getDespesa("capital") + super.getDespesa("custeio") + super.getDespesa("bolsa");
 			
 		}
 
@@ -314,20 +316,21 @@ public class PED extends Projeto {
 	 * @throws ValidacaoException 
 	 */
 	private void calculaPercentualDeContribuicao() throws ValidacaoException {
+		PERCENTUAL_BASE = 10;
+		
 		int qtdPatentes = Integer.parseInt(getProdutividade("patentes"));
 		int qtdProdTecnica = Integer.parseInt(getProdutividade("producao tecnica"));
 		int qtdProdAcademica = Integer.parseInt(getProdutividade("producao academica"));
-		double percentualDoCapital = super.getDespesa("capital")/100000;
+		int percentualDoCapital = (int) (super.getDespesa("capital")/100000);
+		
 		if(qtdPatentes > 0) {
 			PERCENTUAL_BASE += 3.0;
 		}
 		
 		
 		PERCENTUAL_BASE += qtdProdTecnica * PECENTUAL_POR_PRODUCAO_TECNICA;
-		System.out.println(percentualDoCapital * PERCENTUAL_POR_100K_DE_CAPITAL);
 		PERCENTUAL_BASE += percentualDoCapital * PERCENTUAL_POR_100K_DE_CAPITAL;
 		PERCENTUAL_BASE -= qtdProdAcademica * PERCENTUAL_POR_PRODUCAO_ACADEMICA;
-		System.out.println(PERCENTUAL_BASE);
 		
 	}
 

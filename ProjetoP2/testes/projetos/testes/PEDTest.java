@@ -76,6 +76,7 @@ public class PEDTest {
 	@Test
 	public void testGeraContribuicao() throws ValidacaoException, DataException, CadastroException {
 		PED p2 = new PED("Projeto", "coop", "Criar novos projetos", "25/10/2017", 40, 3);
+		
 		p2.adicionaProdutividade("producao academica", 2);
 		p2.adicionaProdutividade("producao tecnica", 2);
 		p2.adicionaProdutividade("patentes", 5);

@@ -731,8 +731,16 @@ public class ProjetoController implements Serializable{
 		}
 		
 	}
-
-	public void atualizaDespesasProjeto(int codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
+	/**
+	 * Atualiza todas as despesas de um projeto, atraves do codigo.
+	 * @param codigoProjeto O codigo do projeto.
+	 * @param montanteBolsas O valor do montante das Bolsas.
+	 * @param montanteCusteio O valor do montante do Custeio.
+	 * @param montanteCapital O valor do montante do Capital.
+	 * @throws ValidacaoException Lanca uma excecao, se algum dos parametros for invalido.
+	 * @throws CadastroException Lanca uma excecao, se o codigo do projeto ainda nao existir no sistema.
+	 */
+	public void atualizaDespesasProjeto(String codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
 
 		Validacao.validaRepresentacaoCodigoProjeto(codigoProjeto, "codigo nulo ou vazio");
 		
@@ -740,12 +748,18 @@ public class ProjetoController implements Serializable{
 		Validacao.validaDouble(montanteCusteio, "valor negativo");
 		Validacao.validaDouble(montanteCapital, "valor negativo");
 		
-		Projeto projeto = this.getProjetos(codigoProjeto);
+		Projeto projeto = this.getProjetos(Integer.parseInt(codigoProjeto));
 		
 		projeto.atualizaDespesasProjeto(montanteBolsas, montanteCusteio, montanteCapital);
 	}
 	
-	
+	/**
+	 * Calcula a colaboracao de um projeto para a UASC.
+	 * @param codigoProjeto O codigo do projeto
+	 * @return Retorna o valor da contribuicao do projeto para a UASC.
+	 * @throws CadastroException Se o codigo do projeto nao existir no sistema, uma excecao eh lancada.
+	 * @throws ValidacaoException
+	 */
 	public double calculaColaboracaoUASC(int codigoProjeto) throws CadastroException, ValidacaoException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
