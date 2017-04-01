@@ -15,7 +15,7 @@ import cdp.projetos.Projeto;
  * @author Gustavo Victor
  */
 
-public abstract class Participacao implements Serializable, Remuneracao {
+public abstract class Participacao implements Serializable {
 
 	
 	private static final double BOLSA_MINIMA = 350.0;

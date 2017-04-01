@@ -1,6 +1,7 @@
 package cdp.factorys;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import cdp.controllers.PessoaController;
 import cdp.controllers.ProjetoController;
@@ -21,7 +22,7 @@ import cdp.participacao.Profissional;
  * @author Gustavo Victor
  */
 
-public class FactoryDeParticipacao {
+public class FactoryDeParticipacao implements Serializable {
 	
 	private PessoaController pessoaController;
 	private ProjetoController projetoController;

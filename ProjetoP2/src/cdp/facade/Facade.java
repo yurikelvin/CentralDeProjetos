@@ -1,6 +1,10 @@
 package cdp.facade;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
 import cdp.controllers.ParticipacaoController;
@@ -564,11 +568,69 @@ public class Facade {
 
 	public void iniciaSistema() throws Exception {
 		
+		try {
+			FileInputStream dataFile = new FileInputStream("arquivos_sistema/cpc_ufcg.dat");
+			
+			ObjectInputStream out = new ObjectInputStream(dataFile);
+			PessoaController pessoasController = null;
+			ProjetoController projetosController = null;
+			ParticipacaoController participacoesController = null;
+			FinancasAcademicas financas = null;
+			
+			try {
+				while(true) {
+					Object o = out.readObject();
+					if(o instanceof ParticipacaoController) {
+						participacoesController = (ParticipacaoController) o;
+					
+					} else if(o instanceof ProjetoController) {
+						projetosController = (ProjetoController) o;
+					} else if (o instanceof PessoaController) {
+						pessoasController = (PessoaController) o;
+					} else if(o instanceof FinancasAcademicas) {
+						financas = (FinancasAcademicas) o;
+					}
+				}
+			} catch(Exception e) {
+				
+			}
+			
+			this.pessoaController = pessoasController;
+			this.participacaoController = participacoesController;
+			this.uasc = financas;
+			this.projetoController = projetosController;
+			
+			out.close();
+			dataFile.close();
+			
+		} catch(IOException e){
+			
+			
+			
+		}
+		
 
 	}
 	
 	public void fechaSistema() throws IOException {
+	
+		try {
+			FileOutputStream dataFile = new FileOutputStream("arquivos_sistema/cpc_ufcg.dat");
+			
+			ObjectOutputStream in = new ObjectOutputStream(dataFile);
+			
+			
+			in.writeObject(participacaoController);
+			in.writeObject(pessoaController);
+			in.writeObject(projetoController);
+			in.writeObject(uasc);
+			
+			in.close();
+			in.flush();
 		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

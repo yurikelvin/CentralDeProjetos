@@ -1,11 +1,13 @@
 package cdp.uasc;
 
+import java.io.Serializable;
+
 import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
 import cdp.exception.ValidacaoException;
 import cdp.utils.Validacao;
 
-public class FinancasAcademicas {
+public class FinancasAcademicas implements Serializable {
 	
 	private static double receita;
 	
