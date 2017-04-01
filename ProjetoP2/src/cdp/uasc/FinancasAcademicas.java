@@ -9,9 +9,9 @@ import cdp.utils.Validacao;
 
 public class FinancasAcademicas implements Serializable {
 	
-	private static double receita;
+	private double receita;
 	
-	private static double totalContribuicao;
+	private double totalContribuicao;
 	
 	private ProjetoController projetoController;
 	

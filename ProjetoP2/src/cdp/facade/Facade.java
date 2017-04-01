@@ -572,8 +572,6 @@ public class Facade {
 				}
 			
 		} catch(ClassNotFoundException | IOException e) {
-				
-			
 			
 			this.pessoaController = new PessoaController();
 			this.projetoController = new ProjetoController();
