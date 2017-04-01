@@ -223,6 +223,8 @@ public class PED extends Projeto {
 				this.temAluno = true;
 			}
 			
+		} else if (participacaoASerAdicionada instanceof AlunoPosGraduando) {
+			throw new CadastroException("Tipo de projeto invalido para pos graduando");
 		}
 		
 		super.verificaParticipacao(participacaoASerAdicionada.getCpf(), participacaoASerAdicionada.getCodigoProjeto());

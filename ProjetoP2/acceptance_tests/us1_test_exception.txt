@@ -9,7 +9,6 @@
 
 
 #iniciaSistema e fechaSistema sao usados para persistencia dos dados no sistema. Inicialmente, implemente os metodos vazios.
-
 iniciaSistema
 
 ###############################

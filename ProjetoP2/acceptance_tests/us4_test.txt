@@ -67,7 +67,7 @@ associaPosGraduando cpf=${cpf10} codigoProjeto=${cod5} nivel="Mestrado" valorHor
 expect 0.0 calculaPontuacaoPorParticipacao cpf=${cpf10}
 expect 15.0 calculaPontuacaoPorParticipacao cpf="024.685.014-52"
 
-## pos graduando so pode participar de extensao e p&d cooperação ##
+## pos graduando so pode participar de extensao e p&d cooperaÃ§Ã£o ##
 
 expectError "Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando" associaPosGraduando cpf=${cpf10} codigoProjeto=${cod1} nivel="Mestrado" valorHora=10.0 qntHoras=12
 expectError "Erro na associacao de pessoa a projeto: Tipo de projeto invalido para pos graduando" associaPosGraduando cpf=${cpf10} codigoProjeto=${cod2} nivel="Mestrado" valorHora=12.0 qntHoras=16

@@ -35,12 +35,6 @@ public class Facade {
 	private ParticipacaoController participacaoController;
 	private FinancasAcademicas uasc;
 	
-	public Facade() {
-		this.projetoController = new ProjetoController();
-		this.pessoaController = new PessoaController();
-		this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
-		this.uasc = new FinancasAcademicas(this.projetoController);
-	}
 	
 	/**
 	 * Cadastra uma pessoa com base no cpf, nome e email.
@@ -569,47 +563,25 @@ public class Facade {
 	public void iniciaSistema() throws Exception {
 		
 		try {
-			FileInputStream dataFile = new FileInputStream("arquivos_sistema/cpc_ufcg.dat");
-			
-			ObjectInputStream out = new ObjectInputStream(dataFile);
-			PessoaController pessoasController = null;
-			ProjetoController projetosController = null;
-			ParticipacaoController participacoesController = null;
-			FinancasAcademicas financas = null;
-			
-			try {
-				while(true) {
-					Object o = out.readObject();
-					if(o instanceof ParticipacaoController) {
-						participacoesController = (ParticipacaoController) o;
-					
-					} else if(o instanceof ProjetoController) {
-						projetosController = (ProjetoController) o;
-					} else if (o instanceof PessoaController) {
-						pessoasController = (PessoaController) o;
-					} else if(o instanceof FinancasAcademicas) {
-						financas = (FinancasAcademicas) o;
-					}
+
+			try (ObjectInputStream out = new ObjectInputStream(new FileInputStream("arquivos_sistema/cpc_ufcg.dat"))) {
+				this.participacaoController = (ParticipacaoController) out.readObject();
+				this.pessoaController = (PessoaController) out.readObject();
+				this.projetoController = (ProjetoController) out.readObject();
+				this.uasc = (FinancasAcademicas) out.readObject();
 				}
-			} catch(Exception e) {
+			
+		} catch(ClassNotFoundException | IOException e) {
 				
-			}
-			
-			this.pessoaController = pessoasController;
-			this.participacaoController = participacoesController;
-			this.uasc = financas;
-			this.projetoController = projetosController;
-			
-			out.close();
-			dataFile.close();
-			
-		} catch(IOException e){
 			
 			
-			
+			this.pessoaController = new PessoaController();
+			this.projetoController = new ProjetoController();
+			this.participacaoController = new ParticipacaoController(this.pessoaController, this.projetoController);
+			this.uasc = new FinancasAcademicas(this.projetoController);
+				
 		}
 		
-
 	}
 	
 	public void fechaSistema() throws IOException {
