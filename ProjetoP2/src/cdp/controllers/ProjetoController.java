@@ -701,17 +701,49 @@ public class ProjetoController implements Serializable{
 		String relatorio = "Cadastro de Projetos: " + this.projetosCadastrados.size() + " projetos registrados" + FIM_DE_LINHA;
 		
 		int contProjetos = 1;
+		double totalParticipantesProjeto = 0;
+		int totalParticipantesGraduacao = 0;
+		int totalParticipantesPosGraduando = 0;
+		int totalParticipantesProfissionais = 0;
+		
 		for(Projeto projeto: this.projetosCadastrados) {
 			relatorio += "==> Projeto " + contProjetos + ":" + FIM_DE_LINHA;
-			relatorio += projeto.toString() + FIM_DE_LINHA; // depois resolver
+			relatorio += projeto.toString() + FIM_DE_LINHA + FIM_DE_LINHA; // depois resolver
+			totalParticipantesProjeto += projeto.getTotalParticipantes();
+			totalParticipantesGraduacao += projeto.getTotalParticipantes("Aluno Graduando");
+			totalParticipantesPosGraduando += projeto.getTotalParticipantes("Aluno Pos Graduando");
+			totalParticipantesProfissionais += projeto.getTotalParticipantes("Profissional");
 			
 		}
+		
 		int totalProjetosConcluidos = 0; // rever
 		
 		relatorio += "Total de projetos concluidos: " + totalProjetosConcluidos + FIM_DE_LINHA;
-		// esperar testes da us7
-		relatorio += "% Participacao da graduacao: ";
+		// porcentagem participantes
+		double porcentagemGraduacao = (totalParticipantesGraduacao / totalParticipantesProjeto) * 100;
+		double porcentagemPosGraduacao = (totalParticipantesPosGraduando / totalParticipantesProjeto ) * 100;
+		double porcentagemProfissionais = (totalParticipantesProfissionais / totalParticipantesProjeto) * 100;
 		
+		int parteInteiraG = (int) porcentagemGraduacao;
+		int parteInteiraPG = (int) porcentagemPosGraduacao;
+		int parteInteiraPR = (int) porcentagemProfissionais;
+
+		if((porcentagemGraduacao - parteInteiraG) >= 0.5) {
+			porcentagemGraduacao = Math.ceil(porcentagemGraduacao);
+		}
+		
+		if((porcentagemPosGraduacao - parteInteiraPG) >= 0.5) {
+			porcentagemPosGraduacao = Math.ceil(porcentagemPosGraduacao);
+		}
+		
+		if((porcentagemProfissionais - parteInteiraPR) >= 0.5) {
+			porcentagemProfissionais = Math.ceil(porcentagemProfissionais);
+		}
+		
+		relatorio += "%" + String.format(" Participacao da graduacao: %d %.1f", totalParticipantesGraduacao, porcentagemGraduacao) + " %" + FIM_DE_LINHA;
+		relatorio += "%" + String.format(" Participacao da pos-graduacao: %d %.1f", totalParticipantesPosGraduando, porcentagemPosGraduacao) + " %" + FIM_DE_LINHA;;
+		relatorio += "%" + String.format(" Participacao de profissionais: %d %.1f", totalParticipantesProfissionais, porcentagemProfissionais) + " %" + FIM_DE_LINHA;;
+
 		this.salvaRelatorio(relatorio);
 		
 		return relatorio;

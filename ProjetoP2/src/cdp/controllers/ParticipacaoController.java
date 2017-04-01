@@ -113,7 +113,7 @@ public class ParticipacaoController implements Serializable{
 	 * @throws ValidacaoException Caso os parametros sejam nulo/vazio ou invalido.
 	 */
 	
-	public void associaProfissional(String cpf, int codigoProjeto, String cargo, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException {
+	public void associaProfissional(String cpf, int codigoProjeto, String cargo, double valorHora, int qtdHoras) throws CadastroException, ValidacaoException{
 		Validacao.validaDouble(valorHora, "Valor da hora invalido");
 		Validacao.validaIntSemZero(qtdHoras, "Quantidade de horas invalida");
 		Validacao.validaString(cargo, "Cargo invalido");
@@ -126,6 +126,7 @@ public class ParticipacaoController implements Serializable{
 			
 		this.participacoes.add(participacao);
 		
+	
 	}
 	
 	/**
@@ -153,6 +154,7 @@ public class ParticipacaoController implements Serializable{
 
 			
 		this.participacoes.add(participacao);
+
 
 	}
 	

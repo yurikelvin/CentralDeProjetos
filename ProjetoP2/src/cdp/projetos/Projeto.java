@@ -362,15 +362,22 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 		String projeto = "Nome: " + this.getNome() + FIM_DE_LINHA +
 								"Data de inicio: " + this.getData() + FIM_DE_LINHA;
 		
+		boolean temCoordenador = false;
+		
 		for(Participacao participacao: this.participacoes) {
 			if(participacao instanceof Professor) {
 				if(((Professor) participacao).getCoordenador()) {
 					projeto += "Coordenador: " + participacao.getPessoa() + FIM_DE_LINHA;
+					temCoordenador = true;
 				}
 			}
 		}
 		
-		String situacao = "";
+		if(temCoordenador == false) {
+			projeto += "Coordenador: No momento nao tem coordenador." + FIM_DE_LINHA; 
+		}
+		
+		String situacao = "em andamento";
 		
 		projeto += "Situacao: " + situacao; 
 		

@@ -259,7 +259,7 @@ public class Facade {
 	 * @throws ValidacaoException Caso o cpf seja nulo/vazio/invalido ou codigo do projeto invalido
 	 */
 	
-	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException, ValidacaoException {
+	public boolean removeParticipacao(String cpf, int codigoProjeto) throws CadastroException, ValidacaoException{
 		try {
 			return participacaoController.removeParticipacao(cpf, codigoProjeto);
 		}catch(CadastroException e) {
@@ -585,6 +585,8 @@ public class Facade {
 	}
 	
 	public void fechaSistema() throws IOException {
+		
+		this.projetoController.geraRelatorioCadProjetos();
 	
 		try {
 			FileOutputStream dataFile = new FileOutputStream("arquivos_sistema/cpc_ufcg.dat");
