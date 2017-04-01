@@ -34,6 +34,10 @@ public class Professor extends Participacao {
 	
 	public double geraGanhos() {
 		
+		if(this.getProjeto() instanceof Monitoria) {
+			return 0;
+		}
+		
 		if(coordenador) {
 			return (calculaAdicional() * super.getQtdHoras());
 		}
