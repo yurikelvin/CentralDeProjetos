@@ -584,6 +584,7 @@ public class Facade {
 	public void fechaSistema() throws IOException {
 		
 		this.projetoController.geraRelatorioCadProjetos();
+		this.uasc.geraRelatorioColaboracoes();
 	
 		try {
 			FileOutputStream dataFile = new FileOutputStream("arquivos_sistema/cpc_ufcg.dat");

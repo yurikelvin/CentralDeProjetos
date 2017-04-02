@@ -71,15 +71,18 @@ public class FinancasAcademicas implements Serializable {
 		return colaboracao;
 	}
 	
-	public String geraRelatorioColaboracoes() throws CadastroException, ValidacaoException, IOException{
-		String relatorio = "";
-		relatorio += projetoController.geraHistoricoColaboracaoUasc() + "..." + FIM_DE_LINHA + "Total acumulado com colaboracoes: R$" + this.totalContribuicao + FIM_DE_LINHA + "Total gasto: R$" + this.totalGasto + FIM_DE_LINHA + "Total em caixa: R$" + this.receita;
+	public String geraRelatorioColaboracoes() throws IOException{
+		String relatorio = "Historico das colaboracoes: " + FIM_DE_LINHA;
+		relatorio += projetoController.getHistoricoColaboracaoUasc() +
+				"..." + FIM_DE_LINHA + "Total acumulado com colaboracoes: R$" + 
+				this.totalContribuicao + FIM_DE_LINHA + "Total gasto: R$" + this.totalGasto + FIM_DE_LINHA +
+				"Total em caixa: R$" + this.receita;
 		this.salvaRelatorio(relatorio);
 		return relatorio;
 		
 	}
 	
-	private void salvaRelatorio(String relatorio) throws IOException{
+	private void salvaRelatorio(String relatorio) throws IOException {
 		PrintWriter arquivo = null;
 		
 		try {
@@ -93,6 +96,7 @@ public class FinancasAcademicas implements Serializable {
 		}
 		
 	}
+	
 	public double getTotalContribuicao() {
 		return totalContribuicao;
 	}

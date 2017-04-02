@@ -36,6 +36,7 @@ public class ProjetoController implements Serializable{
 	private Set<Projeto> projetosCadastrados;
 	private FactoryDeProjeto factoryProjeto;
 	private int codigosProjeto;
+	private String historicoColaboracaoUasc;
 	
 	private static final String FIM_DE_LINHA = System.lineSeparator();
 	
@@ -57,7 +58,7 @@ public class ProjetoController implements Serializable{
 	public ProjetoController(){
 		this.projetosCadastrados = new TreeSet<>();
 		factoryProjeto = new FactoryDeProjeto();
-
+		this.historicoColaboracaoUasc = "";
 		
 		
 	}
@@ -798,16 +799,21 @@ public class ProjetoController implements Serializable{
 	public double calculaColaboracaoUASC(int codigoProjeto) throws CadastroException, ValidacaoException {
 		Projeto projeto = this.getProjetos(codigoProjeto);
 		
-		return  projeto.geraContribuicao();
+		double colaboracao = projeto.geraContribuicao();
+		
+		this.geraHistoricoColaboracaoUasc(projeto.getData(), projeto.getNome(), colaboracao);
+		
+		return  colaboracao;
 	}
 	
-	public String geraHistoricoColaboracaoUasc() throws CadastroException, ValidacaoException{
+	private void geraHistoricoColaboracaoUasc(String data, String nome, double colaboracao) {
 		
-		String saida = "";
-		for(Projeto projeto: this.projetosCadastrados) {
-			saida+= "==> Nome: " + projeto.getNome() + " Data de inicio: " + projeto.getData() + " Valor colaborado: R$" + this.calculaColaboracaoUASC(projeto.getCodigo()) + FIM_DE_LINHA;
-		}
-		return saida;
+		this.historicoColaboracaoUasc += "==> Nome: " + nome + " Data de inicio: " + data + " Valor colaborado: R$ " + colaboracao + FIM_DE_LINHA;
+		
+	}
+	
+	public String getHistoricoColaboracaoUasc() {
+		return this.historicoColaboracaoUasc;
 	}
 	
 
