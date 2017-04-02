@@ -38,6 +38,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 	private LocalDate dataInicio;
 
 	protected List<Participacao> participacoes;
+	private boolean projetoConcluido;
 	
 	public Projeto(String nomeDoProjeto, String objetivoDoProjeto, String dataInicio, int duracao, int codigo) throws DataException {
 		this.nomeDoProjeto = nomeDoProjeto;
@@ -263,6 +264,43 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 		return participantes;
 	}
 	
+	public String getSituacao() {
+		
+		String situacao = "em andamento";
+		
+		int duracaoMeses = this.getDuracao();
+		int ano = this.getDate().getYear();
+		int dias = this.getDate().getDayOfMonth();
+		
+		if(duracaoMeses > 12) {
+			ano += duracaoMeses / 12;
+			duracaoMeses = duracaoMeses % 12;
+		}
+		
+		
+		LocalDate dataTermino = LocalDate.of(ano, duracaoMeses, dias);
+		LocalDate dataAtual = LocalDate.now();
+		
+		if(dataTermino.isAfter(dataAtual)) {
+			situacao = "finalizado";
+			this.projetoConcluido();
+		}
+		
+		return situacao;
+		
+		
+	}
+	
+	private void projetoConcluido() {
+		this.projetoConcluido = true;
+		
+	}
+	
+	public boolean getProjetoConcluido() {
+		return this.projetoConcluido;
+	}
+
+
 	/**
 	 * Retorna todas as pessoas associadas ao projeto, atraves de uma string.
 	 * @return
@@ -377,9 +415,8 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 			projeto += "Coordenador: No momento nao tem coordenador." + FIM_DE_LINHA; 
 		}
 		
-		String situacao = "em andamento";
 		
-		projeto += "Situacao: " + situacao; 
+		projeto += "Situacao: " + this.getSituacao(); 
 		
 		return projeto;
 	}

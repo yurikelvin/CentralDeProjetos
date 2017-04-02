@@ -705,6 +705,7 @@ public class ProjetoController implements Serializable{
 		int totalParticipantesGraduacao = 0;
 		int totalParticipantesPosGraduando = 0;
 		int totalParticipantesProfissionais = 0;
+		int totalProjetosConcluidos = 0;
 		
 		for(Projeto projeto: this.projetosCadastrados) {
 			relatorio += "==> Projeto " + contProjetos + ":" + FIM_DE_LINHA;
@@ -713,10 +714,12 @@ public class ProjetoController implements Serializable{
 			totalParticipantesGraduacao += projeto.getTotalParticipantes("Aluno Graduando");
 			totalParticipantesPosGraduando += projeto.getTotalParticipantes("Aluno Pos Graduando");
 			totalParticipantesProfissionais += projeto.getTotalParticipantes("Profissional");
+			if(projeto.getProjetoConcluido()) {
+				totalProjetosConcluidos ++;
+			}
 			
 		}
 		
-		int totalProjetosConcluidos = 0; // rever
 		
 		relatorio += "Total de projetos concluidos: " + totalProjetosConcluidos + FIM_DE_LINHA;
 		// porcentagem participantes
