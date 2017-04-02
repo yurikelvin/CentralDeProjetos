@@ -1,0 +1,42 @@
+Cadastro de Projetos: 6 projetos registrados
+==> Projeto 1:
+Nome: SAD Computacao
+Data de inicio: 2017-01-01
+Coordenador: No momento nao tem coordenador.
+Situacao: em andamento
+
+==> Projeto 1:
+Nome: Kubernetes
+Data de inicio: 2017-01-01
+Coordenador: Matheus Aldencio
+Situacao: em andamento
+
+==> Projeto 1:
+Nome: APLICACAO DA MINERACAO DE DADOS EM REPOSITORIOS DINAMICOS
+Data de inicio: 2017-01-01
+Coordenador: Vitor Bordas
+Situacao: em andamento
+
+==> Projeto 1:
+Nome: Monitoria de P2
+Data de inicio: 2017-01-01
+Coordenador: Matheus Aldencio
+Situacao: em andamento
+
+==> Projeto 1:
+Nome: PET Computacao
+Data de inicio: 2017-02-03
+Coordenador: Francisco Saudoso Neto
+Situacao: em andamento
+
+==> Projeto 1:
+Nome: Projeto olimpico
+Data de inicio: 2017-03-02
+Coordenador: Francisco Saudoso Neto
+Situacao: em andamento
+
+Total de projetos concluidos: 0
+% Participacao da graduacao: 8 53,3 %
+% Participacao da pos-graduacao: 2 13,3 %
+% Participacao de profissionais: 5 33,3 %
+
