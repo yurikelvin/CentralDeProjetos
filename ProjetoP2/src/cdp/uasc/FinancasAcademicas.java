@@ -8,8 +8,18 @@ import java.io.Serializable;
 
 import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
+import cdp.exception.UASCException;
 import cdp.exception.ValidacaoException;
 import cdp.utils.Validacao;
+
+/**
+ * Classe responsavel por representar o setor financeiro da UASC.
+ * 
+ * @author Yuri Silva
+ * @author Tiberio Gadelha
+ * @author Matheus Henrique
+ * @author Gustavo Victor
+ */
 
 public class FinancasAcademicas implements Serializable {
 	
@@ -32,7 +42,7 @@ public class FinancasAcademicas implements Serializable {
 		return receita;
 	}
 	
-	public void aumentaReceita(double valor) throws ValidacaoException{
+	private void aumentaReceita(double valor) throws ValidacaoException{
 		Validacao.validaDouble(valor, "valor negativo");
 		
 		totalContribuicao += valor;
@@ -50,9 +60,9 @@ public class FinancasAcademicas implements Serializable {
 		receita -= valor;
 	}
 	
-	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException  {
+	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException, UASCException  {
 		
-		Validacao.validaRepresentacaoCodigoProjeto(codigoProjeto, "codigo nulo ou vazio");
+		Validacao.validaRepresentacaoCodigoProjetoUASC(codigoProjeto, "codigo nulo ou vazio");
 		
 		double colaboracao = projetoController.calculaColaboracaoUASC(Integer.parseInt(codigoProjeto));
 		
