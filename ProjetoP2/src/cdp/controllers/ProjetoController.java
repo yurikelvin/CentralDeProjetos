@@ -801,5 +801,14 @@ public class ProjetoController implements Serializable{
 		return  projeto.geraContribuicao();
 	}
 	
+	public String geraHistoricoColaboracaoUasc() throws CadastroException, ValidacaoException{
+		
+		String saida = "";
+		for(Projeto projeto: this.projetosCadastrados) {
+			saida+= "==> Nome: " + projeto.getNome() + " Data de inicio: " + projeto.getData() + " Valor colaborado: R$" + this.calculaColaboracaoUASC(projeto.getCodigo()) + FIM_DE_LINHA;
+		}
+		return saida;
+	}
+	
 
 }
