@@ -12,6 +12,7 @@ import cdp.controllers.PessoaController;
 import cdp.controllers.ProjetoController;
 import cdp.exception.CadastroException;
 import cdp.exception.DataException;
+import cdp.exception.UASCException;
 import cdp.exception.ValidacaoException;
 import cdp.projetos.CategoriaPED;
 import cdp.uasc.FinancasAcademicas;
@@ -526,16 +527,14 @@ public class Facade {
 	
 	}
 	
-	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException {
+	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException, UASCException {
 		
-		try {
-			Validacao.validaRepresentacaoCodigoProjeto(codigoProjeto, "codigo nulo ou vazio");
-		} catch(ValidacaoException e) {
-			throw new ValidacaoException("Erro na consulta de projeto: " + e.getMessage());
-		}
 		
 		try {
 			return uasc.calculaColaboracaoUASC(codigoProjeto);
+			
+		}catch(UASCException e) {
+			throw new UASCException("Erro na consulta de projeto: " + e.getMessage());
 		}catch(ValidacaoException e) {
 			throw new ValidacaoException("Erro na atualizacao da receita da unidade: " + e.getMessage());
 		}catch(CadastroException e) {

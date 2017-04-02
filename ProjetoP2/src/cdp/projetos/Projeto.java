@@ -48,6 +48,7 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 		this.despesas = new Despesa();
 		this.participacoes = new ArrayList<>();
 		this.codigo = codigo;
+		this.projetoConcluido = false;
 		
 	}
 	
@@ -271,17 +272,18 @@ public abstract class Projeto implements Serializable, Comparable<Projeto>, Cont
 		int duracaoMeses = this.getDuracao();
 		int ano = this.getDate().getYear();
 		int dias = this.getDate().getDayOfMonth();
+		int duracaoM = this.getDate().getMonthValue();
 		
 		if(duracaoMeses > 12) {
 			ano += duracaoMeses / 12;
-			duracaoMeses = duracaoMeses % 12;
+			duracaoMeses = ((duracaoMeses % 12) > 0) ? duracaoMeses % 12: duracaoM;
 		}
 		
 		
 		LocalDate dataTermino = LocalDate.of(ano, duracaoMeses, dias);
 		LocalDate dataAtual = LocalDate.now();
 		
-		if(dataTermino.isAfter(dataAtual)) {
+		if(dataAtual.isAfter(dataTermino)) {
 			situacao = "finalizado";
 			this.projetoConcluido();
 		}

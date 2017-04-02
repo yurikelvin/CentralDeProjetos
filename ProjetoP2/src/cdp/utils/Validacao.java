@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import cdp.exception.UASCException;
 import cdp.exception.ValidacaoException;
 
 /**
@@ -188,6 +189,13 @@ public class Validacao {
 		if((codigoProjeto).trim().equals("") || (codigoProjeto) == null) {
 			
 			throw new ValidacaoException(msg);	
+		}
+	}
+	
+	public static void validaRepresentacaoCodigoProjetoUASC(String codigoProjeto, String msg) throws UASCException {
+		if((codigoProjeto).trim().equals("") || (codigoProjeto) == null) {
+			
+			throw new UASCException(msg);	
 		}
 	}
 	
