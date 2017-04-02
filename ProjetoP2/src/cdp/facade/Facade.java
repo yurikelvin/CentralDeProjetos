@@ -515,6 +515,17 @@ public class Facade {
 	
 	}
 	
+	/**
+	 * Define o orcamento do projeto.
+	 * 
+	 * @param codigoProjeto Codigo do projeto.
+	 * @param montanteBolsas Montante destinado a bolsas.
+	 * @param montanteCusteio Montante destinado a custeio.
+	 * @param montanteCapital Montante destinado a capital.
+	 * @throws ValidacaoException Caso os parametros passados sejam nulo/vazios.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado no sistema.
+	 */
+	
 	public void atualizaDespesasProjeto(String codigoProjeto, double montanteBolsas, double montanteCusteio, double montanteCapital) throws ValidacaoException, CadastroException {
 		try{
 			projetoController.atualizaDespesasProjeto(codigoProjeto, montanteBolsas, montanteCusteio, montanteCapital);
@@ -526,6 +537,15 @@ public class Facade {
 		
 	
 	}
+	
+	/**
+	 * Gera um montante no qual um determinado projeto pode contribuir com a unidade academica.
+	 * @param codigoProjeto Codigo do projeto.
+	 * @return A quantidade que pode ser levantada daquele projeto para a unidade academica.
+	 * @throws ValidacaoException Caso o valor determinado seja negativo.
+	 * @throws CadastroException Caso o projeto nao esteja cadastrado.
+	 * @throws UASCException Caso o codigo do projeto seja nulo/vazio.
+	 */
 	
 	public double calculaColaboracaoUASC(String codigoProjeto) throws ValidacaoException, CadastroException, UASCException {
 		
@@ -543,6 +563,12 @@ public class Facade {
 		
 	}
 	
+	/**
+	 * Diminui a receita contida na unidade academica.
+	 * @param valor Valor a ser descontado.
+	 * @throws ValidacaoException Caso o valor seja negativo/nulo.
+	 */
+	
 	public void diminuiReceita(double valor) throws ValidacaoException {
 		try {
 			uasc.diminuiReceita(valor);
@@ -551,15 +577,29 @@ public class Facade {
 		}
 	}
 	
+	/**
+	 * Retorna a quantidade ja arrecadada pela unidade academica.
+	 * @return A quantidade ja arrecadada pela unidade academica.
+	 */
+	
 	public double calculaColaboracaoTotalUASC() {
 		return uasc.getTotalContribuicao();
 	}
 	
+	/**
+	 * Retorna o montante disponivel em caixa na unidade, para ser sacado.
+	 * @return O montante disponivel em caixa na unidade, para ser sacado.
+	 */
+	
 	public double calculaTotalEmCaixaUASC() {
 		return uasc.getReceita();
 	}
+	
+	/**
+	 * Recupera os dados do sistema. Caso nao exista, inicia normalmente cada controller.
+	 */
 
-	public void iniciaSistema() throws Exception {
+	public void iniciaSistema() {
 		
 		try {
 
@@ -580,11 +620,15 @@ public class Facade {
 		}
 		
 	}
+	/**
+	 * Concretiza os dados do sistema, salvando os arquivos.
+	 * @throws IOException Erro na escrita dos objetos.
+	 */
 	
 	public void fechaSistema() throws IOException {
 		
-		this.projetoController.geraRelatorioCadProjetos();
-		this.uasc.geraRelatorioColaboracoes();
+		this.projetoController.geraRelatorioCadProjetos(); // Gera os arquivos de relatorio do cadastro de projetos
+		this.uasc.geraRelatorioColaboracoes(); // Gera os arquivos de relatorio do cadastro de colaboracoes
 	
 		try {
 			FileOutputStream dataFile = new FileOutputStream("arquivos_sistema/cpc_ufcg.dat");
